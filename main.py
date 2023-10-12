@@ -1121,7 +1121,9 @@ def accentpink():
     greenTheme = False
     blueTheme = False
     for item in accentItems:
-        item.configure(bg="#EB8EC6", activebackground="#EB8EC6")
+        item.configure(bg="#EB8EC6")
+        if not isinstance(item, tkinter.Frame):
+            item.configure(activebackground="#EB8EC6")
     titleBar.configure(bg="#EB8EC6")
     menu.configure(activebackground="#EB8EC6")
     notes.tag_configure("emphColor", foreground="#EB8EC6")
@@ -1140,7 +1142,9 @@ def accentyellow():
     greenTheme = False
     blueTheme = False
     for item in accentItems:
-        item.configure(bg="#fbc02d", activebackground="#fbc02d")
+        item.configure(bg="#fbc02d")
+        if not isinstance(item, tkinter.Frame):
+            item.configure(activebackground="#fbc02d")
     titleBar.configure(bg="#fbc02d")
     notes.tag_configure("emphColor", foreground="#fbc02d")
     menu.configure(activebackground="#fbc02d")
@@ -1159,7 +1163,9 @@ def accentgreen():
     greenTheme = True
     blueTheme = False
     for item in accentItems:
-        item.configure(bg="#65BA5A", activebackground="#65BA5A")
+        item.configure(bg="#65BA5A")
+        if not isinstance(item, tkinter.Frame):
+            item.configure(activebackground="#65BA5A")
     titleBar.configure(bg="#65BA5A")
     notes.tag_configure("emphColor", foreground="#65BA5A")
     menu.configure(activebackground="#65BA5A")
@@ -1178,7 +1184,9 @@ def accentblue():
     greenTheme = False
     blueTheme = True
     for item in accentItems:
-        item.configure(bg="#2292ff", activebackground="#2292ff")
+        item.configure(bg="#2292ff")
+        if not isinstance(item, tkinter.Frame):
+            item.configure(activebackground="#2292ff")
     titleBar.configure(bg="#2292ff")
     notes.tag_configure("emphColor", foreground="#2292ff")
     menu.configure(activebackground="#2292ff")
