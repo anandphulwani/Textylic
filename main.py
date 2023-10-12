@@ -926,10 +926,6 @@ def openFile(file: str):
 
     noteFile.close()
     saved = True
-    # Messagebox
-    openedFileNameStrip = re.sub("C:/.*/", "", str(openedFileName))
-    tkinter.messagebox.showinfo(
-        " ", f"Successfully opened note \"{openedFileNameStrip}\"   ")
     return "break"
 
 
