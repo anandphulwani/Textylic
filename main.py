@@ -2,6 +2,7 @@ import tkinter
 import tkinter.messagebox
 import pygetwindow as gw
 import os
+import sys
 import webbrowser
 import re
 import glob
@@ -1629,6 +1630,10 @@ window.after(3000, autoSave)
 
 # Open a file
 if args.file is not None:
+    file_path = os.path.join(dataPath, args.file)
+    if not os.path.exists(file_path):
+        tkinter.messagebox.showerror("Error", f"File {args.file} does not exist.")
+        sys.exit(1) 
     openFile(args.file)
 
 # Update the window
