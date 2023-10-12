@@ -6,6 +6,7 @@ import sys
 import webbrowser
 import re
 import glob
+import time
 import argparse
 import tkinter.ttk
 import subprocess
@@ -1072,6 +1073,16 @@ def autoSave():
     window.after(3000, autoSave)
 
 
+def autoReload():
+    """Auto reloads the note"""
+
+    global saved
+    global openedFileName
+    if not window_is_focused and saved is True:
+        openFile(openedFileName)
+    window.after(3000, autoReload)
+
+
 def windowdestroy(_=False):
     """Close the window"""
 
@@ -1641,6 +1652,8 @@ window.bind("<FocusOut>", on_focus_out)
 # Desktop Gadget and Autosave
 window.after(200, topOrNot)
 window.after(3000, autoSave)
+time.sleep(1.5)
+window.after(3000, autoReload)
 
 # Open a file
 if args.file is not None:
