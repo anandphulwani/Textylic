@@ -1417,6 +1417,10 @@ menu.menu.add_command(
     accelerator="(Ctr+q)")
 menu.menu.add_command(label="Help/About", command=openReadme)
 
+spacer = tkinter.Frame(titleBar, bg="#2292ff")
+spacer.grid(row=0, column=5, sticky="we")
+accentItems.append(spacer)
+
 close_button = tkinter.Button(
     titleBar,
     image=closeButtonImage,
@@ -1431,8 +1435,8 @@ close_button.grid(
     column=6,
     sticky="E",
     padx=(
-        window.TkScale(150),
-        window.TkScale(20)))
+        window.TkScale(10),
+        window.TkScale(10)))
 accentItems.append(close_button)
 
 # # Bottom formatting bar
@@ -1594,6 +1598,9 @@ photoInsert.grid(
 
 # Positioning title bar and adding drag function
 titleBar.grid(row=0, column=0, columnspan=5, sticky="WE")
+titleBar.grid_columnconfigure(5, weight=1)
+titleBar.grid_columnconfigure(6, weight=0)
+
 
 # Keyboard Shortcuts
 titleBar.bind("<Button-1>", getPos)
