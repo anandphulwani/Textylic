@@ -795,7 +795,7 @@ def openFile(file: str):
     if noteFile:
         global openedFileName
         openedFileName = noteFile
-    noteFile = open(noteFile, "r")
+    noteFile = open(os.path.join(dataPath, noteFile), "r")
     read = noteFile.read()
 
     matchStyle = re.match(
@@ -953,7 +953,7 @@ def saveNoteAs(_=False):
         saved = True
         global openedFileName
         openedFileName = noteFile
-        noteFile = open(noteFile, "w")
+        noteFile = open(os.path.join(dataPath, noteFile), "w")
         noteFile.write(notes.get(1.0, "end"))
         noteFile.close()
         # Messagebox
@@ -998,7 +998,7 @@ def saveNote(_=False):
     if openedFileName:
         # If a file is not being saved the first time, append additional data
         # to it
-        noteFile = open(openedFileName, "w")
+        noteFile = open(os.path.join(dataPath, openedFileName), "w")
         noteFile.write(
             "<content>\n{}\n</content>\n\n".format(notes.get(1.0, "end")))
         noteFile.write(
@@ -1038,7 +1038,7 @@ def clearCache():
         # For all the images in the `cache_images_` folder check if they are
         # in the `images` list for every note
         formattedFileName = filename.replace("\\", "/")
-        noteFile = open(f"{formattedFileName}", "r")
+        noteFile = open(os.path.join(dataPath, f"{formattedFileName}"), "r")
         readContent = noteFile.read()
         matchImg = re.match(
             r".*<images>\n(.*)\n</images>",
