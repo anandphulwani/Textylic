@@ -17,6 +17,12 @@ from string import ascii_uppercase
 from PIL import Image
 from datetime import datetime
 
+appdata_path = os.environ.get('APPDATA')
+dataPath = os.path.join(appdata_path, 'Textylyc')
+
+# Ensure the path exists, if not, create it
+if not os.path.exists(dataPath):
+    os.makedirs(dataPath)
 
 # Argument Parser
 parser = argparse.ArgumentParser(description="Open a file")
