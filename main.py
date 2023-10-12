@@ -14,6 +14,7 @@ from tkinter import font
 from random import randint
 from tkinter import filedialog
 from tkinter import PhotoImage
+from tkinter import simpledialog
 from string import ascii_uppercase
 from PIL import Image
 from datetime import datetime
@@ -1635,6 +1636,19 @@ if args.file is not None:
         tkinter.messagebox.showerror("Error", f"File {args.file} does not exist.")
         sys.exit(1) 
     openFile(args.file)
+else:
+    # Ask for a filename
+    filename = simpledialog.askstring("Input", "Please enter a filename:")
+    file_path = os.path.join(dataPath, filename)
+    
+    # Check if file exists
+    if os.path.exists(file_path):
+        tkinter.messagebox.showerror("Error", f"File {filename} already exists.")
+        sys.exit(1)  # Exit the application
+    else:
+        # Create and save a blank file
+        with open(file_path, 'w') as file:
+            file.write("")
 
 # Update the window
 window.mainloop()
