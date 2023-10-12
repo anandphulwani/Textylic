@@ -124,6 +124,7 @@ window.grid_columnconfigure(4, weight=1)
 window.grid_columnconfigure(5, weight=1)
 window.grid_columnconfigure(6, weight=1)
 
+window_is_focused = False
 openedFileName = False  # Getting opened file name
 
 saved = False  # The saved variable
@@ -1066,7 +1067,7 @@ def autoSave():
     """Auto saves the note"""
 
     global saved
-    if saved is True:
+    if window_is_focused and saved is True:
         saveNote()
     window.after(3000, autoSave)
 
@@ -1095,6 +1096,14 @@ def windowdestroy(_=False):
     else:
         root.destroy()
 
+
+def on_focus_in(event):
+    global window_is_focused
+    window_is_focused = True
+
+def on_focus_out(event):
+    global window_is_focused
+    window_is_focused = False
 
 def accentpink():
     """Pink accent color"""
@@ -1624,6 +1633,10 @@ colorText.bind("<Enter>", hoverImageTsize)
 colorText.bind("<Leave>", NormalImageTsize)
 photoInsert.bind("<Enter>", hoverImagePhoto)
 photoInsert.bind("<Leave>", NormalImagePhoto)
+
+# Bind the focus events
+window.bind("<FocusIn>", on_focus_in)
+window.bind("<FocusOut>", on_focus_out)
 
 # Desktop Gadget and Autosave
 window.after(200, topOrNot)
