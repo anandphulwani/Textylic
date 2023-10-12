@@ -16,6 +16,7 @@ from random import randint
 from tkinter import filedialog
 from tkinter import PhotoImage
 from tkinter import simpledialog
+from tkinter import ttk
 from string import ascii_uppercase
 from PIL import Image
 from datetime import datetime
@@ -1671,6 +1672,33 @@ else:
         # Create and save a blank file
         with open(file_path, 'w') as file:
             file.write("")
+
+def start_resize(event):
+    global start_x, start_y, start_width, start_height
+    start_x = event.x_root
+    start_y = event.y_root
+    start_width = window.winfo_width()
+    start_height = window.winfo_height()
+
+def perform_resize(event):
+    delta_x = event.x_root - start_x
+    delta_y = event.y_root - start_y
+    new_width = start_width + delta_x
+    new_height = start_height + delta_y
+    window.geometry(f"{new_width}x{new_height}")
+
+style = ttk.Style()
+style.layout("Black.TSizegrip",
+             [('Sizegrip.sizegrip', {'sticky': 'nswe'})])
+style.configure("Black.TSizegrip", background='#181926', foreground='#181926')
+
+# Add the gripper for resizing the window with the new style
+grip = ttk.Sizegrip(window, style="Black.TSizegrip")
+grip.place(relx=1.0, rely=1.0, anchor="se")
+
+# Bind mouse events for resizing
+grip.bind("<ButtonPress-1>", start_resize)
+grip.bind("<B1-Motion>", perform_resize)
 
 # Update the window
 window.mainloop()
