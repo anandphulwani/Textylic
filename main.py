@@ -120,11 +120,7 @@ root.iconphoto(True, icon)
 # Configuring grid
 window.grid_columnconfigure(0, weight=1)
 window.grid_columnconfigure(1, weight=1)
-window.grid_columnconfigure(2, weight=1)
-window.grid_columnconfigure(3, weight=1)
-window.grid_columnconfigure(4, weight=1)
-window.grid_columnconfigure(5, weight=1)
-window.grid_columnconfigure(6, weight=1)
+window.grid_rowconfigure(1, weight=1)
 
 window_is_focused = False
 openedFileName = False  # Getting opened file name
@@ -1318,10 +1314,9 @@ notesFrame = tkinter.Frame(
     bg="#040412",
     height=window.TkScale(244),
     width=window.TkScale(320))
-notesFrame.grid(row=1, column=0, columnspan=5)
-
-notesFrame.columnconfigure(0, weight=10)
-notesFrame.grid_propagate(False)
+notesFrame.grid(row=1, column=0, columnspan=5, sticky="NSEW")
+notesFrame.grid_rowconfigure(0, weight=1)
+notesFrame.grid_columnconfigure(0, weight=1)
 
 # Main Text input
 notes = tkinter.Text(
@@ -1343,7 +1338,7 @@ notes = tkinter.Text(
         "0.5c",
         "3c",
          "5c"))
-notes.grid(row=0, column=0, rowspan=5, columnspan=5)
+notes.grid(row=0, column=0, rowspan=5, columnspan=5, sticky="NSEW")
 notes.delete("1.0", "end")
 segoe_font = font.Font(notes, notes.cget("font"))
 window.update_idletasks()
