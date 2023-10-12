@@ -1443,7 +1443,7 @@ accentItems.append(close_button)
 # # Bottom formatting bar
 
 bottom_bar = tkinter.Frame(window, relief="flat", bg="#181926", pady=3)
-bottom_bar.grid(row=3, column=0, columnspan=10, rowspan=1, sticky="WE")
+bottom_bar.grid(row=3, column=0, columnspan=10, rowspan=1, sticky="SWE")
 
 bold = tkinter.Button(
     bottom_bar,
