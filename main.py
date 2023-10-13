@@ -142,6 +142,7 @@ window.grid_rowconfigure(1, weight=1)
 
 window_is_focused = False
 openedFileName = False  # Getting opened file name
+openedFileName_lastModTime = False
 
 saved = False  # The saved variable
 
@@ -811,12 +812,19 @@ def openFile(file: str):
     global saved
     global images
     global allImagesGroup
+    global openedFileName_lastModTime
 
     noteFile = file
     if noteFile:
         global openedFileName
         openedFileName = noteFile
-    noteFile = open(os.path.join(dataPath, noteFile), "r")
+    noteFileFullPath = os.path.join(dataPath, noteFile)    
+    noteFile = open(noteFileFullPath, "r")
+
+    if openedFileName_lastModTime == os.path.getmtime(noteFileFullPath):
+        return
+    openedFileName_lastModTime = os.path.getmtime(noteFileFullPath)
+
     read = noteFile.read()
 
     matchStyle = re.match(
