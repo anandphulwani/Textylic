@@ -818,7 +818,7 @@ def openFile(file: str):
     if noteFile:
         global openedFileName
         openedFileName = noteFile
-    noteFileFullPath = os.path.join(dataPath, noteFile)    
+    noteFileFullPath = os.path.join(dataPath, noteFile)
     noteFile = open(noteFileFullPath, "r")
 
     if openedFileName_lastModTime == os.path.getmtime(noteFileFullPath):
