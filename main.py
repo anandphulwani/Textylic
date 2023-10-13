@@ -1258,32 +1258,66 @@ def topOrNot():
     if windows is None:
         window.deiconify()
         window.lift()
-        window.attributes("-topmost", True)
+        if isOverlayEnabled:
+            window.attributes("-topmost", False)
+            overlay.attributes('-topmost', True)
+        else:
+            window.attributes("-topmost", True)
     else:
         if windows.isMaximized:
-            window.lower()
-            window.attributes("-topmost", False)
+            if isOverlayEnabled:
+                window.lower()
+                window.attributes("-topmost", False)
+                overlay.lower()
+                overlay.attributes("-topmost", False)
+            else:
+                window.lower()
+                window.attributes("-topmost", False)
         elif (not windows.isMaximized and windows.title != "" and
                 windows.title != "Textylic" and windows.title !=
                 "Choose a note:" and windows.title != "Save your note:" and
                 windows.title != "Choose an Image:" and windows.title != "tk"):
-            window.deiconify()
-            window.attributes("-topmost", False)
-            window.lower()
+            if isOverlayEnabled:
+                overlay.deiconify()
+                overlay.attributes("-topmost", False)
+                overlay.lower()
+                window.deiconify()
+                window.attributes("-topmost", False)
+                window.lower()
+            else:
+                window.deiconify()
+                window.attributes("-topmost", False)
+                window.lower()
         elif (not windows.isMaximized and windows.title != "" and
                 windows.title == "Textylic" or windows.title ==
                 "Choose a note:" or windows.title == "Save your note:" or
                 windows.title == "Choose an Image:"):
-            window.attributes("-topmost", False)
+            if isOverlayEnabled:
+                overlay.attributes("-topmost", False)
+                window.attributes("-topmost", False)
+            else:
+                window.attributes("-topmost", False)
         elif windows.title == "tk":
-            window.deiconify()
-            window.lift()
-            window.attributes("-topmost", True)
+            if isOverlayEnabled:
+                window.attributes("-topmost", False)
+                overlay.deiconify()
+                overlay.lift()
+                overlay.attributes("-topmost", True)
+            else:
+                window.deiconify()
+                window.lift()
+                window.attributes("-topmost", True)
         else:
-            window.deiconify()
-            window.lift()
-            window.attributes("-topmost", True)
-
+            if isOverlayEnabled:
+                window.lower()
+                window.attributes("-topmost", False)
+                overlay.deiconify()
+                overlay.lift()
+                overlay.attributes("-topmost", True)
+            else:
+                window.deiconify()
+                window.lift()
+                window.attributes("-topmost", True)
     window.after(200, topOrNot)
 
 
@@ -1747,6 +1781,31 @@ def perform_resize(event):
     new_width = start_width + delta_x
     new_height = start_height + delta_y
     window.geometry(f"{new_width}x{new_height}")
+
+overlay = False
+isOverlayEnabled = False
+
+def show_overlay():
+    global overlay
+    global isOverlayEnabled
+
+    x, y = window.winfo_x(), window.winfo_y()
+    width, height = window.winfo_width(), window.winfo_height()
+
+    overlay = tkinter.Toplevel(root)
+    overlay.attributes("-alpha", 0.90)  # Adjust transparency
+    overlay.geometry(f"{width}x{height}+{x}+{y}")
+    overlay.overrideredirect(1)
+    overlay.grab_set()
+    
+    canvas = tkinter.Canvas(overlay, width=width, height=height, bd=0, highlightthickness=0)
+    canvas.pack(fill='both', expand=True)
+    canvas.create_rectangle(0, 0, width, height, fill="#333") #, stipple="gray25")
+    
+    overlay_label = tkinter.Label(overlay, text="Loading...", font=("Arial", 16), bg="#333", fg="white")
+    overlay_label.place(relx=0.5, rely=0.5, anchor='center')
+
+    isOverlayEnabled = True
 
 style = ttk.Style()
 style.layout("Black.TSizegrip",
