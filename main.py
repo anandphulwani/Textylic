@@ -1821,11 +1821,15 @@ def show_overlay():
         isOverlayEnabled = True
 
 def create_delete_lock_file():
+    filename_pattern = f"{openedFileName}.lock.*"
     lockFile = f"{openedFileName}.lock.{machine_uuid}"
+    matching_files = glob.glob(os.path.join(dataPath, filename_pattern))
+    
     if window_is_focused:
-        if not os.path.exists(os.path.join(dataPath, lockFile)):
-            with open(os.path.join(dataPath, lockFile), 'w') as file:
-                pass
+        if not matching_files:
+            if not os.path.exists(os.path.join(dataPath, lockFile)):
+                with open(os.path.join(dataPath, lockFile), 'w') as file:
+                    pass
     else:
         if os.path.exists(os.path.join(dataPath, lockFile)):
             os.remove(os.path.join(dataPath, lockFile))
