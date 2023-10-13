@@ -157,39 +157,40 @@ yellowTheme = False
 greenTheme = False
 blueTheme = True
 
+sizeConstantForButtons = 310
 # Getting images (normal) for the buttons:
-newButtonImage = PhotoImage(file="res/images/iconset/new.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-saveButtonImage = PhotoImage(file="res/images/iconset/save.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-linkButtonImage = PhotoImage(file="res/images/iconset/open.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-menuButtonImage = PhotoImage(file="res/images/iconset/menu.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-closeButtonImage = PhotoImage(file="res/images/iconset/close.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-boldButtonImage = PhotoImage(file="res/images/iconset/bold.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-italicButtonImage = PhotoImage(file="res/images/iconset/italic.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-underButtonImage = PhotoImage(file="res/images/iconset/underline.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-strikeButtonImage = PhotoImage(file="res/images/iconset/strikethrough.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-bulletButtonImage = PhotoImage(file="res/images/iconset/bullet.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-codeButtonImage = PhotoImage(file="res/images/iconset/code.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-insertlButtonImage = PhotoImage(file="res/images/iconset/link.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-colorButtonImage = PhotoImage(file="res/images/iconset/color.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-photoButtonImage = PhotoImage(file="res/images/iconset/photo.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
+newButtonImage = PhotoImage(file="res/images/iconset/new.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+saveButtonImage = PhotoImage(file="res/images/iconset/save.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+linkButtonImage = PhotoImage(file="res/images/iconset/open.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+menuButtonImage = PhotoImage(file="res/images/iconset/menu.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+closeButtonImage = PhotoImage(file="res/images/iconset/close.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+boldButtonImage = PhotoImage(file="res/images/iconset/bold.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+italicButtonImage = PhotoImage(file="res/images/iconset/italic.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+underButtonImage = PhotoImage(file="res/images/iconset/underline.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+strikeButtonImage = PhotoImage(file="res/images/iconset/strikethrough.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+bulletButtonImage = PhotoImage(file="res/images/iconset/bullet.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+codeButtonImage = PhotoImage(file="res/images/iconset/code.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+insertlButtonImage = PhotoImage(file="res/images/iconset/link.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+colorButtonImage = PhotoImage(file="res/images/iconset/color.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+photoButtonImage = PhotoImage(file="res/images/iconset/photo.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
 
 
 # Getting images (hover) for the buttons:
-newButtonImageAfter = PhotoImage(file="res/images/iconset/new1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-saveButtonImageAfter = PhotoImage(file="res/images/iconset/save1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-linkButtonImageAfter = PhotoImage(file="res/images/iconset/open1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-menuButtonImageAfter = PhotoImage(file="res/images/iconset/menu1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-closeButtonImageAfter = PhotoImage(file="res/images/iconset/close1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-boldButtonImageAfter = PhotoImage(file="res/images/iconset/bold1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-italicButtonImageAfter = PhotoImage(file="res/images/iconset/italic1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-underButtonImageAfter = PhotoImage(file="res/images/iconset/underline1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
+newButtonImageAfter = PhotoImage(file="res/images/iconset/new1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+saveButtonImageAfter = PhotoImage(file="res/images/iconset/save1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+linkButtonImageAfter = PhotoImage(file="res/images/iconset/open1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+menuButtonImageAfter = PhotoImage(file="res/images/iconset/menu1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+closeButtonImageAfter = PhotoImage(file="res/images/iconset/close1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+boldButtonImageAfter = PhotoImage(file="res/images/iconset/bold1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+italicButtonImageAfter = PhotoImage(file="res/images/iconset/italic1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+underButtonImageAfter = PhotoImage(file="res/images/iconset/underline1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
 strikeButtonImageAfter = PhotoImage(
-    file="res/images/iconset/strikethrough1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-bulletButtonImageAfter = PhotoImage(file="res/images/iconset/bullet1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-codeButtonImageAfter = PhotoImage(file="res/images/iconset/code1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-insertlButtonImageAfter = PhotoImage(file="res/images/iconset/link1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-colorButtonImageAfter = PhotoImage(file="res/images/iconset/color1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
-photoButtonImageAfter = PhotoImage(file="res/images/iconset/photo1.png").zoom(int(window.winfo_width() * 0.07)).subsample(30)
+    file="res/images/iconset/strikethrough1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+bulletButtonImageAfter = PhotoImage(file="res/images/iconset/bullet1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+codeButtonImageAfter = PhotoImage(file="res/images/iconset/code1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+insertlButtonImageAfter = PhotoImage(file="res/images/iconset/link1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+colorButtonImageAfter = PhotoImage(file="res/images/iconset/color1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+photoButtonImageAfter = PhotoImage(file="res/images/iconset/photo1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
 
 allImagesGroup = []  # Reference list with images in it
 imgNumberName = 0  # A variable used to name images in chronological order
