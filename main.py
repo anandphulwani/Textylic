@@ -1795,23 +1795,24 @@ def show_overlay():
     global overlay
     global isOverlayEnabled
 
-    x, y = window.winfo_x(), window.winfo_y()
-    width, height = window.winfo_width(), window.winfo_height()
+    if not isOverlayEnabled:
+        x, y = window.winfo_x(), window.winfo_y()
+        width, height = window.winfo_width(), window.winfo_height()
 
-    overlay = tkinter.Toplevel(root)
-    overlay.attributes("-alpha", 0.90)  # Adjust transparency
-    overlay.geometry(f"{width}x{height}+{x}+{y}")
-    overlay.overrideredirect(1)
-    overlay.grab_set()
-    
-    canvas = tkinter.Canvas(overlay, width=width, height=height, bd=0, highlightthickness=0)
-    canvas.pack(fill='both', expand=True)
-    canvas.create_rectangle(0, 0, width, height, fill="#333") #, stipple="gray25")
-    
-    overlay_label = tkinter.Label(overlay, text="Loading...", font=("Arial", 16), bg="#333", fg="white")
-    overlay_label.place(relx=0.5, rely=0.5, anchor='center')
+        overlay = tkinter.Toplevel(root)
+        overlay.attributes("-alpha", 0.90)  # Adjust transparency
+        overlay.geometry(f"{width}x{height}+{x}+{y}")
+        overlay.overrideredirect(1)
+        overlay.grab_set()
+        
+        canvas = tkinter.Canvas(overlay, width=width, height=height, bd=0, highlightthickness=0)
+        canvas.pack(fill='both', expand=True)
+        canvas.create_rectangle(0, 0, width, height, fill="#333") #, stipple="gray25")
+        
+        overlay_label = tkinter.Label(overlay, text="Loading...", font=("Arial", 16), bg="#333", fg="white")
+        overlay_label.place(relx=0.5, rely=0.5, anchor='center')
 
-    isOverlayEnabled = True
+        isOverlayEnabled = True
 
 def create_delete_lock_file():
     lockFile = f"{openedFileName}.lock.{machine_uuid}"
