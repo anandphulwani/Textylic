@@ -1022,25 +1022,35 @@ def saveNote(_=False):
             pass
 
     if openedFileName:
-        # If a file is not being saved the first time, append additional data
-        # to it
-        noteFile = open(os.path.join(dataPath, openedFileName), "w")
-        noteFile.write(
-            "<content>\n{}\n</content>\n\n".format(notes.get(1.0, "end")))
-        noteFile.write(
-            "<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
-        noteFile.write("<images>\n{}\n</images>\n\n".format(images))
+        new_content = []
+        new_content.append("<content>\n{}\n</content>\n\n".format(notes.get(1.0, "end")))
+        new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
+        new_content.append("<images>\n{}\n</images>\n\n".format(images))
 
         if blueTheme is True:
-            noteFile.write("<colortheme>\naccentblue()\n</colortheme>")
+            new_content.append("<colortheme>\naccentblue()\n</colortheme>")
         elif pinkTheme is True:
-            noteFile.write("<colortheme>\naccentpink()\n</colortheme>")
+            new_content.append("<colortheme>\naccentpink()\n</colortheme>")
         elif yellowTheme is True:
-            noteFile.write("<colortheme>\naccentyellow()\n</colortheme>")
+            new_content.append("<colortheme>\naccentyellow()\n</colortheme>")
         elif greenTheme is True:
-            noteFile.write("<colortheme>\naccentgreen()\n</colortheme>")
+            new_content.append("<colortheme>\naccentgreen()\n</colortheme>")
 
-        noteFile.close()
+        new_content_str = ''.join(new_content)
+
+        # Get the current content of the file
+        note_file_path = os.path.join(dataPath, openedFileName)
+        try:
+            with open(note_file_path, "r") as noteFile:
+                current_content = noteFile.read()
+        except FileNotFoundError:
+            current_content = ""
+
+        # Compare the current content with the new content
+        if current_content != new_content_str:
+            # If the contents are different, write the new content to the file
+            with open(note_file_path, "w") as noteFile:
+                noteFile.write(new_content_str)
         saved = True
         getTags("1.0", "end")
     else:
