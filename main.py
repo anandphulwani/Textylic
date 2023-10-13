@@ -6,7 +6,6 @@ import sys
 import webbrowser
 import re
 import glob
-import time
 import argparse
 import tkinter.ttk
 import subprocess
@@ -1659,7 +1658,6 @@ window.bind("<FocusOut>", on_focus_out)
 # Desktop Gadget and Autosave
 window.after(200, topOrNot)
 window.after(3000, autoSave)
-time.sleep(1.5)
 window.after(3000, autoReload)
 
 # Open a file
