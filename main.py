@@ -1284,7 +1284,7 @@ def topOrNot():
                 "Choose a note:" and windows.title != "Save your note:" and
                 windows.title != "Choose an Image:" and windows.title != "tk"):
             if isOverlayEnabled:
-                overlay.deiconify()
+                # overlay.deiconify()
                 overlay.attributes("-topmost", False)
                 overlay.lower()
                 window.deiconify()
@@ -1306,7 +1306,7 @@ def topOrNot():
         elif windows.title == "tk":
             if isOverlayEnabled:
                 window.attributes("-topmost", False)
-                overlay.deiconify()
+                # overlay.deiconify()
                 overlay.lift()
                 overlay.attributes("-topmost", True)
             else:
@@ -1317,7 +1317,7 @@ def topOrNot():
             if isOverlayEnabled:
                 window.lower()
                 window.attributes("-topmost", False)
-                overlay.deiconify()
+                # overlay.deiconify()
                 overlay.lift()
                 overlay.attributes("-topmost", True)
             else:
