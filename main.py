@@ -1259,6 +1259,7 @@ def topOrNot():
     # HELP WANTED
 
     windows = gw.getActiveWindow()
+    global overlay
 
     # Desktop Widget logic
     if windows is None:
@@ -1315,9 +1316,8 @@ def topOrNot():
                 window.attributes("-topmost", True)
         else:
             if isOverlayEnabled:
-                window.lower()
                 window.attributes("-topmost", False)
-                # overlay.deiconify()
+                overlay.deiconify()
                 overlay.lift()
                 overlay.attributes("-topmost", True)
             else:
