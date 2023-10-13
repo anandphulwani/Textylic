@@ -11,6 +11,9 @@ import tkinter.ttk
 import subprocess
 import ctypes
 import winreg
+import time
+import threading
+import uuid
 from tkinter import font
 from random import randint
 from tkinter import filedialog
@@ -23,6 +26,7 @@ from datetime import datetime
 
 appdata_path = os.environ.get('APPDATA')
 dataPath = os.path.join(appdata_path, 'Textylyc')
+machine_uuid = uuid.UUID(int=uuid.getnode())
 
 # Ensure the path exists, if not, create it
 if not os.path.exists(dataPath):
@@ -1099,6 +1103,7 @@ def clearCache():
 def autoSave():
     """Auto saves the note"""
 
+    create_delete_lock_file()
     global saved
     if window_is_focused and saved is True:
         saveNote()
@@ -1108,6 +1113,7 @@ def autoSave():
 def autoReload():
     """Auto reloads the note"""
 
+    create_delete_lock_file()
     global saved
     global openedFileName
     if not window_is_focused and saved is True:
@@ -1806,6 +1812,51 @@ def show_overlay():
     overlay_label.place(relx=0.5, rely=0.5, anchor='center')
 
     isOverlayEnabled = True
+
+def create_delete_lock_file():
+    lockFile = f"{openedFileName}.lock.{machine_uuid}"
+    if window_is_focused:
+        if not os.path.exists(os.path.join(dataPath, lockFile)):
+            with open(os.path.join(dataPath, lockFile), 'w') as file:
+                pass
+    else:
+        if os.path.exists(os.path.join(dataPath, lockFile)):
+            os.remove(os.path.join(dataPath, lockFile))
+
+def check_lock_file(directory):
+    # print(openedFileName)
+    filename_pattern = f"{openedFileName}.lock.*"
+    specific_file = f"{openedFileName}.lock.{machine_uuid}"
+
+    matching_files = glob.glob(os.path.join(directory, filename_pattern))
+    matching_files = [os.path.basename(file) for file in matching_files]
+
+    current_time = time.time()
+
+    # print(specific_file)
+    for file in matching_files:
+        # print(file)
+        creation_time = os.path.getctime(os.path.join(directory, file))
+        if current_time - creation_time > 1800:  # 1800 seconds = 30 minutes
+            os.remove(file)
+    
+    if matching_files:
+        if not specific_file in matching_files:
+            # print("1")
+            show_overlay()
+        else:
+            # print("2")
+            overlay.destroy() if overlay != False else None
+    else:
+        # print("3")
+        overlay.destroy() if overlay != False else None
+
+def periodic_check(directory):
+    while True:
+        check_lock_file(directory)
+        time.sleep(5)  # Wait for 5 seconds before checking again
+
+threading.Thread(target=periodic_check, args=(dataPath,), daemon=True).start()
 
 style = ttk.Style()
 style.layout("Black.TSizegrip",
