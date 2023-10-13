@@ -10,6 +10,7 @@ import argparse
 import tkinter.ttk
 import subprocess
 import ctypes
+import winreg
 from tkinter import font
 from random import randint
 from tkinter import filedialog
@@ -108,8 +109,26 @@ window.title("Textylic")
 MakeTkDPIAware(window)
 window.attributes("-toolwindow", True, "-alpha", "0.99")
 window.overrideredirect(1)
-window.geometry(window.TkGeometryScale(
-    f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+if args.file is not None:
+    try:
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Software\\Textylyc\\' + args.file)
+        x = int(winreg.QueryValueEx(key, 'x')[0])
+        y = int(winreg.QueryValueEx(key, 'y')[0])
+        width = int(winreg.QueryValueEx(key, 'width')[0])
+        height = int(winreg.QueryValueEx(key, 'height')[0])
+        winreg.CloseKey(key)
+        window.geometry(window.TkGeometryScale(
+            f"{width}x{height}+{x}+{y}"))
+    except FileNotFoundError:
+        window.geometry(window.TkGeometryScale(
+            f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+    except Exception as e:
+        tkinter.messagebox.showinfo(
+            " ", f"An error occurred: {str(e)}")
+else:
+    window.geometry(window.TkGeometryScale(
+        f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+
 window.config(bg="#040412")
 window.wait_visibility(window)
 
@@ -1083,6 +1102,16 @@ def windowdestroy(_=False):
     def whitespaceStr(strg, search=re.compile(r"[^\s]+").search):
         return not bool(search(strg))
 
+    # Save window position to registry before closing
+    x, y = window.winfo_x(), window.winfo_y()
+    width, height = window.winfo_width(), window.winfo_height()
+    key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, 'Software\\Textylyc\\' + openedFileName)
+    winreg.SetValueEx(key, 'x', 0, winreg.REG_SZ, str(x))
+    winreg.SetValueEx(key, 'y', 0, winreg.REG_SZ, str(y))
+    winreg.SetValueEx(key, 'width', 0, winreg.REG_SZ, str(width))
+    winreg.SetValueEx(key, 'height', 0, winreg.REG_SZ, str(height))
+    winreg.CloseKey(key)
+    
     if (not openedFileName) and (not whitespaceStr(notes.get("1.0", "end"))):
         # Confirmbox
         confirmSave = tkinter.messagebox.askyesnocancel("Confirmation",
