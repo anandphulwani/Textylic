@@ -1790,6 +1790,12 @@ def perform_resize(event):
 
 overlay = False
 isOverlayEnabled = False
+def destroy_overlay():
+    global isOverlayEnabled
+    global overlay
+    isOverlayEnabled = False
+    overlay.destroy()
+    overlay = False
 
 def show_overlay():
     global overlay
@@ -1847,10 +1853,10 @@ def check_lock_file(directory):
             show_overlay()
         else:
             # print("2")
-            overlay.destroy() if overlay != False else None
+            destroy_overlay() if isOverlayEnabled else None
     else:
         # print("3")
-        overlay.destroy() if overlay != False else None
+        destroy_overlay() if isOverlayEnabled else None
 
 def periodic_check(directory):
     while True:
