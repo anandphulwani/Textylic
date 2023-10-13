@@ -1103,7 +1103,6 @@ def clearCache():
 def autoSave():
     """Auto saves the note"""
 
-    create_delete_lock_file()
     global saved
     if window_is_focused and saved is True:
         saveNote()
@@ -1113,7 +1112,6 @@ def autoSave():
 def autoReload():
     """Auto reloads the note"""
 
-    create_delete_lock_file()
     global saved
     global openedFileName
     if not window_is_focused and saved is True:
@@ -1862,6 +1860,7 @@ def check_lock_file(directory):
 
 def periodic_check(directory):
     while True:
+        create_delete_lock_file()
         check_lock_file(directory)
         time.sleep(5)  # Wait for 5 seconds before checking again
 
