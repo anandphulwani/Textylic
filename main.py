@@ -1837,14 +1837,14 @@ def create_delete_lock_file():
 def check_lock_file(directory):
     # print(openedFileName)
     filename_pattern = f"{openedFileName}.lock.*"
-    specific_file = f"{openedFileName}.lock.{machine_uuid}"
+    lockFile = f"{openedFileName}.lock.{machine_uuid}"
 
     matching_files = glob.glob(os.path.join(directory, filename_pattern))
     matching_files = [os.path.basename(file) for file in matching_files]
 
     current_time = time.time()
 
-    # print(specific_file)
+    # print(lockFile)
     for file in matching_files:
         # print(file)
         creation_time = os.path.getctime(os.path.join(directory, file))
@@ -1852,7 +1852,7 @@ def check_lock_file(directory):
             os.remove(file)
     
     if matching_files:
-        if not specific_file in matching_files:
+        if not lockFile in matching_files:
             # print("1")
             show_overlay()
         else:
