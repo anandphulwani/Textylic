@@ -330,7 +330,8 @@ def italicizer(_=False):
 def codify(_=False):
     """Code button function"""
 
-    notes.tag_configure("code", font="Consolas 11")
+    desired_font = ("JetBrainsMono NF", 10) if is_font_present("JetBrainsMono NF") else "Consolas 11"
+    notes.tag_configure("code", font=desired_font)
     current_tags = notes.tag_names("sel.first")
 
     if "code" in current_tags:
@@ -880,7 +881,8 @@ def openFile(file: str):
         notes.tag_configure("strikeItalic", font=strikeItalic_font)
 
         # Code font and tags
-        notes.tag_configure("code", font="Consolas 11")
+        desired_font = ("JetBrainsMono NF", 10) if is_font_present("JetBrainsMono NF") else "Consolas 11"
+        notes.tag_configure("code", font=desired_font)
 
         # Underline font and tags
         under_font = font.Font(notes, notes.cget("font"))
@@ -1291,6 +1293,9 @@ def getPos(event):
 
     titleBar.bind('<B1-Motion>', moveWindow)
 
+def is_font_present(font_name):
+    available_fonts = font.families()
+    return font_name in available_fonts
 
 winDrive = fetchDrivePath()  # The windows directory letter
 
