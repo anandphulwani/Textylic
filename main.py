@@ -1266,7 +1266,7 @@ def topOrNot():
         window.deiconify()
         window.lift()
         if isOverlayEnabled:
-            window.attributes("-topmost", False)
+            window.attributes("-topmost", True)
             overlay.attributes('-topmost', True)
         else:
             window.attributes("-topmost", True)
@@ -1316,7 +1316,9 @@ def topOrNot():
                 window.attributes("-topmost", True)
         else:
             if isOverlayEnabled:
-                window.attributes("-topmost", False)
+                window.deiconify()
+                window.lift()
+                window.attributes("-topmost", True)
                 overlay.deiconify()
                 overlay.lift()
                 overlay.attributes("-topmost", True)
