@@ -1105,6 +1105,7 @@ def autoSaveAndReload():
 
     global saved
     global openedFileName
+    global isFocusOutFirstTime
 
     if isFocusOutFirstTime:
         isFocusOutFirstTime = False
