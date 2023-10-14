@@ -1106,10 +1106,13 @@ def autoSaveAndReload():
     global saved
     global openedFileName
 
-    if window_is_focused and saved is True:
-        saveNote()
-    if not window_is_focused and saved is True:
-        openFile(openedFileName)
+    if isFocusOutFirstTime:
+        isFocusOutFirstTime = False
+    else:
+        if window_is_focused and saved is True:
+            saveNote()
+        if not window_is_focused and saved is True:
+            openFile(openedFileName)
     window.after(3000, autoSaveAndReload)
 
 
@@ -1150,10 +1153,16 @@ def windowdestroy(_=False):
 
 def on_focus_in(event):
     global window_is_focused
+    global openedFileName
+    openFile(openedFileName)
     window_is_focused = True
 
+isFocusOutFirstTime = False
 def on_focus_out(event):
     global window_is_focused
+    global isFocusOutFirstTime
+    isFocusOutFirstTime = True
+    saveNote()
     window_is_focused = False
 
 def accentpink():
