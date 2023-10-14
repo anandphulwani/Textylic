@@ -1100,23 +1100,17 @@ def clearCache():
             os.remove(formattedImgFileName)
 
 
-def autoSave():
-    """Auto saves the note"""
-
-    global saved
-    if window_is_focused and saved is True:
-        saveNote()
-    window.after(3000, autoSave)
-
-
-def autoReload():
-    """Auto reloads the note"""
+def autoSaveAndReload():
+    """Auto saves and reloads the note"""
 
     global saved
     global openedFileName
+
+    if window_is_focused and saved is True:
+        saveNote()
     if not window_is_focused and saved is True:
         openFile(openedFileName)
-    window.after(3000, autoReload)
+    window.after(3000, autoSaveAndReload)
 
 
 def windowdestroy(_=False):
@@ -1750,8 +1744,7 @@ window.bind("<FocusOut>", on_focus_out)
 
 # Desktop Gadget and Autosave
 window.after(200, topOrNot)
-window.after(3000, autoSave)
-window.after(3000, autoReload)
+window.after(3000, autoSaveAndReload)
 
 # Open a file
 if args.file is not None:
