@@ -21,6 +21,8 @@ from string import ascii_uppercase
 from PIL import Image
 from datetime import datetime
 
+from py_includes.images import load_images
+
 appdata_path = os.environ.get('APPDATA')
 dataPath = os.path.join(appdata_path, 'Textylyc')
 
@@ -158,40 +160,7 @@ yellowTheme = False
 greenTheme = False
 blueTheme = True
 
-sizeConstantForButtons = 310
-# Getting images (normal) for the buttons:
-newButtonImage = PhotoImage(file="res/images/iconset/new.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-saveButtonImage = PhotoImage(file="res/images/iconset/save.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-linkButtonImage = PhotoImage(file="res/images/iconset/open.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-menuButtonImage = PhotoImage(file="res/images/iconset/menu.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-closeButtonImage = PhotoImage(file="res/images/iconset/close.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-boldButtonImage = PhotoImage(file="res/images/iconset/bold.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-italicButtonImage = PhotoImage(file="res/images/iconset/italic.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-underButtonImage = PhotoImage(file="res/images/iconset/underline.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-strikeButtonImage = PhotoImage(file="res/images/iconset/strikethrough.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-bulletButtonImage = PhotoImage(file="res/images/iconset/bullet.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-codeButtonImage = PhotoImage(file="res/images/iconset/code.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-insertlButtonImage = PhotoImage(file="res/images/iconset/link.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-colorButtonImage = PhotoImage(file="res/images/iconset/color.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-photoButtonImage = PhotoImage(file="res/images/iconset/photo.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-
-
-# Getting images (hover) for the buttons:
-newButtonImageAfter = PhotoImage(file="res/images/iconset/new1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-saveButtonImageAfter = PhotoImage(file="res/images/iconset/save1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-linkButtonImageAfter = PhotoImage(file="res/images/iconset/open1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-menuButtonImageAfter = PhotoImage(file="res/images/iconset/menu1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-closeButtonImageAfter = PhotoImage(file="res/images/iconset/close1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-boldButtonImageAfter = PhotoImage(file="res/images/iconset/bold1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-italicButtonImageAfter = PhotoImage(file="res/images/iconset/italic1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-underButtonImageAfter = PhotoImage(file="res/images/iconset/underline1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-strikeButtonImageAfter = PhotoImage(
-    file="res/images/iconset/strikethrough1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-bulletButtonImageAfter = PhotoImage(file="res/images/iconset/bullet1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-codeButtonImageAfter = PhotoImage(file="res/images/iconset/code1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-insertlButtonImageAfter = PhotoImage(file="res/images/iconset/link1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-colorButtonImageAfter = PhotoImage(file="res/images/iconset/color1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
-photoButtonImageAfter = PhotoImage(file="res/images/iconset/photo1.png").zoom(int(sizeConstantForButtons * 0.07)).subsample(30)
+load_images(window)
 
 allImagesGroup = []  # Reference list with images in it
 imgNumberName = 0  # A variable used to name images in chronological order
@@ -551,169 +520,169 @@ def openReadme(_=False):
 def hoverImageBold(_=False):
     """Changing the image of bold button on hover"""
 
-    bold.configure(image=boldButtonImageAfter)
+    bold.configure(image=window.boldButtonImageAfter)
 
 
 def NormalImageBold(_=False):
     """Getting the normal image for the bold button function"""
 
-    bold.configure(image=boldButtonImage)
+    bold.configure(image=window.boldButtonImage)
 
 
 def hoverImageItalic(_=False):
     """Changing the image of italic button on hover"""
 
-    italic.configure(image=italicButtonImageAfter)
+    italic.configure(image=window.italicButtonImageAfter)
 
 
 def NormalImageItalic(_=False):
     """Getting the normal image for the italic button function"""
 
-    italic.configure(image=italicButtonImage)
+    italic.configure(image=window.italicButtonImage)
 
 
 def hoverImageUnder(_=False):
     """Changing the image of underline button on hover"""
 
-    underline.configure(image=underButtonImageAfter)
+    underline.configure(image=window.underButtonImageAfter)
 
 
 def NormalImageUnder(_=False):
     """Getting the normal image for the underline button function"""
 
-    underline.configure(image=underButtonImage)
+    underline.configure(image=window.underButtonImage)
 
 
 def hoverImageStrike(_=False):
     """Changing the image of strikethrough button on hover"""
 
-    strikeThrough.configure(image=strikeButtonImageAfter)
+    strikeThrough.configure(image=window.strikeButtonImageAfter)
 
 
 def NormalImageStrike(_=False):
     """Getting the normal image for the strikethrough button function"""
 
-    strikeThrough.configure(image=strikeButtonImage)
+    strikeThrough.configure(image=window.strikeButtonImage)
 
 
 def hoverImageBullet(_=False):
     """Changing the image of bulleted list button on hover"""
 
-    bullet.configure(image=bulletButtonImageAfter)
+    bullet.configure(image=window.bulletButtonImageAfter)
 
 
 def NormalImageBullet(_=False):
     """Getting the normal image for the bulleted list button function"""
 
-    bullet.configure(image=bulletButtonImage)
+    bullet.configure(image=window.bulletButtonImage)
 
 
 def hoverImageCode(_=False):
     """Changing the image of code-ify button on hover"""
 
-    code.configure(image=codeButtonImageAfter)
+    code.configure(image=window.codeButtonImageAfter)
 
 
 def NormalImageCode(_=False):
     """Getting the normal image for the code-ify button function"""
 
-    code.configure(image=codeButtonImage)
+    code.configure(image=window.codeButtonImage)
 
 
 def hoverImageNew(_=False):
     """Changing the image of new button on hover"""
 
-    new.configure(image=newButtonImageAfter)
+    new.configure(image=window.newButtonImageAfter)
 
 
 def NormalImageNew(_=False):
     """Getting the normal image for the new button function"""
 
-    new.configure(image=newButtonImage)
+    new.configure(image=window.newButtonImage)
 
 
 def hoverImageSave(_=False):
     """Changing the image of save button on hover"""
 
-    save.configure(image=saveButtonImageAfter)
+    save.configure(image=window.saveButtonImageAfter)
 
 
 def NormalImageSave(_=False):
     """Getting the normal image for the save button function"""
 
-    save.configure(image=saveButtonImage)
+    save.configure(image=window.saveButtonImage)
 
 
 def hoverImageOpen(_=False):
     """Changing the image of open note button on hover"""
 
-    openlink.configure(image=linkButtonImageAfter)
+    openlink.configure(image=window.linkButtonImageAfter)
 
 
 def NormalImageOpen(_=False):
     """Getting the normal image for the open note button function"""
 
-    openlink.configure(image=linkButtonImage)
+    openlink.configure(image=window.linkButtonImage)
 
 
 def hoverImageMenu(_=False):
     """Changing the image of menu button on hover"""
 
-    menu.configure(image=menuButtonImageAfter)
+    menu.configure(image=window.menuButtonImageAfter)
 
 
 def NormalImageMenu(_=False):
     """Getting the normal image for the menu button function"""
 
-    menu.configure(image=menuButtonImage)
+    menu.configure(image=window.menuButtonImage)
 
 
 def hoverImageClose(_=False):
     """Changing the image of close button on hover"""
 
-    close_button.configure(image=closeButtonImageAfter)
+    close_button.configure(image=window.closeButtonImageAfter)
 
 
 def NormalImageClose(_=False):
     """Getting the normal image for the close button function"""
 
-    close_button.configure(image=closeButtonImage)
+    close_button.configure(image=window.closeButtonImage)
 
 
 def hoverImageLink(_=False):
     """Changing the image of hyperlink button on hover"""
 
-    insertl.configure(image=insertlButtonImageAfter)
+    insertl.configure(image=window.insertlButtonImageAfter)
 
 
 def NormalImageLink(_=False):
     """Getting the normal image for the hyperlink button function"""
 
-    insertl.configure(image=insertlButtonImage)
+    insertl.configure(image=window.insertlButtonImage)
 
 
 def hoverImageTsize(_=False):
     """Changing the image of color button on hover"""
 
-    colorText.configure(image=colorButtonImageAfter)
+    colorText.configure(image=window.colorButtonImageAfter)
 
 
 def NormalImageTsize(_=False):
     """Getting the normal image for the color button function"""
 
-    colorText.configure(image=colorButtonImage)
+    colorText.configure(image=window.colorButtonImage)
 
 
 def hoverImagePhoto(_=False):
     """Changing the image of image button on hover"""
 
-    photoInsert.configure(image=photoButtonImageAfter)
+    photoInsert.configure(image=window.photoButtonImageAfter)
 
 
 def NormalImagePhoto(_=False):
     """Getting the normal image for the image button function"""
 
-    photoInsert.configure(image=photoButtonImage)
+    photoInsert.configure(image=window.photoButtonImage)
 
 
 def getTags(start, end) -> list:
@@ -1360,39 +1329,39 @@ smallPaddingY = window.TkScale(4)
 
 new = tkinter.Button(
     titleBar,
-    image=newButtonImage,
+    image=window.newButtonImage,
     bd=0,
     bg="#2292ff",
     command=createNewWindow,
     activebackground="#2292ff")
-new.image = newButtonImage
+new.image = window.newButtonImage
 new.grid(row=0, column=0, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
-new.image = newButtonImage
+new.image = window.newButtonImage
 accentItems.append(new)
 
 # Save
 save = tkinter.Button(
     titleBar,
-    image=saveButtonImage,
+    image=window.saveButtonImage,
     bd=0,
     bg="#2292ff",
     pady=4,
     activebackground="#2292ff",
     command=saveNote)
-save.image = saveButtonImage
+save.image = window.saveButtonImage
 save.grid(row=0, column=1, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 accentItems.append(save)
 
 # Link opening button
 openlink = tkinter.Button(
     titleBar,
-    image=linkButtonImage,
+    image=window.linkButtonImage,
     bd=0,
     bg="#2292ff",
     pady=4,
     command=openLink,
     activebackground="#2292ff")
-openLink.image = linkButtonImage
+openLink.image = window.linkButtonImage
 openlink.grid(
     row=0,
     column=2,
@@ -1442,13 +1411,13 @@ notes.configure(font=segoe_font)
 # Extra Menu
 menu = tkinter.Menubutton(
     titleBar,
-    image=menuButtonImage,
+    image=window.menuButtonImage,
     bd=0,
     bg="#2292ff",
     relief="flat",
     pady=4,
     activebackground="#2292ff")
-menu.image = menuButtonImage
+menu.image = window.menuButtonImage
 menu.grid(row=0, column=3, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 accentItems.append(menu)
 
@@ -1517,13 +1486,13 @@ accentItems.append(spacer)
 
 close_button = tkinter.Button(
     titleBar,
-    image=closeButtonImage,
+    image=window.closeButtonImage,
     bd=0,
     bg="#2292ff",
     command=windowdestroy,
     pady=4,
     activebackground="#2292ff")
-close_button.image = closeButtonImage
+close_button.image = window.closeButtonImage
 close_button.grid(
     row=0,
     column=6,
@@ -1540,7 +1509,7 @@ bottom_bar.grid(row=3, column=0, columnspan=10, rowspan=1, sticky="SWE")
 
 bold = tkinter.Button(
     bottom_bar,
-    image=boldButtonImage,
+    image=window.boldButtonImage,
     bd=0,
     bg="#181926",
     command=bolder,
@@ -1548,12 +1517,12 @@ bold = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-bold.image = boldButtonImage
+bold.image = window.boldButtonImage
 bold.grid(row=0, column=1, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 italic = tkinter.Button(
     bottom_bar,
-    image=italicButtonImage,
+    image=window.italicButtonImage,
     bd=0,
     bg="#181926",
     command=italicizer,
@@ -1561,7 +1530,7 @@ italic = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-italic.image = italicButtonImage
+italic.image = window.italicButtonImage
 italic.grid(
     row=0,
     column=2,
@@ -1571,7 +1540,7 @@ italic.grid(
 
 underline = tkinter.Button(
     bottom_bar,
-    image=underButtonImage,
+    image=window.underButtonImage,
     bd=0,
     bg="#181926",
     command=underliner,
@@ -1579,7 +1548,7 @@ underline = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-underline.image = underButtonImage
+underline.image = window.underButtonImage
 underline.grid(
     row=0,
     column=3,
@@ -1589,7 +1558,7 @@ underline.grid(
 
 strikeThrough = tkinter.Button(
     bottom_bar,
-    image=strikeButtonImage,
+    image=window.strikeButtonImage,
     bd=0,
     bg="#181926",
     pady=4,
@@ -1597,7 +1566,7 @@ strikeThrough = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-strikeThrough.image = strikeButtonImage
+strikeThrough.image = window.strikeButtonImage
 strikeThrough.grid(
     row=0,
     column=4,
@@ -1607,7 +1576,7 @@ strikeThrough.grid(
 
 bullet = tkinter.Button(
     bottom_bar,
-    image=bulletButtonImage,
+    image=window.bulletButtonImage,
     bd=0,
     bg="#181926",
     pady=4,
@@ -1615,7 +1584,7 @@ bullet = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-bullet.image = bulletButtonImage
+bullet.image = window.bulletButtonImage
 bullet.grid(
     row=0,
     column=5,
@@ -1625,7 +1594,7 @@ bullet.grid(
 
 code = tkinter.Button(
     bottom_bar,
-    image=codeButtonImage,
+    image=window.codeButtonImage,
     bd=0,
     bg="#181926",
     pady=4,
@@ -1633,12 +1602,12 @@ code = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-code.image = codeButtonImage
+code.image = window.codeButtonImage
 code.grid(row=0, column=6, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 insertl = tkinter.Button(
     bottom_bar,
-    image=insertlButtonImage,
+    image=window.insertlButtonImage,
     bd=0,
     bg="#181926",
     pady=4,
@@ -1646,7 +1615,7 @@ insertl = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-insertl.image = insertlButtonImage
+insertl.image = window.insertlButtonImage
 insertl.grid(
     row=0,
     column=7,
@@ -1656,7 +1625,7 @@ insertl.grid(
 
 colorText = tkinter.Button(
     bottom_bar,
-    image=colorButtonImage,
+    image=window.colorButtonImage,
     bd=0,
     bg="#181926",
     pady=4,
@@ -1664,7 +1633,7 @@ colorText = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-colorText.image = colorButtonImage
+colorText.image = window.colorButtonImage
 colorText.grid(
     row=0,
     column=8,
@@ -1674,7 +1643,7 @@ colorText.grid(
 
 photoInsert = tkinter.Button(
     bottom_bar,
-    image=photoButtonImage,
+    image=window.photoButtonImage,
     bd=0,
     bg="#181926",
     pady=4,
@@ -1682,7 +1651,7 @@ photoInsert = tkinter.Button(
     activebackground="#181926",
     fg="white",
     padx=3)
-photoInsert.image = colorButtonImage
+photoInsert.image = window.colorButtonImage
 photoInsert.grid(
     row=0,
     column=9,
