@@ -22,6 +22,7 @@ from PIL import Image
 from datetime import datetime
 
 from py_includes.images import load_images
+from py_includes.accent_colors import accentpink, accentyellow, accentgreen, accentblue
 
 appdata_path = os.environ.get('APPDATA')
 dataPath = os.path.join(appdata_path, 'Textylyc')
@@ -997,13 +998,13 @@ def saveNote(_=False):
         new_content.append("<images>\n{}\n</images>\n\n".format(images))
 
         if blueTheme is True:
-            new_content.append("<colortheme>\naccentblue()\n</colortheme>")
+            new_content.append("<colortheme>\naccentblue(window, accentItems, titleBar, menu, notes)\n</colortheme>")
         elif pinkTheme is True:
-            new_content.append("<colortheme>\naccentpink()\n</colortheme>")
+            new_content.append("<colortheme>\naccentpink(window, accentItems, titleBar, menu, notes)\n</colortheme>")
         elif yellowTheme is True:
-            new_content.append("<colortheme>\naccentyellow()\n</colortheme>")
+            new_content.append("<colortheme>\naccentyellow(window, accentItems, titleBar, menu, notes)\n</colortheme>")
         elif greenTheme is True:
-            new_content.append("<colortheme>\naccentgreen()\n</colortheme>")
+            new_content.append("<colortheme>\naccentgreen(window, accentItems, titleBar, menu, notes)\n</colortheme>")
 
         new_content_str = ''.join(new_content)
 
@@ -1126,90 +1127,6 @@ def on_focus_in(event):
 def on_focus_out(event):
     global window_is_focused
     window_is_focused = False
-
-def accentpink():
-    """Pink accent color"""
-
-    global pinkTheme
-    global yellowTheme
-    global greenTheme
-    global blueTheme
-    pinkTheme = True
-    yellowTheme = False
-    greenTheme = False
-    blueTheme = False
-    for item in accentItems:
-        item.configure(bg="#EB8EC6")
-        if not isinstance(item, tkinter.Frame):
-            item.configure(activebackground="#EB8EC6")
-    titleBar.configure(bg="#EB8EC6")
-    menu.configure(activebackground="#EB8EC6")
-    notes.tag_configure("emphColor", foreground="#EB8EC6")
-    window.update()
-
-
-def accentyellow():
-    """Yellow accent color"""
-
-    global pinkTheme
-    global yellowTheme
-    global greenTheme
-    global blueTheme
-    pinkTheme = False
-    yellowTheme = True
-    greenTheme = False
-    blueTheme = False
-    for item in accentItems:
-        item.configure(bg="#fbc02d")
-        if not isinstance(item, tkinter.Frame):
-            item.configure(activebackground="#fbc02d")
-    titleBar.configure(bg="#fbc02d")
-    notes.tag_configure("emphColor", foreground="#fbc02d")
-    menu.configure(activebackground="#fbc02d")
-    window.update()
-
-
-def accentgreen():
-    """Green accent color"""
-
-    global pinkTheme
-    global yellowTheme
-    global greenTheme
-    global blueTheme
-    pinkTheme = False
-    yellowTheme = False
-    greenTheme = True
-    blueTheme = False
-    for item in accentItems:
-        item.configure(bg="#65BA5A")
-        if not isinstance(item, tkinter.Frame):
-            item.configure(activebackground="#65BA5A")
-    titleBar.configure(bg="#65BA5A")
-    notes.tag_configure("emphColor", foreground="#65BA5A")
-    menu.configure(activebackground="#65BA5A")
-    window.update()
-
-
-def accentblue():
-    """Blue accent color"""
-
-    global pinkTheme
-    global yellowTheme
-    global greenTheme
-    global blueTheme
-    pinkTheme = False
-    yellowTheme = False
-    greenTheme = False
-    blueTheme = True
-    for item in accentItems:
-        item.configure(bg="#2292ff")
-        if not isinstance(item, tkinter.Frame):
-            item.configure(activebackground="#2292ff")
-    titleBar.configure(bg="#2292ff")
-    notes.tag_configure("emphColor", foreground="#2292ff")
-    menu.configure(activebackground="#2292ff")
-    window.update()
-
 
 def topOrNot():
     """
@@ -1452,10 +1369,10 @@ advancedMenu.add_command(label="Clear Cache", command=clearCache)
 menu["menu"] = menu.menu
 
 menu.menu.add_command(label="Choose theme:")
-menu.menu.add_radiobutton(label="Blue", command=accentblue)
-menu.menu.add_radiobutton(label="Yellow", command=accentyellow)
-menu.menu.add_radiobutton(label="Green", command=accentgreen)
-menu.menu.add_radiobutton(label="Pink", command=accentpink)
+menu.menu.add_radiobutton(label="Blue", command=lambda: accentblue(window, accentItems, titleBar, menu, notes))
+menu.menu.add_radiobutton(label="Yellow", command=lambda: accentyellow(window, accentItems, titleBar, menu, notes))
+menu.menu.add_radiobutton(label="Green", command=lambda: accentgreen(window, accentItems, titleBar, menu, notes))
+menu.menu.add_radiobutton(label="Pink", command=lambda: accentpink(window, accentItems, titleBar, menu, notes))
 
 menu.menu.add_separator()
 
