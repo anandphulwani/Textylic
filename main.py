@@ -21,6 +21,7 @@ from string import ascii_uppercase
 from PIL import Image
 from datetime import datetime
 
+from py_includes.dpi_aware import Get_HWND_DPI, TkGeometryScale, MakeTkDPIAware
 from py_includes.images import load_images
 from py_includes.accent_colors import accentpink, accentyellow, accentgreen, accentblue
 
@@ -37,67 +38,6 @@ parser.add_argument("file", default=None, nargs="?", help="Name of the file to l
 
 args = parser.parse_args()
 
-
-# Optimization for high DPI
-def Get_HWND_DPI(window_handle):
-    """
-    Detecting high DPI displays and avoid the need
-    to set Windows compatibility flags
-    """
-
-    if os.name == "nt":
-        from ctypes import windll, pointer, wintypes
-
-        try:
-            windll.shcore.SetProcessDpiAwareness(1)
-        except BaseException:
-            pass
-
-        DPI100pc = 96  # DPI 96 is 100% scaling
-        DPI_type = 0
-        winH = wintypes.HWND(window_handle)
-        monitorhandle = windll.user32.MonitorFromWindow(winH, wintypes.DWORD(2))
-        X = wintypes.UINT()
-        Y = wintypes.UINT()
-        try:
-            windll.shcore.GetDpiForMonitor(monitorhandle, DPI_type, pointer(X), pointer(Y))
-            return X.value, Y.value, (X.value + Y.value) / (2 * DPI100pc)
-        except Exception:
-            return 96, 96, 1  # Assume standard Windows DPI & scaling
-    else:
-        return None, None, 1
-
-
-def TkGeometryScale(s, cvtfunc):
-    """
-    Scaling the window geomtry
-    """
-
-    patt = r"(?P<W>\d+)x(?P<H>\d+)\+(?P<X>\d+)\+(?P<Y>\d+)"
-    R = re.compile(patt).search(s)
-    G = str(cvtfunc(R.group("W"))) + "x"
-    G += str(cvtfunc(R.group("H"))) + "+"
-    G += str(cvtfunc(R.group("X"))) + "+"
-    G += str(cvtfunc(R.group("Y")))
-    return G
-
-
-def MakeTkDPIAware(TKGUI):
-    """
-    Makes Tkinter DPI aware
-    """
-    TKGUI.DPI_X, TKGUI.DPI_Y, TKGUI.DPI_scaling = Get_HWND_DPI(TKGUI.winfo_id())
-    TKGUI.TkScale = lambda v: int(float(v) * TKGUI.DPI_scaling)
-    TKGUI.TkGeometryScale = lambda s: TkGeometryScale(s, TKGUI.TkScale)
-
-
-# Optimize for high DPI
-# try:
-#     ctypes.windll.shcore.SetProcessDpiAwareness(2)
-# except BaseException:
-#     ctypes.windll.user32.SetProcessDPIAware()
-
-# Defining Window Properties
 root = tkinter.Tk()
 root.withdraw()
 
