@@ -24,6 +24,7 @@ from datetime import datetime
 from py_includes.dpi_aware import Get_HWND_DPI, TkGeometryScale, MakeTkDPIAware
 from py_includes.images import load_images
 from py_includes.accent_colors import accentpink, accentyellow, accentgreen, accentblue
+from py_includes.images_effects import mapping_button_images
 
 appdata_path = os.environ.get("APPDATA")
 dataPath = os.path.join(appdata_path, "Textylyc")
@@ -438,174 +439,6 @@ def openReadme(_=False):
     webbrowser.open_new("https://github.com/akhilesh-balaji/Textylic/blob/master/README.md")
     webbrowser.open_new("https://akhilesh-balaji.github.io/Textylic/")
     return "break"
-
-
-def hoverImageBold(_=False):
-    """Changing the image of bold button on hover"""
-
-    bold.configure(image=window.boldButtonImageAfter)
-
-
-def NormalImageBold(_=False):
-    """Getting the normal image for the bold button function"""
-
-    bold.configure(image=window.boldButtonImage)
-
-
-def hoverImageItalic(_=False):
-    """Changing the image of italic button on hover"""
-
-    italic.configure(image=window.italicButtonImageAfter)
-
-
-def NormalImageItalic(_=False):
-    """Getting the normal image for the italic button function"""
-
-    italic.configure(image=window.italicButtonImage)
-
-
-def hoverImageUnder(_=False):
-    """Changing the image of underline button on hover"""
-
-    underline.configure(image=window.underButtonImageAfter)
-
-
-def NormalImageUnder(_=False):
-    """Getting the normal image for the underline button function"""
-
-    underline.configure(image=window.underButtonImage)
-
-
-def hoverImageStrike(_=False):
-    """Changing the image of strikethrough button on hover"""
-
-    strikeThrough.configure(image=window.strikeButtonImageAfter)
-
-
-def NormalImageStrike(_=False):
-    """Getting the normal image for the strikethrough button function"""
-
-    strikeThrough.configure(image=window.strikeButtonImage)
-
-
-def hoverImageBullet(_=False):
-    """Changing the image of bulleted list button on hover"""
-
-    bullet.configure(image=window.bulletButtonImageAfter)
-
-
-def NormalImageBullet(_=False):
-    """Getting the normal image for the bulleted list button function"""
-
-    bullet.configure(image=window.bulletButtonImage)
-
-
-def hoverImageCode(_=False):
-    """Changing the image of code-ify button on hover"""
-
-    code.configure(image=window.codeButtonImageAfter)
-
-
-def NormalImageCode(_=False):
-    """Getting the normal image for the code-ify button function"""
-
-    code.configure(image=window.codeButtonImage)
-
-
-def hoverImageNew(_=False):
-    """Changing the image of new button on hover"""
-
-    new.configure(image=window.newButtonImageAfter)
-
-
-def NormalImageNew(_=False):
-    """Getting the normal image for the new button function"""
-
-    new.configure(image=window.newButtonImage)
-
-
-def hoverImageSave(_=False):
-    """Changing the image of save button on hover"""
-
-    save.configure(image=window.saveButtonImageAfter)
-
-
-def NormalImageSave(_=False):
-    """Getting the normal image for the save button function"""
-
-    save.configure(image=window.saveButtonImage)
-
-
-def hoverImageOpen(_=False):
-    """Changing the image of open note button on hover"""
-
-    openlink.configure(image=window.linkButtonImageAfter)
-
-
-def NormalImageOpen(_=False):
-    """Getting the normal image for the open note button function"""
-
-    openlink.configure(image=window.linkButtonImage)
-
-
-def hoverImageMenu(_=False):
-    """Changing the image of menu button on hover"""
-
-    menu.configure(image=window.menuButtonImageAfter)
-
-
-def NormalImageMenu(_=False):
-    """Getting the normal image for the menu button function"""
-
-    menu.configure(image=window.menuButtonImage)
-
-
-def hoverImageClose(_=False):
-    """Changing the image of close button on hover"""
-
-    close_button.configure(image=window.closeButtonImageAfter)
-
-
-def NormalImageClose(_=False):
-    """Getting the normal image for the close button function"""
-
-    close_button.configure(image=window.closeButtonImage)
-
-
-def hoverImageLink(_=False):
-    """Changing the image of hyperlink button on hover"""
-
-    insertl.configure(image=window.insertlButtonImageAfter)
-
-
-def NormalImageLink(_=False):
-    """Getting the normal image for the hyperlink button function"""
-
-    insertl.configure(image=window.insertlButtonImage)
-
-
-def hoverImageTsize(_=False):
-    """Changing the image of color button on hover"""
-
-    colorText.configure(image=window.colorButtonImageAfter)
-
-
-def NormalImageTsize(_=False):
-    """Getting the normal image for the color button function"""
-
-    colorText.configure(image=window.colorButtonImage)
-
-
-def hoverImagePhoto(_=False):
-    """Changing the image of image button on hover"""
-
-    photoInsert.configure(image=window.photoButtonImageAfter)
-
-
-def NormalImagePhoto(_=False):
-    """Getting the normal image for the image button function"""
-
-    photoInsert.configure(image=window.photoButtonImage)
 
 
 def getTags(start, end) -> list:
@@ -1490,35 +1323,26 @@ notes.bind("<Control-Key-k>", link)
 notes.bind("<Control-Key-o>", openLink)
 notes.bind("<Control-slash>", strikethrough)
 
-# Hover Effects
-bold.bind("<Enter>", hoverImageBold)
-bold.bind("<Leave>", NormalImageBold)
-italic.bind("<Enter>", hoverImageItalic)
-italic.bind("<Leave>", NormalImageItalic)
-underline.bind("<Enter>", hoverImageUnder)
-underline.bind("<Leave>", NormalImageUnder)
-strikeThrough.bind("<Enter>", hoverImageStrike)
-strikeThrough.bind("<Leave>", NormalImageStrike)
-bullet.bind("<Enter>", hoverImageBullet)
-bullet.bind("<Leave>", NormalImageBullet)
-code.bind("<Enter>", hoverImageCode)
-code.bind("<Leave>", NormalImageCode)
-new.bind("<Enter>", hoverImageNew)
-new.bind("<Leave>", NormalImageNew)
-save.bind("<Enter>", hoverImageSave)
-save.bind("<Leave>", NormalImageSave)
-openlink.bind("<Enter>", hoverImageOpen)
-openlink.bind("<Leave>", NormalImageOpen)
-menu.bind("<Enter>", hoverImageMenu)
-menu.bind("<Leave>", NormalImageMenu)
-close_button.bind("<Enter>", hoverImageClose)
-close_button.bind("<Leave>", NormalImageClose)
-insertl.bind("<Enter>", hoverImageLink)
-insertl.bind("<Leave>", NormalImageLink)
-colorText.bind("<Enter>", hoverImageTsize)
-colorText.bind("<Leave>", NormalImageTsize)
-photoInsert.bind("<Enter>", hoverImagePhoto)
-photoInsert.bind("<Leave>", NormalImagePhoto)
+# Mapping of buttons to their images
+buttons = {
+    "bold": (bold, window.boldButtonImageAfter, window.boldButtonImage),
+    "italic": (italic, window.italicButtonImageAfter, window.italicButtonImage),
+    "underline": (underline, window.underButtonImageAfter, window.underButtonImage),
+    "strikeThrough": (strikeThrough, window.strikeButtonImageAfter, window.strikeButtonImage),
+    "bullet": (bullet, window.bulletButtonImageAfter, window.bulletButtonImage),
+    "code": (code, window.codeButtonImageAfter, window.codeButtonImage),
+    "new": (new, window.newButtonImageAfter, window.newButtonImage),
+    "save": (save, window.saveButtonImageAfter, window.saveButtonImage),
+    "openlink": (openlink, window.linkButtonImageAfter, window.linkButtonImage),
+    "menu": (menu, window.menuButtonImageAfter, window.menuButtonImage),
+    "close_button": (close_button, window.closeButtonImageAfter, window.closeButtonImage),
+    "insertl": (insertl, window.insertlButtonImageAfter, window.insertlButtonImage),
+    "colorText": (colorText, window.colorButtonImageAfter, window.colorButtonImage),
+    "photoInsert": (photoInsert, window.photoButtonImageAfter, window.photoButtonImage),
+}
+
+# Apply hover effects to buttons
+mapping_button_images(window, buttons)
 
 # Bind the focus events
 window.bind("<FocusIn>", on_focus_in)
