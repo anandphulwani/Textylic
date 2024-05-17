@@ -24,8 +24,8 @@ from datetime import datetime
 from py_includes.images import load_images
 from py_includes.accent_colors import accentpink, accentyellow, accentgreen, accentblue
 
-appdata_path = os.environ.get('APPDATA')
-dataPath = os.path.join(appdata_path, 'Textylyc')
+appdata_path = os.environ.get("APPDATA")
+dataPath = os.path.join(appdata_path, "Textylyc")
 
 # Ensure the path exists, if not, create it
 if not os.path.exists(dataPath):
@@ -33,11 +33,7 @@ if not os.path.exists(dataPath):
 
 # Argument Parser
 parser = argparse.ArgumentParser(description="Open a file")
-parser.add_argument(
-    "file",
-    default=None,
-    nargs="?",
-    help="Name of the file to load")
+parser.add_argument("file", default=None, nargs="?", help="Name of the file to load")
 
 args = parser.parse_args()
 
@@ -51,6 +47,7 @@ def Get_HWND_DPI(window_handle):
 
     if os.name == "nt":
         from ctypes import windll, pointer, wintypes
+
         try:
             windll.shcore.SetProcessDpiAwareness(1)
         except BaseException:
@@ -59,13 +56,11 @@ def Get_HWND_DPI(window_handle):
         DPI100pc = 96  # DPI 96 is 100% scaling
         DPI_type = 0
         winH = wintypes.HWND(window_handle)
-        monitorhandle = windll.user32.MonitorFromWindow(
-            winH, wintypes.DWORD(2))
+        monitorhandle = windll.user32.MonitorFromWindow(winH, wintypes.DWORD(2))
         X = wintypes.UINT()
         Y = wintypes.UINT()
         try:
-            windll.shcore.GetDpiForMonitor(
-                monitorhandle, DPI_type, pointer(X), pointer(Y))
+            windll.shcore.GetDpiForMonitor(monitorhandle, DPI_type, pointer(X), pointer(Y))
             return X.value, Y.value, (X.value + Y.value) / (2 * DPI100pc)
         except Exception:
             return 96, 96, 1  # Assume standard Windows DPI & scaling
@@ -91,8 +86,7 @@ def MakeTkDPIAware(TKGUI):
     """
     Makes Tkinter DPI aware
     """
-    TKGUI.DPI_X, TKGUI.DPI_Y, TKGUI.DPI_scaling = Get_HWND_DPI(
-        TKGUI.winfo_id())
+    TKGUI.DPI_X, TKGUI.DPI_Y, TKGUI.DPI_scaling = Get_HWND_DPI(TKGUI.winfo_id())
     TKGUI.TkScale = lambda v: int(float(v) * TKGUI.DPI_scaling)
     TKGUI.TkGeometryScale = lambda s: TkGeometryScale(s, TKGUI.TkScale)
 
@@ -114,23 +108,19 @@ window.attributes("-toolwindow", True, "-alpha", "0.99")
 window.overrideredirect(1)
 if args.file is not None:
     try:
-        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Software\\Textylyc\\' + args.file)
-        x = int(winreg.QueryValueEx(key, 'x')[0])
-        y = int(winreg.QueryValueEx(key, 'y')[0])
-        width = int(winreg.QueryValueEx(key, 'width')[0])
-        height = int(winreg.QueryValueEx(key, 'height')[0])
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Software\\Textylyc\\" + args.file)
+        x = int(winreg.QueryValueEx(key, "x")[0])
+        y = int(winreg.QueryValueEx(key, "y")[0])
+        width = int(winreg.QueryValueEx(key, "width")[0])
+        height = int(winreg.QueryValueEx(key, "height")[0])
         winreg.CloseKey(key)
-        window.geometry(window.TkGeometryScale(
-            f"{width}x{height}+{x}+{y}"))
+        window.geometry(window.TkGeometryScale(f"{width}x{height}+{x}+{y}"))
     except FileNotFoundError:
-        window.geometry(window.TkGeometryScale(
-            f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+        window.geometry(window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
     except Exception as e:
-        tkinter.messagebox.showinfo(
-            " ", f"An error occurred: {str(e)}")
+        tkinter.messagebox.showinfo(" ", f"An error occurred: {str(e)}")
 else:
-    window.geometry(window.TkGeometryScale(
-        f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+    window.geometry(window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
 
 window.config(bg="#040412")
 window.wait_visibility(window)
@@ -184,24 +174,17 @@ def createNewWindow(_=False):
     """Creating a new window"""
 
     # Check whether the exe or the python script is being used
-    exePath = f"{os.path.dirname(os.path.realpath(__file__))}" \
-        "\\Textylic.exe"
+    exePath = f"{os.path.dirname(os.path.realpath(__file__))}" "\\Textylic.exe"
     if os.path.isfile(exePath):
-        subprocess.Popen(
-            exePath,
-            shell=True)
+        subprocess.Popen(exePath, shell=True)
     else:
-        subprocess.Popen(
-            f"python {os.path.dirname(os.path.realpath(__file__))}\\main.py",
-            shell=True)
+        subprocess.Popen(f"python {os.path.dirname(os.path.realpath(__file__))}\\main.py", shell=True)
 
 
 def openNotesList():
     """Opening the folder in which all the notes are stored"""
 
-    subprocess.Popen(
-        f"explorer {os.path.dirname(os.path.realpath(__file__))}\\Notes",
-        shell=True)
+    subprocess.Popen(f"explorer {os.path.dirname(os.path.realpath(__file__))}\\Notes", shell=True)
 
 
 def bolder(_=False):
@@ -512,8 +495,7 @@ def openLink(_=False):
 def openReadme(_=False):
     """Open the README.md on GitHub and the Textylic website"""
 
-    webbrowser.open_new(
-        "https://github.com/akhilesh-balaji/Textylic/blob/master/README.md")
+    webbrowser.open_new("https://github.com/akhilesh-balaji/Textylic/blob/master/README.md")
     webbrowser.open_new("https://akhilesh-balaji.github.io/Textylic/")
     return "break"
 
@@ -751,13 +733,11 @@ def photoInserter():
         initialdir="~/Pictures",
         title="Choose an Image:",
         filetypes=(
-            ("PNG",
-             "*.png"),
-            ("JPG",
-             "*.jpg"),
-            ("JPEG",
-             "*.jpeg"),
-        ))
+            ("PNG", "*.png"),
+            ("JPG", "*.jpg"),
+            ("JPEG", "*.jpeg"),
+        ),
+    )
     imgFile = Image.open(photo)
     imgFile.thumbnail((window.TkScale(280), window.TkScale(280)))
     imgFile.save(f"./res/cache_images_/{dateTimeNow}.png")
@@ -765,13 +745,13 @@ def photoInserter():
     imgToInsert = PhotoImage(file=f"./res/cache_images_/{dateTimeNow}.png")
     allImagesGroup.append(imgToInsert)
     images.append(
-        [f"./res/cache_images_/{dateTimeNow}",
+        [
+            f"./res/cache_images_/{dateTimeNow}",
             notes.index("insert"),
-            f"image{imgNumberName}"])
-    notes.image_create(
-        "insert",
-        image=imgToInsert,
-        name=f"image{imgNumberName}")
+            f"image{imgNumberName}",
+        ]
+    )
+    notes.image_create("insert", image=imgToInsert, name=f"image{imgNumberName}")
     imgFile.close()
     photo.close()
 
@@ -797,23 +777,17 @@ def openFile(file: str):
 
     read = noteFile.read()
 
-    matchStyle = re.match(
-        r".*<style>\n(.*)\n</style>",
-        str(read),
-        flags=re.DOTALL | re.MULTILINE)
-    matchImg = re.match(
-        r".*<images>\n(.*)\n</images>",
-        str(read),
-        flags=re.DOTALL | re.MULTILINE)
+    matchStyle = re.match(r".*<style>\n(.*)\n</style>", str(read), flags=re.DOTALL | re.MULTILINE)
+    matchImg = re.match(r".*<images>\n(.*)\n</images>", str(read), flags=re.DOTALL | re.MULTILINE)
     matchTheme = re.match(
         r".*<colortheme>\n(.*)\n</colortheme>",
         str(read),
-        flags=re.DOTALL | re.MULTILINE)
+        flags=re.DOTALL | re.MULTILINE,
+    )
 
     read = re.sub("<style>.*$", "", read, flags=re.DOTALL | re.MULTILINE)
     read = re.sub("<content>\n", "", read, flags=re.DOTALL | re.MULTILINE)
-    read = re.sub("\n*</content>\n\n", "", read,
-                  flags=re.DOTALL | re.MULTILINE)
+    read = re.sub("\n*</content>\n\n", "", read, flags=re.DOTALL | re.MULTILINE)
 
     notes.delete("1.0", "end")
     notes.insert("end", read)
@@ -910,10 +884,7 @@ def openFile(file: str):
             # Insert the images at appropriate index
             imageToInsert = PhotoImage(file=f"{imageList[0]}.png")
             notes.insert(f"{imageList[1]}-1c", "\n")
-            notes.image_create(
-                imageList[1],
-                image=imageToInsert,
-                name=imageList[2])
+            notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
             allImagesGroup.append(imageToInsert)
 
     if matchTheme:
@@ -928,9 +899,15 @@ def openFile(file: str):
 def openFileChoose(_=False):
     """Open a file with the file dialog"""
 
-    openFile((filedialog.askopenfilename(initialdir="./notes",
-                                         title="Choose a note:", filetypes=(
-                                             ("Textylic file", "*.txtlyc"),))))
+    openFile(
+        (
+            filedialog.askopenfilename(
+                initialdir="./notes",
+                title="Choose a note:",
+                filetypes=(("Textylic file", "*.txtlyc"),),
+            )
+        )
+    )
     return "break"
 
 
@@ -940,10 +917,10 @@ def saveNoteAs(_=False):
     noteFile = filedialog.asksaveasfilename(
         confirmoverwrite=True,
         defaultextension=".txtlyc",
-        filetypes=(
-            ("Textylic file", "*.txtlyc"),),
+        filetypes=(("Textylic file", "*.txtlyc"),),
         initialdir="./notes",
-        title="Save your note:")
+        title="Save your note:",
+    )
     if noteFile:
         global saved
         saved = True
@@ -954,8 +931,7 @@ def saveNoteAs(_=False):
         noteFile.close()
         # Messagebox
         openedFileNameStrip = re.sub("C:/.*/", "", str(openedFileName))
-        tkinter.messagebox.showinfo(
-            " ", f"Successfully saved note as \"{openedFileNameStrip}\"   ")
+        tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
     return "break"
 
 
@@ -1006,7 +982,7 @@ def saveNote(_=False):
         elif greenTheme is True:
             new_content.append("<colortheme>\naccentgreen(window, accentItems, titleBar, menu, notes)\n</colortheme>")
 
-        new_content_str = ''.join(new_content)
+        new_content_str = "".join(new_content)
 
         # Get the current content of the file
         note_file_path = os.path.join(dataPath, openedFileName)
@@ -1033,11 +1009,11 @@ def clearCache():
 
     imagesToBeSaved = []
     pathToNotes = "./Notes"
-    pathToNotes = os.path.join(pathToNotes, '*.txtlyc')
+    pathToNotes = os.path.join(pathToNotes, "*.txtlyc")
     pathToNotes = pathToNotes.replace("\\", "/")
 
     pathToImages = "./res/cache_images_"
-    pathToImages = os.path.join(pathToImages, '*.*')
+    pathToImages = os.path.join(pathToImages, "*.*")
     pathToImages = pathToImages.replace("\\", "/")
 
     for filename in glob.glob(pathToNotes):
@@ -1049,7 +1025,8 @@ def clearCache():
         matchImg = re.match(
             r".*<images>\n(.*)\n</images>",
             str(readContent),
-            flags=re.DOTALL | re.MULTILINE)
+            flags=re.DOTALL | re.MULTILINE,
+        )
 
         if matchImg:
             images = eval(matchImg.group(1))
@@ -1096,20 +1073,22 @@ def windowdestroy(_=False):
     # Save window position to registry before closing
     x, y = window.winfo_x(), window.winfo_y()
     width, height = window.winfo_width(), window.winfo_height()
-    key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, 'Software\\Textylyc\\' + openedFileName)
-    winreg.SetValueEx(key, 'x', 0, winreg.REG_SZ, str(x))
-    winreg.SetValueEx(key, 'y', 0, winreg.REG_SZ, str(y))
-    winreg.SetValueEx(key, 'width', 0, winreg.REG_SZ, str(width))
-    winreg.SetValueEx(key, 'height', 0, winreg.REG_SZ, str(height))
+    key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, "Software\\Textylyc\\" + openedFileName)
+    winreg.SetValueEx(key, "x", 0, winreg.REG_SZ, str(x))
+    winreg.SetValueEx(key, "y", 0, winreg.REG_SZ, str(y))
+    winreg.SetValueEx(key, "width", 0, winreg.REG_SZ, str(width))
+    winreg.SetValueEx(key, "height", 0, winreg.REG_SZ, str(height))
     winreg.CloseKey(key)
-    
+
     if (not openedFileName) and (not whitespaceStr(notes.get("1.0", "end"))):
         # Confirmbox
-        confirmSave = tkinter.messagebox.askyesnocancel("Confirmation",
-                                                        "Do you want to save this note \
+        confirmSave = tkinter.messagebox.askyesnocancel(
+            "Confirmation",
+            "Do you want to save this note \
                                             before you leave?   ",
-                                                        icon="warning",
-                                                        default="no")
+            icon="warning",
+            default="no",
+        )
         if confirmSave is True:
             saveNoteAs()
         elif confirmSave is False:
@@ -1124,9 +1103,11 @@ def on_focus_in(event):
     global window_is_focused
     window_is_focused = True
 
+
 def on_focus_out(event):
     global window_is_focused
     window_is_focused = False
+
 
 def topOrNot():
     """
@@ -1146,7 +1127,7 @@ def topOrNot():
         window.lift()
         if isOverlayEnabled:
             window.attributes("-topmost", False)
-            overlay.attributes('-topmost', True)
+            overlay.attributes("-topmost", True)
         else:
             window.attributes("-topmost", True)
     else:
@@ -1159,10 +1140,15 @@ def topOrNot():
             else:
                 window.lower()
                 window.attributes("-topmost", False)
-        elif (not windows.isMaximized and windows.title != "" and
-                windows.title != "Textylic" and windows.title !=
-                "Choose a note:" and windows.title != "Save your note:" and
-                windows.title != "Choose an Image:" and windows.title != "tk"):
+        elif (
+            not windows.isMaximized
+            and windows.title != ""
+            and windows.title != "Textylic"
+            and windows.title != "Choose a note:"
+            and windows.title != "Save your note:"
+            and windows.title != "Choose an Image:"
+            and windows.title != "tk"
+        ):
             if isOverlayEnabled:
                 overlay.deiconify()
                 overlay.attributes("-topmost", False)
@@ -1174,10 +1160,14 @@ def topOrNot():
                 window.deiconify()
                 window.attributes("-topmost", False)
                 window.lower()
-        elif (not windows.isMaximized and windows.title != "" and
-                windows.title == "Textylic" or windows.title ==
-                "Choose a note:" or windows.title == "Save your note:" or
-                windows.title == "Choose an Image:"):
+        elif (
+            not windows.isMaximized
+            and windows.title != ""
+            and windows.title == "Textylic"
+            or windows.title == "Choose a note:"
+            or windows.title == "Save your note:"
+            or windows.title == "Choose an Image:"
+        ):
             if isOverlayEnabled:
                 overlay.attributes("-topmost", False)
                 window.attributes("-topmost", False)
@@ -1224,16 +1214,19 @@ def getPos(event):
         window.geometry(
             # "410x410" + f'+{event.x_root + xwin}+{event.y_root + ywin}')
             # "310x310" + f'+{event.x_root + xwin}+{event.y_root + ywin}')
-            f'+{event.x_root + xwin}+{event.y_root + ywin}')
+            f"+{event.x_root + xwin}+{event.y_root + ywin}"
+        )
 
     startx = event.x_root
     starty = event.y_root
 
-    titleBar.bind('<B1-Motion>', moveWindow)
+    titleBar.bind("<B1-Motion>", moveWindow)
+
 
 def is_font_present(font_name):
     available_fonts = font.families()
     return font_name in available_fonts
+
 
 winDrive = fetchDrivePath()  # The windows directory letter
 
@@ -1250,7 +1243,8 @@ new = tkinter.Button(
     bd=0,
     bg="#2292ff",
     command=createNewWindow,
-    activebackground="#2292ff")
+    activebackground="#2292ff",
+)
 new.image = window.newButtonImage
 new.grid(row=0, column=0, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 new.image = window.newButtonImage
@@ -1264,7 +1258,8 @@ save = tkinter.Button(
     bg="#2292ff",
     pady=4,
     activebackground="#2292ff",
-    command=saveNote)
+    command=saveNote,
+)
 save.image = window.saveButtonImage
 save.grid(row=0, column=1, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 accentItems.append(save)
@@ -1277,14 +1272,10 @@ openlink = tkinter.Button(
     bg="#2292ff",
     pady=4,
     command=openLink,
-    activebackground="#2292ff")
+    activebackground="#2292ff",
+)
 openLink.image = window.linkButtonImage
-openlink.grid(
-    row=0,
-    column=2,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+openlink.grid(row=0, column=2, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 accentItems.append(openlink)
 
 # Notes Text widget container
@@ -1293,7 +1284,8 @@ notesFrame = tkinter.Frame(
     relief="flat",
     bg="#040412",
     height=window.TkScale(244),
-    width=window.TkScale(320))
+    width=window.TkScale(320),
+)
 notesFrame.grid(row=1, column=0, columnspan=5, sticky="NSEW")
 notesFrame.grid_rowconfigure(0, weight=1)
 notesFrame.grid_columnconfigure(0, weight=1)
@@ -1314,10 +1306,8 @@ notes = tkinter.Text(
     wrap="word",
     height=10.5,
     width=39,
-    tabs=(
-        "0.5c",
-        "3c",
-         "5c"))
+    tabs=("0.5c", "3c", "5c"),
+)
 notes.grid(row=0, column=0, rowspan=5, columnspan=5, sticky="NSEW")
 notes.delete("1.0", "end")
 segoe_font = font.Font(notes, notes.cget("font"))
@@ -1333,7 +1323,8 @@ menu = tkinter.Menubutton(
     bg="#2292ff",
     relief="flat",
     pady=4,
-    activebackground="#2292ff")
+    activebackground="#2292ff",
+)
 menu.image = window.menuButtonImage
 menu.grid(row=0, column=3, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 accentItems.append(menu)
@@ -1350,7 +1341,8 @@ menu.menu = tkinter.Menu(
     activeborderwidth=0,
     activebackground="#c4c4c4",
     activeforeground="#000000",
-    selectcolor="black")
+    selectcolor="black",
+)
 
 advancedMenu = tkinter.Menu(
     menu.menu,
@@ -1361,7 +1353,8 @@ advancedMenu = tkinter.Menu(
     activeborderwidth=0,
     activebackground="#c4c4c4",
     activeforeground="#000000",
-    selectcolor="black")
+    selectcolor="black",
+)
 advancedMenu.add_command(label="Notes List", command=openNotesList)
 advancedMenu.add_command(label="Clear Cache", command=clearCache)
 # advancedMenu.add_command(label="Minimize to systray", command=minSysTray)
@@ -1370,31 +1363,25 @@ menu["menu"] = menu.menu
 
 menu.menu.add_command(label="Choose theme:")
 menu.menu.add_radiobutton(label="Blue", command=lambda: accentblue(window, accentItems, titleBar, menu, notes))
-menu.menu.add_radiobutton(label="Yellow", command=lambda: accentyellow(window, accentItems, titleBar, menu, notes))
-menu.menu.add_radiobutton(label="Green", command=lambda: accentgreen(window, accentItems, titleBar, menu, notes))
+menu.menu.add_radiobutton(
+    label="Yellow",
+    command=lambda: accentyellow(window, accentItems, titleBar, menu, notes),
+)
+menu.menu.add_radiobutton(
+    label="Green",
+    command=lambda: accentgreen(window, accentItems, titleBar, menu, notes),
+)
 menu.menu.add_radiobutton(label="Pink", command=lambda: accentpink(window, accentItems, titleBar, menu, notes))
 
 menu.menu.add_separator()
 
 menu.menu.add_command(label="Open Note", command=openFileChoose)
-menu.menu.add_command(
-    label="Save Note",
-    command=saveNote,
-    accelerator="(Ctr+s)")
+menu.menu.add_command(label="Save Note", command=saveNote, accelerator="(Ctr+s)")
 menu.menu.add_cascade(label="More...", menu=advancedMenu)
 menu.menu.add_separator()
-menu.menu.add_command(
-    label="Undo",
-    command=notes.edit_undo,
-    accelerator="(Ctr+z)")
-menu.menu.add_command(
-    label="Redo",
-    command=notes.edit_redo,
-    accelerator="(Ctr+y)")
-menu.menu.add_command(
-    label="Quit",
-    command=windowdestroy,
-    accelerator="(Ctr+q)")
+menu.menu.add_command(label="Undo", command=notes.edit_undo, accelerator="(Ctr+z)")
+menu.menu.add_command(label="Redo", command=notes.edit_redo, accelerator="(Ctr+y)")
+menu.menu.add_command(label="Quit", command=windowdestroy, accelerator="(Ctr+q)")
 menu.menu.add_command(label="Help/About", command=openReadme)
 
 spacer = tkinter.Frame(titleBar, bg="#2292ff")
@@ -1408,15 +1395,10 @@ close_button = tkinter.Button(
     bg="#2292ff",
     command=windowdestroy,
     pady=4,
-    activebackground="#2292ff")
+    activebackground="#2292ff",
+)
 close_button.image = window.closeButtonImage
-close_button.grid(
-    row=0,
-    column=6,
-    sticky="E",
-    padx=(
-        window.TkScale(10),
-        window.TkScale(10)))
+close_button.grid(row=0, column=6, sticky="E", padx=(window.TkScale(10), window.TkScale(10)))
 accentItems.append(close_button)
 
 # # Bottom formatting bar
@@ -1433,7 +1415,8 @@ bold = tkinter.Button(
     pady=4,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 bold.image = window.boldButtonImage
 bold.grid(row=0, column=1, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
@@ -1446,14 +1429,10 @@ italic = tkinter.Button(
     pady=4,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 italic.image = window.italicButtonImage
-italic.grid(
-    row=0,
-    column=2,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+italic.grid(row=0, column=2, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 underline = tkinter.Button(
     bottom_bar,
@@ -1464,14 +1443,10 @@ underline = tkinter.Button(
     pady=4,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 underline.image = window.underButtonImage
-underline.grid(
-    row=0,
-    column=3,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+underline.grid(row=0, column=3, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 strikeThrough = tkinter.Button(
     bottom_bar,
@@ -1482,14 +1457,10 @@ strikeThrough = tkinter.Button(
     command=strikethrough,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 strikeThrough.image = window.strikeButtonImage
-strikeThrough.grid(
-    row=0,
-    column=4,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+strikeThrough.grid(row=0, column=4, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 bullet = tkinter.Button(
     bottom_bar,
@@ -1500,14 +1471,10 @@ bullet = tkinter.Button(
     command=bulletList,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 bullet.image = window.bulletButtonImage
-bullet.grid(
-    row=0,
-    column=5,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+bullet.grid(row=0, column=5, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 code = tkinter.Button(
     bottom_bar,
@@ -1518,7 +1485,8 @@ code = tkinter.Button(
     command=codify,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 code.image = window.codeButtonImage
 code.grid(row=0, column=6, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
@@ -1531,14 +1499,10 @@ insertl = tkinter.Button(
     command=link,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 insertl.image = window.insertlButtonImage
-insertl.grid(
-    row=0,
-    column=7,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+insertl.grid(row=0, column=7, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 colorText = tkinter.Button(
     bottom_bar,
@@ -1549,14 +1513,10 @@ colorText = tkinter.Button(
     command=setColor,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 colorText.image = window.colorButtonImage
-colorText.grid(
-    row=0,
-    column=8,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+colorText.grid(row=0, column=8, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 photoInsert = tkinter.Button(
     bottom_bar,
@@ -1567,14 +1527,10 @@ photoInsert = tkinter.Button(
     command=photoInserter,
     activebackground="#181926",
     fg="white",
-    padx=3)
+    padx=3,
+)
 photoInsert.image = window.colorButtonImage
-photoInsert.grid(
-    row=0,
-    column=9,
-    padx=smallPaddingX,
-    sticky="W",
-    pady=smallPaddingY)
+photoInsert.grid(row=0, column=9, padx=smallPaddingX, sticky="W", pady=smallPaddingY)
 
 # Positioning title bar and adding drag function
 titleBar.grid(row=0, column=0, columnspan=5, sticky="WE")
@@ -1638,21 +1594,22 @@ if args.file is not None:
     file_path = os.path.join(dataPath, args.file)
     if not os.path.exists(file_path):
         tkinter.messagebox.showerror("Error", f"File {args.file} does not exist.")
-        sys.exit(1) 
+        sys.exit(1)
     openFile(args.file)
 else:
     # Ask for a filename
     filename = simpledialog.askstring("Input", "Please enter a filename:")
     file_path = os.path.join(dataPath, filename)
-    
+
     # Check if file exists
     if os.path.exists(file_path):
         tkinter.messagebox.showerror("Error", f"File {filename} already exists.")
         sys.exit(1)  # Exit the application
     else:
         # Create and save a blank file
-        with open(file_path, 'w') as file:
+        with open(file_path, "w") as file:
             file.write("")
+
 
 def start_resize(event):
     global start_x, start_y, start_width, start_height
@@ -1661,6 +1618,7 @@ def start_resize(event):
     start_width = window.winfo_width()
     start_height = window.winfo_height()
 
+
 def perform_resize(event):
     delta_x = event.x_root - start_x
     delta_y = event.y_root - start_y
@@ -1668,8 +1626,10 @@ def perform_resize(event):
     new_height = start_height + delta_y
     window.geometry(f"{new_width}x{new_height}")
 
+
 overlay = False
 isOverlayEnabled = False
+
 
 def show_overlay():
     global overlay
@@ -1683,20 +1643,20 @@ def show_overlay():
     overlay.geometry(f"{width}x{height}+{x}+{y}")
     overlay.overrideredirect(1)
     overlay.grab_set()
-    
+
     canvas = tkinter.Canvas(overlay, width=width, height=height, bd=0, highlightthickness=0)
-    canvas.pack(fill='both', expand=True)
-    canvas.create_rectangle(0, 0, width, height, fill="#333") #, stipple="gray25")
-    
+    canvas.pack(fill="both", expand=True)
+    canvas.create_rectangle(0, 0, width, height, fill="#333")  # , stipple="gray25")
+
     overlay_label = tkinter.Label(overlay, text="Loading...", font=("Arial", 16), bg="#333", fg="white")
-    overlay_label.place(relx=0.5, rely=0.5, anchor='center')
+    overlay_label.place(relx=0.5, rely=0.5, anchor="center")
 
     isOverlayEnabled = True
 
+
 style = ttk.Style()
-style.layout("Black.TSizegrip",
-             [('Sizegrip.sizegrip', {'sticky': 'nswe'})])
-style.configure("Black.TSizegrip", background='#181926', foreground='#181926')
+style.layout("Black.TSizegrip", [("Sizegrip.sizegrip", {"sticky": "nswe"})])
+style.configure("Black.TSizegrip", background="#181926", foreground="#181926")
 
 # Add the gripper for resizing the window with the new style
 grip = ttk.Sizegrip(window, style="Black.TSizegrip")
