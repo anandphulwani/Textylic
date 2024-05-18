@@ -42,4 +42,11 @@ deletedImages = []  # List that holds all images that need to be deleted
 
 images = None
 
+color_map = {
+    Color.BLUE: {"bg": "#2292FF", "notesfrm_color": "#59C0E7"},
+    Color.YELLOW: {"bg": "#FBC02D", "notesfrm_color": "#E6B905"},
+    Color.GREEN: {"bg": "#65BA5A", "notesfrm_color": "#65BA5A"},
+    Color.PINK: {"bg": "#EB8EC6", "notesfrm_color": "#EB8EC6"}
+}
+
 currentThemeColor = Color.BLUE

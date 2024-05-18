@@ -102,14 +102,9 @@ def openFile(file: str):
         globalvars.notes.tag_configure("link", font=under_font, foreground="#00AFEC")
 
         # Text color
-        if globalvars.currentThemeColor == Color.BLUE:
-            globalvars.notes.tag_configure("emphColor", foreground="#2292FF")
-        elif globalvars.currentThemeColor == Color.YELLOW:
-            globalvars.notes.tag_configure("emphColor", foreground="#FBC02d")
-        elif globalvars.currentThemeColor == Color.GREEN:
-            globalvars.notes.tag_configure("emphColor", foreground="#65BA5A")
-        elif globalvars.currentThemeColor == Color.PINK:
-            globalvars.notes.tag_configure("emphColor", foreground="#EB8EC6")
+        color_settings = globalvars.color_map[globalvars.currentThemeColor]
+        bg_color = color_settings["bg"]
+        globalvars.notes.tag_configure("emphColor", foreground=bg_color)
         
         for format in formatting:
             # Apply formatting
