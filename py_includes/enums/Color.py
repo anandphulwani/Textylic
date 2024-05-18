@@ -8,3 +8,6 @@ class Color(Enum):
     
     def to_string(self):
         return self.name
+
+    def label(self):
+        return self.name.capitalize()

@@ -79,10 +79,8 @@ def create_top_menu():
 
     # Add commands to the menu
     menu.add_command(label="Choose theme:")
-    menu.add_radiobutton(label="Blue", command= lambda: set_color_theme(Color.BLUE))
-    menu.add_radiobutton(label="Yellow", command= lambda: set_color_theme(Color.YELLOW))
-    menu.add_radiobutton(label="Green", command= lambda: set_color_theme(Color.GREEN))
-    menu.add_radiobutton(label="Pink", command= lambda: set_color_theme(Color.PINK))
+    for color in Color:
+        menu.add_radiobutton(label=color.label(), command=lambda c=color: set_color_theme(c))
     menu.add_separator()
     menu.add_command(label="Open Note", command=openFileChoose)
     menu.add_command(label="Save Note", command=saveNote, accelerator="(Ctr+s)")
