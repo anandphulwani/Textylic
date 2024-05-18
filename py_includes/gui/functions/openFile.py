@@ -115,6 +115,7 @@ def openFile(file: str):
     if matchImg:
         # Getting the list of images
         globalvars.images = eval(matchImg.group(1))
+        if globalvars.images is not None:
         globalvars.allImagesGroup = []
         for imageList in globalvars.images:
             # Insert the images at appropriate index
