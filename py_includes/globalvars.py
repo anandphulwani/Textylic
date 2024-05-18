@@ -40,7 +40,7 @@ imgNumberName = 0  # A variable used to name images in chronological order
 accentItems = []  # List that holds all items that have accent color
 deletedImages = []  # List that holds all images that need to be deleted
 
-images = None
+images = []
 
 color_map = {
     Color.BLUE: {"bg": "#2292FF", "notesfrm_color": "#59C0E7"},
