@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from tkinter import PhotoImage, filedialog
 from PIL import Image
 from .... import globalvars
@@ -6,6 +7,10 @@ from .... import globalvars
 def photoInserter():
     """'Insert photo' button function"""
 
+    # Ensure the directory exists
+    cache_dir = "./res/cache_images_/"
+    os.makedirs(cache_dir, exist_ok=True)
+        
     dateTimeNow = str(datetime.now())
     dateTimeNow = dateTimeNow.replace("-", "_")
     dateTimeNow = dateTimeNow.replace(" ", "_")
