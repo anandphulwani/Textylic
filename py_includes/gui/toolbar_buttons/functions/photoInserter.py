@@ -43,4 +43,3 @@ def photoInserter():
     )
     globalvars.notes.image_create("insert", image=imgToInsert, name=f"image{globalvars.imgNumberName}")
     imgFile.close()
-    photo.close()
