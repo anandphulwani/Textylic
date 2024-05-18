@@ -1,0 +1,45 @@
+import os
+from .enums.Color import Color
+
+appdata_path = os.environ.get("APPDATA")
+dataPath = os.path.join(appdata_path, "Textylyc")
+
+# Ensure the path exists, if not, create it
+if not os.path.exists(dataPath):
+    os.makedirs(dataPath)
+
+window = None
+root = None
+titleBar = None
+menu_button = None
+notes = None
+
+start_x = None
+start_y = None
+start_width = None
+start_height = None
+
+window_is_focused = False
+
+openedFileName = False  # Getting opened file name
+openedFileName_lastModTime = False
+
+saved = False  # The saved variable
+
+overlay = False
+isOverlayEnabled = False
+
+smallPaddingX = None
+smallPaddingY = None
+
+top_menu_buttons = None
+bottom_menu_buttons = None
+
+allImagesGroup = []  # Reference list with images in it
+imgNumberName = 0  # A variable used to name images in chronological order
+accentItems = []  # List that holds all items that have accent color
+deletedImages = []  # List that holds all images that need to be deleted
+
+images = None
+
+currentThemeColor = Color.BLUE

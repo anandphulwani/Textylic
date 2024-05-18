@@ -7,8 +7,7 @@ def bind_hover_effects(widget, hover_image, normal_image):
     widget.bind("<Enter>", lambda e: change_image(widget, hover_image))
     widget.bind("<Leave>", lambda e: change_image(widget, normal_image))
 
-def mapping_button_images(window, buttons):
+def mapping_button_images(buttons):
     """Map buttons to their hover and normal images."""
-    # Apply hover effects to all buttons
-    for button_name, (widget, hover_image, normal_image) in buttons.items():
+    for _, (widget, hover_image, normal_image) in buttons.items():
         bind_hover_effects(widget, hover_image, normal_image)
