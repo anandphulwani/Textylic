@@ -32,15 +32,8 @@ def saveNote(_=False):
         new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
         new_content.append("<images>\n{}\n</images>\n\n".format(globalvars.images))
 
-        if globalvars.currentThemeColor == Color.BLUE:
-            new_content.append("<colortheme>\nset_color_theme(Color.BLUE)\n</colortheme>")
-        elif globalvars.currentThemeColor == Color.YELLOW:
-            new_content.append("<colortheme>\nset_color_theme(Color.YELLOW)\n</colortheme>")
-        elif globalvars.currentThemeColor == Color.GREEN:
-            new_content.append("<colortheme>\nset_color_theme(Color.GREEN)\n</colortheme>")
-        elif globalvars.currentThemeColor == Color.PINK:
-            new_content.append("<colortheme>\nset_color_theme(Color.PINK)\n</colortheme>")
-        
+        new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>")
+
         new_content_str = "".join(new_content)
 
         # Get the current content of the file
