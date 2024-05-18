@@ -5,6 +5,7 @@ from tkinter import PhotoImage
 from ...enums.Color import Color
 from ... import globalvars
 from ...helpers.is_font_present import is_font_present
+from ...color_theme import set_color_theme
 
 def openFile(file: str):
     """Open a file with the file dialog"""
