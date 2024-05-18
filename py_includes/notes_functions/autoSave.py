@@ -1,5 +1,5 @@
 ﻿from .. import globalvars
-from ..gui.functions import saveNote
+from ..gui.functions.saveNote import saveNote
 
 def autoSave():
     """Auto saves the note"""

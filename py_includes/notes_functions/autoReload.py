@@ -1,5 +1,5 @@
 ﻿from .. import globalvars
-from ..gui.functions import openFile
+from ..gui.functions.openFile import openFile
 
 def autoReload():
     """Auto reloads the note"""

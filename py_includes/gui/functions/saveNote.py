@@ -1,7 +1,7 @@
 ﻿import os
 from ...enums.Color import Color
 from ... import globalvars
-from ...notes_functions import getTags
+from ...notes_functions.getTags import getTags
 from .saveNoteAs import saveNoteAs
 
 def saveNote(_=False):
