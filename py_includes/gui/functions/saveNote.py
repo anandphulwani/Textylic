@@ -37,7 +37,7 @@ def saveNote(_=False):
         new_content_str = "".join(new_content)
 
         # Get the current content of the file
-        note_file_path = os.path.join(globals.datapath, globalvars.openedFileName)
+        note_file_path = os.path.join(globalvars.dataPath, globalvars.openedFileName)
         try:
             with open(note_file_path, "r") as noteFile:
                 current_content = noteFile.read()
