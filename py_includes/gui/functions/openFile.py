@@ -116,13 +116,13 @@ def openFile(file: str):
         # Getting the list of images
         globalvars.images = eval(matchImg.group(1))
         if globalvars.images is not None:
-        globalvars.allImagesGroup = []
-        for imageList in globalvars.images:
-            # Insert the images at appropriate index
-            imageToInsert = PhotoImage(file=f"{imageList[0]}.png")
-            globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
-            globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
-            globalvars.allImagesGroup.append(imageToInsert)
+            globalvars.allImagesGroup = []
+            for imageList in globalvars.images:
+                # Insert the images at appropriate index
+                imageToInsert = PhotoImage(file=f"{imageList[0]}.png")
+                globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
+                globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
+                globalvars.allImagesGroup.append(imageToInsert)
 
     if matchTheme:
         # Getting the theme of the note
