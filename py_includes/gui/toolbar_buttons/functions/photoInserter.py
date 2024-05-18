@@ -1,5 +1,6 @@
 from datetime import datetime
-from tkinter import Image, PhotoImage, filedialog
+from tkinter import PhotoImage, filedialog
+from PIL import Image
 from .... import globalvars
 
 def photoInserter():
