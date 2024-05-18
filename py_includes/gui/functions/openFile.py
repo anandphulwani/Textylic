@@ -10,6 +10,9 @@ from ...color_theme import set_color_theme
 def openFile(file: str):
     """Open a file with the file dialog"""
 
+    if file is None or file == "":
+        return
+    
     noteFile = file
     if noteFile:
         globalvars.openedFileName = noteFile
