@@ -1,4 +1,5 @@
 ﻿import tkinter
+
 from ... import globalvars
 from .functions.bolder import bolder
 from .functions.italicizer import italicizer
@@ -9,22 +10,7 @@ from .functions.codify import codify
 from .functions.link import link
 from .functions.setColor import setColor
 from .functions.photoInserter import photoInserter
-
-def create_button(parent, image, command, row, column, padx, pady, bg="#181926", activebackground="#181926", bd=0, fg="white"):
-    button = tkinter.Button(
-        parent,
-        image=image,
-        bd=bd,
-        bg=bg,
-        command=command,
-        activebackground=activebackground,
-        fg=fg,
-        padx=3,
-        pady=4,
-    )
-    button.image = image
-    button.grid(row=row, column=column, padx=padx, sticky="W", pady=pady)
-    return button
+from .create_button import create_button
 
 def create_bottom_menu():
     bottom_bar = tkinter.Frame(globalvars.window, relief="flat", bg="#181926", pady=3)

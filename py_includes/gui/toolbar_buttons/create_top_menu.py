@@ -11,22 +11,7 @@ from ..functions.openReadme import openReadme
 from ..functions.saveNote import saveNote
 from ..functions.windowdestroy import windowdestroy
 from ...color_theme import set_color_theme
-
-def create_button(parent, image, command, row, column, padx, pady, sticky="W", bg="#2292FF", active_bg="#2292FF"):
-    """Create a button and add it to the accent items list."""
-    button = tkinter.Button(
-        parent,
-        image=image,
-        bd=0,
-        bg=bg,
-        activebackground=active_bg,
-        command=command,
-    )
-    button.image = image
-    button.grid(row=row, column=column, padx=padx, pady=pady, sticky=sticky)
-    globalvars.accentItems.append(button)
-    return button
-
+from .create_button import create_button
 
 def create_menu_button(parent, image, menu_config, row, column, padx, pady, bg="#2292FF", active_bg="#2292FF"):
     """Create a menu button, configure it, and add it to the accent items list."""
@@ -64,11 +49,11 @@ def create_top_menu():
     # Create buttons
     globalvars.top_menu_buttons = {}
     globalvars.top_menu_buttons["new"] = create_button(
-        globalvars.titleBar, globalvars.window.newButtonImage, createNewWindow, 0, 0, globalvars.smallPaddingX, globalvars.smallPaddingY
+        globalvars.titleBar, globalvars.window.newButtonImage, createNewWindow, 0, 0, globalvars.smallPaddingX, globalvars.smallPaddingY, sticky="W", bg="#2292FF", active_bg="#2292FF", add_to_accent_items=True
     )
-    globalvars.top_menu_buttons["save"] = create_button(globalvars.titleBar, globalvars.window.saveButtonImage, saveNote, 0, 1, globalvars.smallPaddingX, globalvars.smallPaddingY)
+    globalvars.top_menu_buttons["save"] = create_button(globalvars.titleBar, globalvars.window.saveButtonImage, saveNote, 0, 1, globalvars.smallPaddingX, globalvars.smallPaddingY, sticky="W", bg="#2292FF", active_bg="#2292FF", add_to_accent_items=True)
     globalvars.top_menu_buttons["openlink"] = create_button(
-        globalvars.titleBar, globalvars.window.openlinkButtonImage, openLink, 0, 2, globalvars.smallPaddingX, globalvars.smallPaddingY
+        globalvars.titleBar, globalvars.window.openlinkButtonImage, openLink, 0, 2, globalvars.smallPaddingX, globalvars.smallPaddingY, sticky="W", bg="#2292FF", active_bg="#2292FF", add_to_accent_items=True
     )
 
     # Create menu button and its menu
@@ -115,4 +100,7 @@ def create_top_menu():
         (globalvars.window.TkScale(10), globalvars.window.TkScale(10)),
         globalvars.smallPaddingY,
         sticky="E",
+        bg="#2292FF", 
+        active_bg="#2292FF",
+        add_to_accent_items=True
     )
