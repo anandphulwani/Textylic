@@ -18,7 +18,7 @@ from py_includes.dpi_aware import MakeTkDPIAware
 from py_includes.enums.Color import Color
 from py_includes.gui.focus_related.on_focus_in import on_focus_in
 from py_includes.gui.focus_related.on_focus_out import on_focus_out
-from py_includes.gui.functions.openFile import openFile
+from py_includes.gui.functions.openFile import openFile, setup_tags
 from py_includes.gui.shortcuts_binding import attach_keyboard_shortcuts
 from py_includes.gui.toolbar_buttons.create_bottom_menu import create_bottom_menu
 from py_includes.gui.window_related.perform_resize import perform_resize
@@ -130,6 +130,8 @@ segoe_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
 globalvars.window.update_idletasks()
 segoe_font.configure(family="Arial", size=globalvars.window.TkScale(11))
 globalvars.notes.configure(font=segoe_font)
+
+setup_tags()
 
 create_top_menu()
 create_bottom_menu()
