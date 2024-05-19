@@ -5,7 +5,62 @@ from tkinter import PhotoImage
 from ...enums.Color import Color
 from ... import globalvars
 from ...helpers.is_font_present import is_font_present
+from ...helpers.configure_font import configure_font
 from ...color_theme import set_color_theme
+
+def setup_tags():
+    base_font = globalvars.notes.cget("font")
+    fonts = {
+        "bold": configure_font(base_font, weight="bold"),
+        "italic": configure_font(base_font, slant="italic"),
+        "underline": configure_font(base_font, underline=True),
+        "strikethrough": configure_font(base_font, overstrike=True),
+        "bold_italic": configure_font(base_font, weight="bold", slant="italic"),
+        "bold_underline": configure_font(base_font, weight="bold", underline=True),
+        "italic_underline": configure_font(base_font, slant="italic", underline=True),
+        "strikethrough_bold": configure_font(base_font, overstrike=True, weight="bold"),
+        "strikethrough_italic": configure_font(base_font, overstrike=True, slant="italic"),
+        "strikethrough_underline": configure_font(base_font, overstrike=True, underline=True),
+        "strikethrough_bold_italic": configure_font(base_font, overstrike=True, weight="bold", slant="italic"),
+        "bold_italic_underline": configure_font(base_font, weight="bold", slant="italic", underline=True),
+        "strikethrough_bold_underline": configure_font(base_font, overstrike=True, weight="bold", underline=True),
+        "strikethrough_italic_underline": configure_font(base_font, overstrike=True, slant="italic", underline=True),
+        "strikethrough_bold_italic_underline": configure_font(base_font, overstrike=True, weight="bold", slant="italic", underline=True),
+        "code": configure_font("JetBrainsMono NF", size=10) if is_font_present("JetBrainsMono NF") else configure_font("Consolas", size=11),
+        "link": configure_font(base_font, underline=True),
+        "color_text": configure_font(base_font),  # Add color separately
+    }
+
+    color_settings = globalvars.color_map[globalvars.currentThemeColor]
+    bg_color = color_settings["bg"]
+
+    for tag, font in fonts.items():
+        if tag == "link":
+            globalvars.notes.tag_configure(tag, font=font, foreground="#00AFEC")
+        elif tag == "color_text":
+            globalvars.notes.tag_configure(tag, font=font, foreground=bg_color)
+        else:
+            globalvars.notes.tag_configure(tag, font=font)
+
+def apply_formatting(formatting):
+    for format in formatting:
+        combined_tags = []
+        for tag in format[2]:
+            tag_name = str(tag).strip("}{/.\\")
+
+            # Combine basic tags for bold, italic, underline, and strikethrough
+            if tag_name in ["bold", "italic", "underline", "strikethrough"]:
+                combined_tags.append(tag_name)
+
+        if combined_tags:
+            combined_tag = '_'.join(sorted(combined_tags))
+            globalvars.notes.tag_add(combined_tag, format[0], format[1])
+        else:
+            for tag in format[2]:
+                tag_name = str(tag).strip("}{/.\\")
+
+                # Add other tags as they are
+                globalvars.notes.tag_add(tag_name, format[0], format[1])
 
 def openFile(file: str):
     """Open a file with the file dialog"""
@@ -41,79 +96,9 @@ def openFile(file: str):
     globalvars.notes.insert("end", read)
 
     if matchStyle:
-        # Bold fonts and tags
-        formatting = matchStyle.group(1)
-        formatting = eval(formatting)
-
-        bold_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        bold_font.configure(weight="bold")
-
-        italicBold_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        italicBold_font.configure(slant="italic", weight="bold")
-
-        underBold_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        underBold_font.configure(underline=True, weight="bold")
-
-        strikeBold_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        strikeBold_font.configure(overstrike=True, weight="bold")
-
-        globalvars.notes.tag_configure("bold", font=bold_font)
-        globalvars.notes.tag_configure("italicBold", font=italicBold_font)
-        globalvars.notes.tag_configure("underBold", font=underBold_font)
-        globalvars.notes.tag_configure("strikeBold", font=strikeBold_font)
-
-        # Italic fonts and tags
-        italic_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        italic_font.configure(slant="italic")
-
-        boldItalic_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        boldItalic_font.configure(slant="italic", weight="bold")
-
-        underItalic_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        underItalic_font.configure(underline=True, slant="italic")
-
-        strikeItalic_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        strikeItalic_font.configure(overstrike=True, slant="italic")
-
-        globalvars.notes.tag_configure("italic", font=italic_font)
-        globalvars.notes.tag_configure("boldItalic", font=boldItalic_font)
-        globalvars.notes.tag_configure("underItalic", font=underItalic_font)
-        globalvars.notes.tag_configure("strikeItalic", font=strikeItalic_font)
-
-        # Code font and tags
-        desired_font = ("JetBrainsMono NF", 10) if is_font_present("JetBrainsMono NF") else "Consolas 11"
-        globalvars.notes.tag_configure("code", font=desired_font)
-
-        # Underline font and tags
-        under_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        under_font.configure(underline=True)
-
-        boldUnder_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        boldUnder_font.configure(underline=True, weight="bold")
-
-        italicUnder_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        italicUnder_font.configure(underline=True, slant="italic")
-
-        strikeUnder_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-        strikeUnder_font.configure(overstrike=True, underline=True)
-
-        globalvars.notes.tag_configure("underline", font=under_font)
-        globalvars.notes.tag_configure("boldUnder", font=boldUnder_font)
-        globalvars.notes.tag_configure("italicUnder", font=italicUnder_font)
-        globalvars.notes.tag_configure("strikeUnder", font=strikeUnder_font)
-
-        # Link font
-        globalvars.notes.tag_configure("link", font=under_font, foreground="#00AFEC")
-
-        # Text color
-        color_settings = globalvars.color_map[globalvars.currentThemeColor]
-        bg_color = color_settings["bg"]
-        globalvars.notes.tag_configure("emphColor", foreground=bg_color)
-        
-        for format in formatting:
-            # Apply formatting
-            for tag in format[2]:
-                globalvars.notes.tag_add(str(tag).strip("}{/.\\"), format[0], format[1])
+        formatting = eval(matchStyle.group(1))
+        setup_tags()
+        apply_formatting(formatting)
 
     if matchImg:
         # Getting the list of images
