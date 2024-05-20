@@ -38,7 +38,6 @@ bottom_menu_buttons = None
 allImagesGroup = []  # Reference list with images in it
 imgNumberName = 0  # A variable used to name images in chronological order
 accentItems = []  # List that holds all items that have accent color
-deletedImages = []  # List that holds all images that need to be deleted
 
 images = []
 

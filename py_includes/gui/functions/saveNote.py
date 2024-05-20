@@ -3,26 +3,40 @@ from ...enums.Color import Color
 from ... import globalvars
 from ...notes_functions.getTags import getTags
 from .saveNoteAs import saveNoteAs
+from ...helpers.get_calling_script_path import get_calling_script_path
 
 def saveNote(_=False):
     """Save the note"""
 
-    for imgName in globalvars.notes.image_names():
-        # Saving the list of image names
-        index = globalvars.notes.index(str(imgName))
+    deletedImages = []  # List that holds all images that need to be deleted
+    image_names = globalvars.notes.image_names()
+    if image_names:
+        for imgName in image_names:
+            # Saving the list of image names
+            index = globalvars.notes.index(str(imgName))
 
+            for image in globalvars.images:
+                # Deleting unused images from the list
+                if image[2] in image_names:
+                    if image[2] == imgName:
+                        image[1] = index
+                else:
+                    if image not in deletedImages:
+                        deletedImages.append(image)
+    else:
+        # Handle case where image_names is empty
         for image in globalvars.images:
-            # Deleting unused images from the list
-            if image[2] in globalvars.notes.image_names():
-                if image[2] == imgName:
-                    image[1] = index
-            else:
-                globalvars.deletedImages.append(image)
+            if image not in deletedImages:
+                deletedImages.append(image)
 
-    for deletedImage in globalvars.deletedImages:
+    for deletedImage in deletedImages:
         # Deleting the unused images from `images` list
         try:
-            globalvars.images.remove(deletedImage)
+            globalvars.images.remove(deletedImage)            
+            deletedImage[0] = os.path.join(os.path.dirname(get_calling_script_path()), deletedImage[0] + ".png")
+            deletedImage[0] = deletedImage[0].replace(os.sep, '/') if os.name == 'nt' else deletedImage[0]
+            if os.path.exists(deletedImage[0]):
+                os.remove(deletedImage[0])
         except BaseException:
             pass
 
