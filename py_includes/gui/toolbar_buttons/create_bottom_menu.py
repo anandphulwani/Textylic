@@ -2,7 +2,6 @@
 
 from ... import globalvars
 from ...helpers.tags import toggle_notes_tag
-from .functions.bulletList import bulletList
 from .functions.photoInserter import photoInserter
 from .create_button import create_button
 
@@ -15,7 +14,7 @@ def create_bottom_menu():
         ("italic", globalvars.window.italicButtonImage, lambda: toggle_notes_tag('italic'), 0, 2),
         ("underline", globalvars.window.underlineButtonImage, lambda: toggle_notes_tag('underline'), 0, 3),
         ("strikethrough", globalvars.window.strikethroughButtonImage, lambda: toggle_notes_tag('strikethrough'), 0, 4),
-        ("bullet", globalvars.window.bulletButtonImage, bulletList, 0, 5),
+        ("bullet", globalvars.window.bulletButtonImage, lambda: toggle_notes_tag('bullet'), 0, 5),
         ("code", globalvars.window.codeButtonImage, lambda: toggle_notes_tag('code'), 0, 6),
         ("insertl", globalvars.window.insertlButtonImage, lambda: toggle_notes_tag('link'), 0, 7),
         ("colortext", globalvars.window.colortextButtonImage, lambda: toggle_notes_tag('colortext'), 0, 8),
