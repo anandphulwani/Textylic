@@ -51,4 +51,4 @@ color_map = {
 
 currentThemeColor = Color.BLUE
 
-notes_tags_options = ["bold", "italic", "underline", "strikethrough", "code", "createlink", "colortext", "bullet"]
+notes_tags_options = ["bold", "italic", "underline", "strikethrough", "bullet", "code", "createlink", "colortext"]
