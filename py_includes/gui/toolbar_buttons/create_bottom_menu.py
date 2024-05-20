@@ -10,16 +10,10 @@ def create_bottom_menu():
     bottom_bar.grid(row=3, column=0, columnspan=10, rowspan=1, sticky="SWE")
 
     button_configs = [
-        ("bold", globalvars.window.boldButtonImage, lambda: toggle_notes_tag('bold'), 0, 1),
-        ("italic", globalvars.window.italicButtonImage, lambda: toggle_notes_tag('italic'), 0, 2),
-        ("underline", globalvars.window.underlineButtonImage, lambda: toggle_notes_tag('underline'), 0, 3),
-        ("strikethrough", globalvars.window.strikethroughButtonImage, lambda: toggle_notes_tag('strikethrough'), 0, 4),
-        ("bullet", globalvars.window.bulletButtonImage, lambda: toggle_notes_tag('bullet'), 0, 5),
-        ("code", globalvars.window.codeButtonImage, lambda: toggle_notes_tag('code'), 0, 6),
-        ("createlink", globalvars.window.createlinkButtonImage, lambda: toggle_notes_tag('createlink'), 0, 7),
-        ("colortext", globalvars.window.colortextButtonImage, lambda: toggle_notes_tag('colortext'), 0, 8),
-        ("photoinsert", globalvars.window.photoinsertButtonImage, photoInserter, 0, 9),
+        (tag, getattr(globalvars.window, f"{tag}ButtonImage"), lambda t=tag: toggle_notes_tag(t), 0, index + 1)
+        for index, tag in enumerate(globalvars.notes_tags_options)
     ]
+    button_configs.append(("photoinsert", globalvars.window.photoinsertButtonImage, photoInserter, 0, 9))
 
     globalvars.bottom_menu_buttons = {}
     for name, image, command, row, column in button_configs:
