@@ -11,13 +11,13 @@ def openLink(_=False):
     # Get all tags at the cursor position
     current_tags = globalvars.notes.tag_names(cursor_index)
     
-    if "link" in current_tags:
+    if "createlink" in current_tags:
         # Find the start and end indices of the link
         start = cursor_index
-        while "link" in globalvars.notes.tag_names(f"{start} -1c"):
+        while "createlink" in globalvars.notes.tag_names(f"{start} -1c"):
             start = globalvars.notes.index(f"{start} -1c")
         end = cursor_index
-        while "link" in globalvars.notes.tag_names(f"{end} +1c"):
+        while "createlink" in globalvars.notes.tag_names(f"{end} +1c"):
             end = globalvars.notes.index(f"{end} +1c")
         end = globalvars.notes.index(f"{end} +1c")
         

@@ -16,7 +16,7 @@ def create_bottom_menu():
         ("strikethrough", globalvars.window.strikethroughButtonImage, lambda: toggle_notes_tag('strikethrough'), 0, 4),
         ("bullet", globalvars.window.bulletButtonImage, lambda: toggle_notes_tag('bullet'), 0, 5),
         ("code", globalvars.window.codeButtonImage, lambda: toggle_notes_tag('code'), 0, 6),
-        ("insertl", globalvars.window.insertlButtonImage, lambda: toggle_notes_tag('link'), 0, 7),
+        ("createlink", globalvars.window.createlinkButtonImage, lambda: toggle_notes_tag('createlink'), 0, 7),
         ("colortext", globalvars.window.colortextButtonImage, lambda: toggle_notes_tag('colortext'), 0, 8),
         ("photoinsert", globalvars.window.photoinsertButtonImage, photoInserter, 0, 9),
     ]

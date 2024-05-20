@@ -99,14 +99,14 @@ def setup_tags():
                 "size": 10 if "code" in combination and is_font_present("JetBrainsMono NF") else 11,
                 "family": "JetBrainsMono NF" if "code" in combination and is_font_present("JetBrainsMono NF") else base_font_name
             }
-            if "link" in combination:
+            if "createlink" in combination:
                 font_kwargs["underline"] = True
             fonts[combination_name] = configure_font(base_font_name, **font_kwargs)
             # print(combination_name)
 
     # Configure tags in the Text widget
     for tag, font in fonts.items():
-        if "link" in tag:
+        if "createlink" in tag:
             globalvars.notes.tag_configure(tag, font=font, foreground="#00AFEC")
         elif "colortext" in tag:
             print(f"{random.randint(0, 1000)} {globalvars.currentThemeColor}")
