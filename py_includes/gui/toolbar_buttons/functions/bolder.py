@@ -1,11 +1,11 @@
 ﻿from .... import globalvars
-from ....helpers.tags import remove_tag, update_tag, get_current_tags
+from ....helpers.tags import remove_tag, update_tag, get_current_tag_as_string
 import tkinter as tk
 
 def bolder(_=False):
     """Bold button function"""
     try:
-        current_tags = get_current_tags(globalvars.notes)
+        current_tags = get_current_tag_as_string(globalvars.notes)
         # print(f'current_tags: {current_tags}')
         if "bold" in current_tags:
             remove_tag(globalvars.notes, "bold")

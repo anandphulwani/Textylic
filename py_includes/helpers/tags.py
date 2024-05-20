@@ -5,10 +5,10 @@ from .. import globalvars
 from ..helpers.is_font_present import is_font_present
 from ..helpers.configure_font import configure_font
 
-def get_current_tags(text_widget):
+def get_current_tag_as_string(text_widget):
     try:
         current_tags = text_widget.tag_names("sel.first")
-        print(f'get_current_tags: {current_tags}')
+        print(f'get_current_tag_as_string: {current_tags}')
         notes_tags = [tag for tag in current_tags if all(element in globalvars.notes_tags_options for element in tag.split("+"))]
         return notes_tags[0] if notes_tags else ""
     except tk.TclError:
@@ -33,7 +33,7 @@ def remove_existing_tag(existing_tag, tag_to_remove):
 
 def update_tag(text_widget, add_tags):
     try:
-        existing_notes_tag = get_current_tags(text_widget)
+        existing_notes_tag = get_current_tag_as_string(text_widget)
         new_notes_tag = create_new_tag(existing_notes_tag, add_tags)
         if existing_notes_tag != "":
             text_widget.tag_remove(existing_notes_tag, "sel.first", "sel.last")
@@ -44,7 +44,7 @@ def update_tag(text_widget, add_tags):
 
 def remove_tag(text_widget, tag_to_remove):
     try:
-        existing_notes_tag = get_current_tags(text_widget)
+        existing_notes_tag = get_current_tag_as_string(text_widget)
         if existing_notes_tag == "":
             return
         new_notes_tag = remove_existing_tag(existing_notes_tag, tag_to_remove)
