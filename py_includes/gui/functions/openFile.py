@@ -1,66 +1,10 @@
 ﻿import os
 import re
-from tkinter import font
 from tkinter import PhotoImage
-from ...enums.Color import Color
 from ... import globalvars
-from ...helpers.is_font_present import is_font_present
-from ...helpers.configure_font import configure_font
+from ...helpers.tags import setup_tags
+from ...enums.Color import Color
 from ...color_theme import set_color_theme
-
-def setup_tags():
-    base_font = globalvars.notes.cget("font")
-    fonts = {
-        "bold": configure_font(base_font, weight="bold"),
-        "italic": configure_font(base_font, slant="italic"),
-        "underline": configure_font(base_font, underline=True),
-        "strikethrough": configure_font(base_font, overstrike=True),
-        "bold_italic": configure_font(base_font, weight="bold", slant="italic"),
-        "bold_underline": configure_font(base_font, weight="bold", underline=True),
-        "italic_underline": configure_font(base_font, slant="italic", underline=True),
-        "strikethrough_bold": configure_font(base_font, overstrike=True, weight="bold"),
-        "strikethrough_italic": configure_font(base_font, overstrike=True, slant="italic"),
-        "strikethrough_underline": configure_font(base_font, overstrike=True, underline=True),
-        "strikethrough_bold_italic": configure_font(base_font, overstrike=True, weight="bold", slant="italic"),
-        "bold_italic_underline": configure_font(base_font, weight="bold", slant="italic", underline=True),
-        "strikethrough_bold_underline": configure_font(base_font, overstrike=True, weight="bold", underline=True),
-        "strikethrough_italic_underline": configure_font(base_font, overstrike=True, slant="italic", underline=True),
-        "strikethrough_bold_italic_underline": configure_font(base_font, overstrike=True, weight="bold", slant="italic", underline=True),
-        "code": configure_font("JetBrainsMono NF", size=10) if is_font_present("JetBrainsMono NF") else configure_font("Consolas", size=11),
-        "link": configure_font(base_font, underline=True),
-        "color_text": configure_font(base_font),  # Add color separately
-    }
-
-    color_settings = globalvars.color_map[globalvars.currentThemeColor]
-    bg_color = color_settings["bg"]
-
-    for tag, font in fonts.items():
-        if tag == "link":
-            globalvars.notes.tag_configure(tag, font=font, foreground="#00AFEC")
-        elif tag == "color_text":
-            globalvars.notes.tag_configure(tag, font=font, foreground=bg_color)
-        else:
-            globalvars.notes.tag_configure(tag, font=font)
-
-def apply_formatting(formatting):
-    for format in formatting:
-        combined_tags = []
-        for tag in format[2]:
-            tag_name = str(tag).strip("}{/.\\")
-
-            # Combine basic tags for bold, italic, underline, and strikethrough
-            if tag_name in ["bold", "italic", "underline", "strikethrough"]:
-                combined_tags.append(tag_name)
-
-        if combined_tags:
-            combined_tag = '_'.join(sorted(combined_tags))
-            globalvars.notes.tag_add(combined_tag, format[0], format[1])
-        else:
-            for tag in format[2]:
-                tag_name = str(tag).strip("}{/.\\")
-
-                # Add other tags as they are
-                globalvars.notes.tag_add(tag_name, format[0], format[1])
 
 def openFile(file: str):
     """Open a file with the file dialog"""
@@ -94,11 +38,17 @@ def openFile(file: str):
 
     globalvars.notes.delete("1.0", "end")
     globalvars.notes.insert("end", read)
+    
+    if matchTheme:
+        # Getting the theme of the note
+        exec(matchTheme.group(1))
 
     if matchStyle:
         formatting = eval(matchStyle.group(1))
         setup_tags()
-        apply_formatting(formatting)
+        for format in formatting:
+            for tag in format[2]:
+                    globalvars.notes.tag_add(str(tag).strip("}{/.\\"), format[0], format[1]) if tag else None
 
     if matchImg:
         # Getting the list of images
@@ -111,10 +61,6 @@ def openFile(file: str):
                 globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
                 globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
                 globalvars.allImagesGroup.append(imageToInsert)
-
-    if matchTheme:
-        # Getting the theme of the note
-        exec(matchTheme.group(1))
 
     noteFile.close()
     globalvars.saved = True
