@@ -1,14 +1,8 @@
 ﻿import tkinter
 
 from ... import globalvars
-from .functions.bolder import bolder
-from .functions.italicizer import italicizer
-from .functions.underliner import underliner
-from .functions.strikethrough import strikethrough
+from ...helpers.tags import toggle_notes_tag
 from .functions.bulletList import bulletList
-from .functions.codify import codify
-from .functions.link import link
-from .functions.setColor import setColor
 from .functions.photoInserter import photoInserter
 from .create_button import create_button
 
@@ -17,14 +11,14 @@ def create_bottom_menu():
     bottom_bar.grid(row=3, column=0, columnspan=10, rowspan=1, sticky="SWE")
 
     button_configs = [
-        ("bold", globalvars.window.boldButtonImage, bolder, 0, 1),
-        ("italic", globalvars.window.italicButtonImage, italicizer, 0, 2),
-        ("underline", globalvars.window.underlineButtonImage, underliner, 0, 3),
-        ("strikethrough", globalvars.window.strikethroughButtonImage, strikethrough, 0, 4),
+        ("bold", globalvars.window.boldButtonImage, lambda: toggle_notes_tag('bold'), 0, 1),
+        ("italic", globalvars.window.italicButtonImage, lambda: toggle_notes_tag('italic'), 0, 2),
+        ("underline", globalvars.window.underlineButtonImage, lambda: toggle_notes_tag('underline'), 0, 3),
+        ("strikethrough", globalvars.window.strikethroughButtonImage, lambda: toggle_notes_tag('strikethrough'), 0, 4),
         ("bullet", globalvars.window.bulletButtonImage, bulletList, 0, 5),
-        ("code", globalvars.window.codeButtonImage, codify, 0, 6),
-        ("insertl", globalvars.window.insertlButtonImage, link, 0, 7),
-        ("colortext", globalvars.window.colortextButtonImage, setColor, 0, 8),
+        ("code", globalvars.window.codeButtonImage, lambda: toggle_notes_tag('code'), 0, 6),
+        ("insertl", globalvars.window.insertlButtonImage, lambda: toggle_notes_tag('link'), 0, 7),
+        ("colortext", globalvars.window.colortextButtonImage, lambda: toggle_notes_tag('colortext'), 0, 8),
         ("photoinsert", globalvars.window.photoinsertButtonImage, photoInserter, 0, 9),
     ]
 

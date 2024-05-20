@@ -31,6 +31,9 @@ def remove_existing_tag(existing_tag, tag_to_remove):
     new_tag_name = "+".join(existing_tags)
     return new_tag_name
 
+def is_notes_tag_present(existing_notes_tag, tag_to_search):
+    return tag_to_search in existing_notes_tag.split("+")
+
 def update_tag(text_widget, add_tags):
     try:
         existing_notes_tag = get_current_tag_as_string(text_widget)
@@ -54,6 +57,19 @@ def remove_tag(text_widget, tag_to_remove):
         print(f'remove_tag: existing_notes_tag: {existing_notes_tag}, new_notes_tag: {new_notes_tag}')
     except tk.TclError:
         pass  # No selection, do nothing
+
+def toggle_notes_tag(tag, _=False):
+    """Toggle a notes tag (e.g., bold, italic, etc..)"""
+    try:
+        current_tags = get_current_tag_as_string(globalvars.notes)
+        # print(f'current_tags: {current_tags}')
+        if is_notes_tag_present(current_tags, tag):
+            remove_tag(globalvars.notes, tag)
+        else:
+            update_tag(globalvars.notes, tag)
+    except tk.TclError:
+        pass
+    return "break"
 
 def setup_tags():
     base_font_name = globalvars.notes.cget("font").split()[0]
