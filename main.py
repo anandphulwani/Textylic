@@ -44,7 +44,7 @@ globalvars.window = tkinter.Toplevel()
 globalvars.window.title("Textylic")
 MakeTkDPIAware(globalvars.window)
 globalvars.window.attributes("-toolwindow", True, "-alpha", "0.99")
-globalvars.window.overrideredirect(1)
+
 if args.file is not None:
     try:
         key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Software\\Textylyc\\" + args.file)
@@ -61,6 +61,7 @@ if args.file is not None:
 else:
     globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
 
+globalvars.window.overrideredirect(True)
 globalvars.window.config(bg="#040412")
 globalvars.window.wait_visibility(globalvars.window)
 
