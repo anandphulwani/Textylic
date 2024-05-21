@@ -73,7 +73,6 @@ globalvars.window.grid_columnconfigure(0, weight=1)
 globalvars.window.grid_columnconfigure(1, weight=1)
 globalvars.window.grid_rowconfigure(1, weight=1)
 
-# smallPaddingX = 7
 globalvars.smallPaddingX = globalvars.window.TkScale(5)
 globalvars.smallPaddingY = globalvars.window.TkScale(4)
 
@@ -192,4 +191,5 @@ grip.bind("<ButtonPress-1>", start_resize)
 grip.bind("<B1-Motion>", perform_resize)
 
 # Update the window
-globalvars.window.mainloop()
+globalvars.window.deiconify()
+globalvars.root.mainloop()
