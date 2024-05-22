@@ -1164,50 +1164,6 @@ def accentblue():
     window.update()
 
 
-def topOrNot():
-    """
-    Detects whether the window should be shown or not.
-
-    Makes it act like a Desktop widget.
-    """
-
-    # TODO: Refine this logic
-    # HELP WANTED
-
-    windows = gw.getActiveWindow()
-
-    # Desktop Widget logic
-    if windows is None:
-        window.deiconify()
-        window.lift()
-        window.attributes("-topmost", True)
-    else:
-        if windows.isMaximized:
-            window.lower()
-            window.attributes("-topmost", False)
-        elif (not windows.isMaximized and windows.title != "" and
-                windows.title != "Textylic" and windows.title !=
-                "Choose a note:" and windows.title != "Save your note:" and
-                windows.title != "Choose an Image:" and windows.title != "tk"):
-            window.deiconify()
-            window.attributes("-topmost", False)
-            window.lower()
-        elif (not windows.isMaximized and windows.title != "" and
-                windows.title == "Textylic" or windows.title ==
-                "Choose a note:" or windows.title == "Save your note:" or
-                windows.title == "Choose an Image:"):
-            window.attributes("-topmost", False)
-        elif windows.title == "tk":
-            window.deiconify()
-            window.lift()
-            window.attributes("-topmost", True)
-        else:
-            window.deiconify()
-            window.lift()
-            window.attributes("-topmost", True)
-
-    window.after(200, topOrNot)
-
 
 def getPos(event):
     """Get the position of the window"""
@@ -1618,7 +1574,6 @@ photoInsert.bind("<Enter>", hoverImagePhoto)
 photoInsert.bind("<Leave>", NormalImagePhoto)
 
 # Desktop Gadget and Autosave
-window.after(200, topOrNot)
 window.after(3000, autoSave)
 
 # Open a file
