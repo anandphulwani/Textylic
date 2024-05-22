@@ -1,4 +1,5 @@
 import os
+import ctypes
 from .enums.Color import Color
 
 appdata_path = os.environ.get("APPDATA")
@@ -51,3 +52,7 @@ color_map = {
 currentThemeColor = Color.BLUE
 
 notes_tags_options = ["bold", "italic", "underline", "strikethrough", "bullet", "code", "createlink", "colortext"]
+
+psapi = ctypes.WinDLL('Psapi.dll')
+kernel32 = ctypes.WinDLL('kernel32.dll')
+user32 = ctypes.WinDLL('user32.dll')
