@@ -1188,6 +1188,16 @@ def is_window_at_bottom(window_title):
             return False
     return False
 
+# Function to get the Z-order of a window
+def get_z_order(hwnd):    
+    hwnd_top = user32.GetForegroundWindow()
+    if hwnd == hwnd_top:
+        return 'top'
+    elif is_window_at_bottom(get_window_title(hwnd)):
+        return 'bottom'
+    else:
+        return 'other'
+
 def getPos(event):
     """Get the position of the window"""
 
