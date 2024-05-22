@@ -20,6 +20,4 @@ def check_and_set_window_to_top_or_bottom():
         # Setting the desktop as the foreground window
         hwnd_desktop = ctypes.windll.user32.GetDesktopWindow()
         ctypes.windll.user32.SetForegroundWindow(hwnd_desktop)
-    else:
-        print('')
     globalvars.window.after(500, check_and_set_window_to_top_or_bottom)
