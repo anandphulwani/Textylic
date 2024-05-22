@@ -1164,6 +1164,10 @@ def accentblue():
     window.update()
 
 
+# Function to get the handle of the window
+def get_hwnd(window):
+    return ctypes.windll.user32.GetParent(window.winfo_id())
+
 
 def getPos(event):
     """Get the position of the window"""
