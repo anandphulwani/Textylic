@@ -120,6 +120,9 @@ window.grid_columnconfigure(6, weight=1)
 openedFileName = False  # Getting opened file name
 
 saved = False  # The saved variable
+
+global window_is_focused
+window_is_focused = None
 user32 = ctypes.WinDLL('user32.dll')
 
 images = []  # The list with all images, index, and name
@@ -1605,6 +1608,18 @@ colorText.bind("<Enter>", hoverImageTsize)
 colorText.bind("<Leave>", NormalImageTsize)
 photoInsert.bind("<Enter>", hoverImagePhoto)
 photoInsert.bind("<Leave>", NormalImagePhoto)
+
+def on_focus_out(event):
+    global window_is_focused
+    window_is_focused = False
+
+def on_focus_in(event):
+    global window_is_focused
+    window_is_focused = True
+
+# Bind the focus events
+window.bind("<FocusIn>", on_focus_in)
+window.bind("<FocusOut>", on_focus_out)
 
 # Desktop Gadget and Autosave
 window.after(3000, autoSave)
