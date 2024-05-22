@@ -23,7 +23,7 @@ from py_includes.gui.shortcuts_binding import attach_keyboard_shortcuts
 from py_includes.gui.toolbar_buttons.create_bottom_menu import create_bottom_menu
 from py_includes.gui.window_related.perform_resize import perform_resize
 from py_includes.gui.window_related.start_resize import start_resize
-from py_includes.gui.window_related.topOrNot import topOrNot
+from py_includes.gui.window_related.check_and_set_window_to_top_or_bottom import check_and_set_window_to_top_or_bottom
 from py_includes.gui.toolbar_buttons.create_top_menu import create_top_menu
 from py_includes.helpers.get_button_images import get_button_images
 from py_includes.images import load_images
@@ -153,7 +153,7 @@ globalvars.window.bind("<FocusIn>", on_focus_in)
 globalvars.window.bind("<FocusOut>", on_focus_out)
 
 # Desktop Gadget and Autosave
-globalvars.window.after(200, topOrNot)
+globalvars.window.after(200, check_and_set_window_to_top_or_bottom)
 globalvars.window.after(3000, autoSave)
 globalvars.window.after(3000, autoReload)
 
