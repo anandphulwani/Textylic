@@ -119,6 +119,7 @@ window.grid_columnconfigure(6, weight=1)
 openedFileName = False  # Getting opened file name
 
 saved = False  # The saved variable
+user32 = ctypes.WinDLL('user32.dll')
 
 images = []  # The list with all images, index, and name
 
@@ -1168,6 +1169,12 @@ def accentblue():
 def get_hwnd(window):
     return ctypes.windll.user32.GetParent(window.winfo_id())
 
+# Function to get the window title (name) of a window
+def get_window_title(hwnd):
+    length = user32.GetWindowTextLengthW(hwnd)
+    buffer = ctypes.create_unicode_buffer(length + 1)
+    user32.GetWindowTextW(hwnd, buffer, length + 1)
+    return buffer.value
 
 def getPos(event):
     """Get the position of the window"""
