@@ -16,6 +16,7 @@ from tkinter import PhotoImage
 from string import ascii_uppercase
 from PIL import Image
 from datetime import datetime
+from pywinauto import Desktop
 
 
 # Argument Parser
@@ -1175,6 +1176,17 @@ def get_window_title(hwnd):
     buffer = ctypes.create_unicode_buffer(length + 1)
     user32.GetWindowTextW(hwnd, buffer, length + 1)
     return buffer.value
+
+def is_window_at_bottom(window_title):
+    all_windows = Desktop(backend="uia").windows()
+    for win in reversed(all_windows):
+        if win.window_text() == "" or win.window_text() == "Program Manager":
+            continue
+        if win.window_text() == window_title:
+            return True
+        else:
+            return False
+    return False
 
 def getPos(event):
     """Get the position of the window"""
