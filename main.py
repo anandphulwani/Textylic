@@ -125,6 +125,10 @@ global window_is_focused
 window_is_focused = None
 user32 = ctypes.WinDLL('user32.dll')
 
+SWP_NOMOVE = 0x0002
+SWP_NOSIZE = 0x0001
+SWP_NOACTIVATE = 0x0010
+
 images = []  # The list with all images, index, and name
 
 # Default values of the themes
@@ -1201,6 +1205,21 @@ def get_z_order(hwnd):
     else:
         return 'other'
 
+# Function to periodically check and set the window to the bottom
+def check_and_set_window_to_top_or_bottom():
+    hwnd = get_hwnd(window)
+    z_order = get_z_order(hwnd)
+    if window_is_focused == True and z_order != 'top':
+        # Setting the window to the top
+        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
+    elif window_is_focused == False and z_order != 'bottom':
+        # Setting the window to the bottom
+        ctypes.windll.user32.SetWindowPos(hwnd, 1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
+        # Setting the desktop as the foreground window
+        hwnd_desktop = ctypes.windll.user32.GetDesktopWindow()
+        ctypes.windll.user32.SetForegroundWindow(hwnd_desktop)
+    window.after(500, check_and_set_window_to_top_or_bottom)
+
 def getPos(event):
     """Get the position of the window"""
 
@@ -1622,6 +1641,7 @@ window.bind("<FocusIn>", on_focus_in)
 window.bind("<FocusOut>", on_focus_out)
 
 # Desktop Gadget and Autosave
+window.after(50, check_and_set_window_to_top_or_bottom)
 window.after(3000, autoSave)
 
 # Open a file
