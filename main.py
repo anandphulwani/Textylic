@@ -1649,4 +1649,5 @@ if args.file is not None:
     openFile(args.file)
 
 # Update the window
-window.mainloop()
+window.deiconify()
+root.mainloop()
