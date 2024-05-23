@@ -8,7 +8,6 @@ from ..helpers.configure_font import configure_font
 def get_current_tag_as_string(text_widget):
     try:
         current_tags = text_widget.tag_names("sel.first")
-        print(f'get_current_tag_as_string: {current_tags}')
         notes_tags = [tag for tag in current_tags if all(element in globalvars.notes_tags_options for element in tag.split("+"))]
         return notes_tags[0] if notes_tags else ""
     except tk.TclError:
@@ -109,7 +108,6 @@ def setup_tags():
         if "createlink" in tag:
             globalvars.notes.tag_configure(tag, font=font, foreground="#00AFEC")
         elif "colortext" in tag:
-            print(f"{random.randint(0, 1000)} {globalvars.currentThemeColor}")
             color_settings = globalvars.color_map[globalvars.currentThemeColor]
             bg_color = color_settings["bg"]
             globalvars.notes.tag_configure(tag, font=font, foreground=bg_color)
