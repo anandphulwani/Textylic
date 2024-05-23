@@ -11,10 +11,15 @@ SWP_NOACTIVATE = 0x0010
 def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
     z_order = get_z_order(hwnd)
-    if globalvars.window_is_focused == True and z_order != 'top':
+    
+    if z_order == 'donothing':
+        pass
+    elif globalvars.window_is_focused == True and z_order != 'top':
+        print(f'Setting the window to the TOP, window_is_focused: {globalvars.window_is_focused}, z_order: {z_order}')
         # Setting the window to the top
         ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
     elif globalvars.window_is_focused == False and z_order != 'bottom':
+        print(f'Setting the window to the BOTTOM, window_is_focused: {globalvars.window_is_focused}, z_order: {z_order}')
         # Setting the window to the bottom
         ctypes.windll.user32.SetWindowPos(hwnd, 1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
         # Setting the desktop as the foreground window
