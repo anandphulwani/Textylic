@@ -22,6 +22,7 @@ start_height = None
 
 window_is_focused = False
 current_focus_mode = "unlock"
+focus_lockapp_window = None
 
 openedFileName = False  # Getting opened file name
 openedFileName_lastModTime = False
