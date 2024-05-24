@@ -133,6 +133,7 @@ user32 = ctypes.WinDLL('user32.dll')
 SWP_NOMOVE = 0x0002
 SWP_NOSIZE = 0x0001
 SWP_NOACTIVATE = 0x0010
+HWND_TOPMOST = -1
 PROCESS_QUERY_INFORMATION = 0x0400
 PROCESS_VM_READ = 0x0010
 MAX_PATH = 260
@@ -1251,16 +1252,21 @@ def get_z_order(hwnd):
 def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(window)
     z_order = get_z_order(hwnd)
-    if window_is_focused == True and z_order != 'top':
-        # Setting the window to the top
-        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
-    elif window_is_focused == False and z_order != 'bottom':
-        # Setting the window to the bottom
-        ctypes.windll.user32.SetWindowPos(hwnd, 1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
-        # Setting the desktop as the foreground window
-        hwnd_desktop = ctypes.windll.user32.GetDesktopWindow()
-        ctypes.windll.user32.SetForegroundWindow(hwnd_desktop)
-    window.after(500, check_and_set_window_to_top_or_bottom)
+    
+    if z_order != 'donothing':
+        if z_order == 'forcetop':
+            win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_TOPMOST)
+            win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_NOACTIVATE)
+        elif window_is_focused == True and z_order != 'top':
+            # Setting the window to the top
+            ctypes.windll.user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
+        elif window_is_focused == False and z_order != 'bottom':
+            # Setting the window to the bottom
+            ctypes.windll.user32.SetWindowPos(hwnd, 1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
+            # Setting the desktop as the foreground window
+            hwnd_desktop = ctypes.windll.user32.GetDesktopWindow()
+            ctypes.windll.user32.SetForegroundWindow(hwnd_desktop)
+    window.after(100, check_and_set_window_to_top_or_bottom)
 
 def getPos(event):
     """Get the position of the window"""
