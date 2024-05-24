@@ -1,7 +1,5 @@
 import ctypes
-import win32gui
-import win32con
-
+from ...helpers.add_always_on_top import add_always_on_top
 from ...helpers.is_topmost import is_topmost
 from ...helpers.get_hwnd import get_hwnd
 from ...helpers.get_z_order import get_z_order
@@ -11,22 +9,18 @@ SWP_NOMOVE = 0x0002
 SWP_NOSIZE = 0x0001
 SWP_NOACTIVATE = 0x0010
 HWND_TOPMOST = -1
-
-def force_top(hwnd):
-    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_TOPMOST)
-    win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_NOACTIVATE)
-    
+  
 # Function to periodically check and set the window to the bottom
 def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
     z_order = get_z_order(hwnd)
     
     if globalvars.current_focus_mode == "lock" and not is_topmost(hwnd):
-        force_top(hwnd)
+        add_always_on_top(hwnd)
     elif globalvars.current_focus_mode == "unlock":
         if z_order != 'donothing':
             if z_order == 'forcetop':
-                force_top(hwnd)
+                add_always_on_top(hwnd)
             elif globalvars.window_is_focused == True and z_order != 'top':
                 # Setting the window to the top
                 ctypes.windll.user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
