@@ -14,11 +14,11 @@ HWND_TOPMOST = -1
 # Function to periodically check and set the window to the bottom
 def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
-    z_order = get_z_order(hwnd)
     
     if globalvars.current_focus_mode == "lock" and not is_topmost(hwnd):
         add_always_on_top(hwnd)
     elif globalvars.current_focus_mode == "unlock":
+        z_order = get_z_order(hwnd)
         if z_order != 'donothing':
             if z_order == 'forcetop':
                 add_always_on_top(hwnd)
