@@ -8,9 +8,9 @@ def load_image(button_name, suffix=""):
 
 def load_images():
     button_names = [
-        "new", "save", "openlink", "menu", "close", "bold", "italic", 
-        "underline", "strikethrough", "bullet", "code", "createlink", 
-        "colortext", "photoinsert"
+        "new", "save", "openlink", "menu", "focusunlock", "focuslock", "focuslockapp",
+        "close", "bold", "italic", "underline", "strikethrough", "bullet", "code", 
+        "createlink", "colortext", "photoinsert"
     ]
     
     for name in button_names:
