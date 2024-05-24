@@ -1,6 +1,8 @@
 import ctypes
 import win32gui
 import win32con
+
+from ...helpers.is_topmost import is_topmost
 from ...helpers.get_hwnd import get_hwnd
 from ...helpers.get_z_order import get_z_order
 from ... import globalvars
@@ -19,7 +21,9 @@ def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
     z_order = get_z_order(hwnd)
     
-    if globalvars.current_focus_mode == "unlock":
+    if globalvars.current_focus_mode == "lock" and not is_topmost(hwnd):
+        force_top(hwnd)
+    elif globalvars.current_focus_mode == "unlock":
         if z_order != 'donothing':
             if z_order == 'forcetop':
                 force_top(hwnd)
