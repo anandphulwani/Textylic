@@ -3,6 +3,7 @@ from tkinter import font
 from ...enums.Color import Color
 from ... import globalvars
 from ..functions.clearCache import clearCache
+from ..functions.changeFocusSetting import changeFocusSetting
 from ..functions.createNewWindow import createNewWindow
 from ..functions.openFileChoose import openFileChoose
 from ..functions.openLink import openLink
@@ -90,13 +91,16 @@ def create_top_menu():
     spacer.grid(row=0, column=4, sticky="ew")
     globalvars.accentItems.append(spacer)
 
+    globalvars.top_menu_buttons["focusunlock"] = create_button(
+        globalvars.titleBar, globalvars.window.focusunlockButtonImage, changeFocusSetting, 0, 5, globalvars.smallPaddingX, globalvars.smallPaddingY, sticky="E", bg="#2292FF", active_bg="#2292FF", add_to_accent_items=True
+    )
     # Create close button
     globalvars.top_menu_buttons["close"] = create_button(
         globalvars.titleBar,
         globalvars.window.closeButtonImage,
         windowdestroy,
         0,
-        5,
+        6,
         (globalvars.window.TkScale(10), globalvars.window.TkScale(10)),
         globalvars.smallPaddingY,
         sticky="E",
