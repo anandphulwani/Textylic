@@ -6,6 +6,7 @@ from ... import globalvars
 SWP_NOMOVE = 0x0002
 SWP_NOSIZE = 0x0001
 SWP_NOACTIVATE = 0x0010
+HWND_TOPMOST = -1
 
 # Function to periodically check and set the window to the bottom
 def check_and_set_window_to_top_or_bottom():
@@ -17,7 +18,7 @@ def check_and_set_window_to_top_or_bottom():
     elif globalvars.window_is_focused == True and z_order != 'top':
         print(f'Setting the window to the TOP, window_is_focused: {globalvars.window_is_focused}, z_order: {z_order}')
         # Setting the window to the top
-        ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
+        ctypes.windll.user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE)
     elif globalvars.window_is_focused == False and z_order != 'bottom':
         print(f'Setting the window to the BOTTOM, window_is_focused: {globalvars.window_is_focused}, z_order: {z_order}')
         # Setting the window to the bottom
