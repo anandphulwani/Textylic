@@ -34,6 +34,7 @@ def check_and_set_window_to_top_or_bottom():
             remove_always_on_top(hwnd)
     elif globalvars.current_focus_mode == "unlock":
         globalvars.focus_lockapp_window = None
+        remove_always_on_top(hwnd)
         z_order = get_z_order(hwnd)
         if z_order != 'donothing':
             if z_order == 'forcetop':
