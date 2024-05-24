@@ -143,7 +143,6 @@ globalvars.titleBar.grid_columnconfigure(6, weight=0)
 
 attach_keyboard_shortcuts()
 
-
 # Mapping of buttons to their images, Generate buttons dictionary and apply hover effects
 buttons = get_button_images(globalvars.window)
 mapping_button_images(buttons)
