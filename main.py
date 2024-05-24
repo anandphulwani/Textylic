@@ -123,11 +123,17 @@ saved = False  # The saved variable
 
 global window_is_focused
 window_is_focused = None
+psapi = ctypes.WinDLL('Psapi.dll')
+kernel32 = ctypes.WinDLL('kernel32.dll')
 user32 = ctypes.WinDLL('user32.dll')
 
+# Constants for window positions and flags
 SWP_NOMOVE = 0x0002
 SWP_NOSIZE = 0x0001
 SWP_NOACTIVATE = 0x0010
+PROCESS_QUERY_INFORMATION = 0x0400
+PROCESS_VM_READ = 0x0010
+MAX_PATH = 260
 
 images = []  # The list with all images, index, and name
 
@@ -1176,6 +1182,22 @@ def accentblue():
 # Function to get the handle of the window
 def get_hwnd(window):
     return ctypes.windll.user32.GetParent(window.winfo_id())
+
+# Function to get the window class name of a window
+def get_window_class_name(hwnd):
+    buffer = ctypes.create_unicode_buffer(256)
+    user32.GetClassNameW(hwnd, buffer, 256)
+    return buffer.value
+
+# Function to get the executable name of a window
+def get_executable_name(hwnd):
+    pid = ctypes.wintypes.DWORD()
+    user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+    process_handle = kernel32.OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, False, pid.value)
+    exe_name = ctypes.create_unicode_buffer(MAX_PATH)
+    psapi.GetModuleFileNameExW(process_handle, None, exe_name, MAX_PATH)
+    kernel32.CloseHandle(process_handle)
+    return exe_name.value
 
 # Function to get the window title (name) of a window
 def get_window_title(hwnd):
