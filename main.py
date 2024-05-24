@@ -9,6 +9,8 @@ import argparse
 import tkinter.ttk
 import subprocess
 import ctypes
+import win32gui
+import win32con
 from tkinter import font
 from random import randint
 from tkinter import filedialog
@@ -1205,6 +1207,17 @@ def get_window_title(hwnd):
     buffer = ctypes.create_unicode_buffer(length + 1)
     user32.GetWindowTextW(hwnd, buffer, length + 1)
     return buffer.value
+
+def is_topmost(hwnd):
+    ex_style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+    return bool(ex_style & win32con.WS_EX_TOPMOST)
+
+def is_child_window(child_hwnd, parent_hwnd):
+    if child_hwnd == 0 or parent_hwnd == 0:
+        return False
+    if get_executable_name(child_hwnd) == get_executable_name(parent_hwnd):
+        return True
+    return False
 
 def is_window_at_bottom(window_title):
     all_windows = Desktop(backend="uia").windows()
