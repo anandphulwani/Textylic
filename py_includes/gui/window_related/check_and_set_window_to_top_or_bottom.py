@@ -1,4 +1,6 @@
 import ctypes
+import win32gui
+import win32con
 from ...helpers.get_hwnd import get_hwnd
 from ...helpers.get_z_order import get_z_order
 from ... import globalvars
@@ -15,6 +17,9 @@ def check_and_set_window_to_top_or_bottom():
     
     if z_order == 'donothing':
         pass
+    if z_order == 'forcetop':
+        win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_TOPMOST)
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_NOACTIVATE)
     elif globalvars.window_is_focused == True and z_order != 'top':
         print(f'Setting the window to the TOP, window_is_focused: {globalvars.window_is_focused}, z_order: {z_order}')
         # Setting the window to the top
