@@ -1231,9 +1231,16 @@ def is_window_at_bottom(window_title):
     return False
 
 # Function to get the Z-order of a window
-def get_z_order(hwnd):    
+def get_z_order(hwnd):
     hwnd_top = user32.GetForegroundWindow()
-    if hwnd == hwnd_top:
+    if get_window_title(hwnd_top) == "" and get_executable_name(hwnd_top) == "C:\\Windows\\explorer.exe" and get_window_class_name(hwnd_top) != 'Shell_TrayWnd':
+        if is_topmost(hwnd):
+            return 'donothing'
+        else:
+            return 'forcetop'
+    elif is_child_window(hwnd_top, hwnd):
+        return 'donothing'
+    elif hwnd == hwnd_top:
         return 'top'
     elif is_window_at_bottom(get_window_title(hwnd)):
         return 'bottom'
