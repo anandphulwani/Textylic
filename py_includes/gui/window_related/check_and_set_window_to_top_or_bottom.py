@@ -15,6 +15,7 @@ def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
     z_order = get_z_order(hwnd)
     
+    if globalvars.current_focus_mode == "unlock":
     if z_order != 'donothing':
         if z_order == 'forcetop':
             win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_TOPMOST)
