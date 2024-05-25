@@ -110,7 +110,7 @@ globalvars.notes = tkinter.Text(
 globalvars.notes.grid(row=0, column=0, rowspan=5, columnspan=5, sticky="NSEW")
 globalvars.notes.delete("1.0", "end")
 segoe_font = font.Font(globalvars.notes, globalvars.notes.cget("font"))
-globalvars.window.update_idletasks()
+# globalvars.window.update_idletasks()
 segoe_font.configure(family="Arial", size=globalvars.window.TkScale(11))
 globalvars.notes.configure(font=segoe_font)
 
