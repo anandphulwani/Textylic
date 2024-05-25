@@ -5,7 +5,6 @@ import os
 import sys
 import argparse
 import tkinter.ttk
-import winreg
 from tkinter import font
 from random import randint
 from tkinter import PhotoImage
@@ -44,22 +43,6 @@ globalvars.window = tkinter.Toplevel()
 globalvars.window.title("Textylic")
 MakeTkDPIAware(globalvars.window)
 globalvars.window.attributes("-toolwindow", True, "-alpha", "0.99")
-
-if args.file is not None:
-    try:
-        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Software\\Textylyc\\" + args.file)
-        x = int(winreg.QueryValueEx(key, "x")[0])
-        y = int(winreg.QueryValueEx(key, "y")[0])
-        width = int(winreg.QueryValueEx(key, "width")[0])
-        height = int(winreg.QueryValueEx(key, "height")[0])
-        winreg.CloseKey(key)
-        globalvars.window.geometry(globalvars.window.TkGeometryScale(f"{width}x{height}+{x}+{y}"))
-    except FileNotFoundError:
-        globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
-    except Exception as e:
-        tkinter.messagebox.showinfo(" ", f"An error occurred: {str(e)}")
-else:
-    globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
 
 globalvars.window.overrideredirect(True)
 globalvars.window.config(bg="#040412")
