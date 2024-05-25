@@ -46,7 +46,7 @@ def saveNote(_=False):
         new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
         new_content.append("<images>\n{}\n</images>\n\n".format(globalvars.images))
 
-        new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>")
+        new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>\n\n")
 
         new_content_str = "".join(new_content)
 
