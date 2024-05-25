@@ -1,9 +1,11 @@
 ﻿import os
+import re
 from ...enums.Color import Color
 from ... import globalvars
 from ...notes_functions.getTags import getTags
 from .saveNoteAs import saveNoteAs
 from ...helpers.get_calling_script_path import get_calling_script_path
+from ...helpers.get_window_coordinates import get_window_coordinates
 
 def saveNote(_=False):
     """Save the note"""
@@ -47,6 +49,13 @@ def saveNote(_=False):
         new_content.append("<images>\n{}\n</images>\n\n".format(globalvars.images))
 
         new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>\n\n")
+        if globalvars.all_screenlocations is None:
+            new_content.append(f"<screenlocation>\n{globalvars.machine_identifier}: {get_window_coordinates()}\n</screenlocation>\n\n")
+        else:
+            updated_screenlocations = re.sub(
+                rf"({globalvars.machine_identifier}: .+?\n)", f"{globalvars.machine_identifier}: {get_window_coordinates()}\n",
+                globalvars.all_screenlocations, flags=re.DOTALL | re.MULTILINE)
+            new_content.append(f"<screenlocation>{updated_screenlocations}</screenlocation>\n\n")
 
         new_content_str = "".join(new_content)
 
