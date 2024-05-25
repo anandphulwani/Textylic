@@ -1,5 +1,7 @@
 import os
 import ctypes
+
+from .helpers.get_machine_identifier import get_machine_identifier
 from .enums.Color import Color
 
 appdata_path = os.environ.get("APPDATA")
@@ -58,3 +60,5 @@ notes_tags_options = ["bold", "italic", "underline", "strikethrough", "bullet", 
 psapi = ctypes.WinDLL('Psapi.dll')
 kernel32 = ctypes.WinDLL('kernel32.dll')
 user32 = ctypes.WinDLL('user32.dll')
+
+machine_identifier = get_machine_identifier()
