@@ -1,4 +1,5 @@
 ﻿import os
+from random import randint
 import re
 from tkinter import PhotoImage
 from ... import globalvars
@@ -31,6 +32,11 @@ def openFile(file: str):
         str(read),
         flags=re.DOTALL | re.MULTILINE,
     )
+    matchLocation = re.match(
+        rf".*<screenlocation>(.*\n{globalvars.machine_identifier}: (.+?)\n.*)</screenlocation>",
+        str(read),
+        flags=re.DOTALL | re.MULTILINE,
+    )
 
     read = re.sub("<style>.*$", "", read, flags=re.DOTALL | re.MULTILINE)
     read = re.sub("<content>\n", "", read, flags=re.DOTALL | re.MULTILINE)
@@ -38,6 +44,15 @@ def openFile(file: str):
 
     globalvars.notes.delete("1.0", "end")
     globalvars.notes.insert("end", read)
+    
+    if matchLocation:
+        globalvars.all_screenlocations = matchLocation.group(1)
+        location = eval(matchLocation.group(2))
+        x, y, width, height = location
+        globalvars.window.geometry(globalvars.window.TkGeometryScale(f"{width}x{height}+{x}+{y}"))
+    else:
+        globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+    globalvars.window.update()
     
     if matchTheme:
         # Getting the theme of the note
