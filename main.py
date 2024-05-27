@@ -6,7 +6,6 @@ import sys
 import argparse
 import tkinter.ttk
 from tkinter import font
-from random import randint
 from tkinter import PhotoImage
 from tkinter import simpledialog
 from tkinter import ttk
