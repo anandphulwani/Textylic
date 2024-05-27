@@ -152,6 +152,7 @@ else:
         with open(file_path, "w") as file:
             file.write("")
 
+# Add the style for the gripper which resizes the window
 style = ttk.Style()
 style.layout("Black.TSizegrip", [("Sizegrip.sizegrip", {"sticky": "nswe"})])
 style.configure("Black.TSizegrip", background="#181926", foreground="#181926")
