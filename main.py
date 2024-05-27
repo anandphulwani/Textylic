@@ -65,15 +65,12 @@ images = []  # The list with all images, index, and name
 globalvars.currentThemeColor = Color.BLUE
 load_images()
 
-
 def fetchDrivePath() -> str:
     """The drive in which the script is running"""
-
     for drive in ascii_uppercase:
         if os.path.exists(f"{drive}:\\Users"):
             return drive + ":\\"
     return ""
-
 
 winDrive = fetchDrivePath()  # The windows directory letter
 
