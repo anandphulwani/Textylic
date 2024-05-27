@@ -5,10 +5,7 @@ import os
 import sys
 import argparse
 import tkinter.ttk
-from tkinter import font
-from tkinter import PhotoImage
-from tkinter import simpledialog
-from tkinter import ttk
+from tkinter import font, PhotoImage, simpledialog, ttk
 from string import ascii_uppercase
 
 from py_includes import globalvars
