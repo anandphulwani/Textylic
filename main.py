@@ -62,7 +62,6 @@ globalvars.smallPaddingY = globalvars.window.TkScale(4)
 images = []  # The list with all images, index, and name
 
 # Default values of the themes
-globalvars.currentThemeColor = Color.BLUE
 load_images()
 
 def fetchDrivePath() -> str:
