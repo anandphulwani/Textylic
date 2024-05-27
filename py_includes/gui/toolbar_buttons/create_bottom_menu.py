@@ -17,4 +17,4 @@ def create_bottom_menu():
 
     globalvars.bottom_menu_buttons = {}
     for name, image, command, row, column in button_configs:
-        globalvars.bottom_menu_buttons[name] = create_button(bottom_bar, image, command, row, column, globalvars.smallPaddingX, globalvars.smallPaddingY)
+        globalvars.bottom_menu_buttons[name] = create_button(bottom_bar, image, command, row, column, globalvars.smallPaddingX, globalvars.smallPaddingY, bg="#181926", active_bg="#181926")
