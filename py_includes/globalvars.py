@@ -16,6 +16,7 @@ root = None
 titleBar = None
 menu_button = None
 notes = None
+notesFrame = None
 
 start_x = None
 start_y = None

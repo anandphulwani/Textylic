@@ -74,20 +74,20 @@ def fetchDrivePath() -> str:
 winDrive = fetchDrivePath()  # The windows directory letter
 
 # Notes Text widget container
-notesFrame = tkinter.Frame(
+globalvars.notesFrame = tkinter.Frame(
     globalvars.window,
     relief="flat",
     bg="#040412",
     height=globalvars.window.TkScale(244),
     width=globalvars.window.TkScale(320),
 )
-notesFrame.grid(row=1, column=0, columnspan=5, sticky="NSEW")
-notesFrame.grid_rowconfigure(0, weight=1)
-notesFrame.grid_columnconfigure(0, weight=1)
+globalvars.notesFrame.grid(row=1, column=0, columnspan=5, sticky="NSEW")
+globalvars.notesFrame.grid_rowconfigure(0, weight=1)
+globalvars.notesFrame.grid_columnconfigure(0, weight=1)
 
 # Main Text input
 globalvars.notes = tkinter.Text(
-    notesFrame,
+    globalvars.notesFrame,
     undo=True,
     font="Arial 11",
     bg="#040412",
