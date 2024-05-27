@@ -8,8 +8,8 @@ def changeFocusSetting(_=False):
         globalvars.current_focus_mode = "lock"
         new_image = globalvars.window.focuslockButtonImage
     elif current_mode == "lock":
-        globalvars.current_focus_mode = "lockapp"
-        new_image = globalvars.window.focuslockappButtonImage
+        globalvars.current_focus_mode = "pinapp"
+        new_image = globalvars.window.focuspinappButtonImage
     else:
         globalvars.current_focus_mode = "unlock"
         new_image = globalvars.window.focusunlockButtonImage

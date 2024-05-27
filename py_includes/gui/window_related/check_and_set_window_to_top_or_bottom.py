@@ -18,22 +18,22 @@ def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
     
     if globalvars.current_focus_mode == "lock" and not is_topmost(hwnd):
-        globalvars.focus_lockapp_window = None
+        globalvars.focus_pinapp_window = None
         add_always_on_top(hwnd)
-    elif globalvars.current_focus_mode == "lockapp":
+    elif globalvars.current_focus_mode == "pinapp":
         hwnd_top = globalvars.user32.GetForegroundWindow()
         if not (get_executable_name(hwnd_top) == 'C:\\Windows\\explorer.exe' and get_window_class_name(hwnd_top) == 'Shell_TrayWnd'):
             if hwnd_top != "" and hwnd_top != hwnd:
-                if globalvars.focus_lockapp_window == None:
-                    globalvars.focus_lockapp_window = hwnd_top
-                if hwnd_top == globalvars.focus_lockapp_window and not is_topmost(hwnd):
+                if globalvars.focus_pinapp_window == None:
+                    globalvars.focus_pinapp_window = hwnd_top
+                if hwnd_top == globalvars.focus_pinapp_window and not is_topmost(hwnd):
                     add_always_on_top(hwnd)
                 else:
                     remove_always_on_top(hwnd)
         else:
             remove_always_on_top(hwnd)
     elif globalvars.current_focus_mode == "unlock":
-        globalvars.focus_lockapp_window = None
+        globalvars.focus_pinapp_window = None
         remove_always_on_top(hwnd)
         z_order = get_z_order(hwnd)
         if z_order != 'donothing':
