@@ -140,13 +140,16 @@ if args.file is not None:
         sys.exit(1)
     openFile(args.file)
 else:
-    # Ask for a filename
-    filename = simpledialog.askstring("Input", "Please enter a filename:")
-    file_path = os.path.join(globalvars.dataPath, filename)
+    unsaved_data_path = os.path.join(globalvars.dataPath, "unsaved")
+    if not os.path.exists(unsaved_data_path):
+        os.makedirs(unsaved_data_path)
+
+    random_filename = str(uuid.uuid4()) + ".txtlyc"
+    file_path = os.path.join(unsaved_data_path, random_filename)
 
     # Check if file exists
     if os.path.exists(file_path):
-        tkinter.messagebox.showerror("Error", f"File {filename} already exists.")
+        tkinter.messagebox.showerror("Error", f"File {random_filename} already exists.")
         sys.exit(1)  # Exit the application
     else:
         # Create and save a blank file
