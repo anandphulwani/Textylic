@@ -156,6 +156,7 @@ else:
         with open(file_path, "w") as file:
             file.write("")
         globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+        set_color_theme(globalvars.currentThemeColor)
 
 # Add the style for the gripper which resizes the window
 style = ttk.Style()
