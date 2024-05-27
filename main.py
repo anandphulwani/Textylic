@@ -1,16 +1,17 @@
+import uuid
 import tkinter
 import tkinter.messagebox
-import pygetwindow as gw
 import os
 import sys
 import argparse
 import tkinter.ttk
-from tkinter import font, PhotoImage, simpledialog, ttk
+from random import randint
+from tkinter import font, PhotoImage, ttk
 from string import ascii_uppercase
 
 from py_includes import globalvars
+from py_includes.color_theme import set_color_theme
 from py_includes.dpi_aware import MakeTkDPIAware
-from py_includes.enums.Color import Color
 from py_includes.gui.focus_related.on_focus_in import on_focus_in
 from py_includes.gui.focus_related.on_focus_out import on_focus_out
 from py_includes.gui.functions.openFile import openFile, setup_tags
