@@ -8,7 +8,6 @@ from ... import globalvars
 def saveNoteAs(_=False):
     """Save the note as a file name"""
 
-    with globalvars.save_fn_lock:
         if not globalvars.saved:
             noteFile = filedialog.asksaveasfilename(
                 confirmoverwrite=True,
@@ -19,6 +18,7 @@ def saveNoteAs(_=False):
             )
             if not noteFile:
                 return
+    with globalvars.save_fn_lock:
             os.rename(globalvars.openedFileName, noteFile)
             globalvars.openedFileName = noteFile
         saveNote()
