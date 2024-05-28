@@ -70,6 +70,5 @@ def saveNote(_=False):
             # If the contents are different, write the new content to the file
             with open(note_file_path, "w") as noteFile:
                 noteFile.write(new_content_str)
-        globalvars.saved = True
         getTags("1.0", "end")
     return "break"
