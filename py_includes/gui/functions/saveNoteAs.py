@@ -19,6 +19,7 @@ def saveNoteAs(_=False):
         if not noteFile:
             return
     with globalvars.save_fn_lock:
+        saveNote()
         if not globalvars.saved:
             try:
                 if os.path.exists(noteFile):
