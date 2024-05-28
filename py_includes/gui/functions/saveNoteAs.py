@@ -18,9 +18,9 @@ def saveNoteAs(_=False):
     )
     if not noteFile:
         return
-    globalvars.saved = True
     globalvars.openedFileName = noteFile
     saveNote()
     # Messagebox
     openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))
     tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
+    globalvars.saved = True
