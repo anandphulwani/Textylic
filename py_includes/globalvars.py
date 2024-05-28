@@ -33,7 +33,7 @@ focus_pinapp_window = None
 openedFileName = False  # Getting opened file name
 openedFileName_lastModTime = False
 
-saved = False  # The saved variable
+saved = False  # The saved variable to name the note and shift it from `unsaved` directory to main data directory.
 
 overlay = False
 isOverlayEnabled = False
