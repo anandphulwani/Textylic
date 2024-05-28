@@ -10,7 +10,7 @@ def windowdestroy(_=False):
     def whitespaceStr(strg, search=re.compile(r"[^\s]+").search):
         return not bool(search(strg))
 
-    if (not globalvars.openedFileName) and (not whitespaceStr(globalvars.notes.get("1.0", "end"))):
+    if (not globalvars.saved) and (not whitespaceStr(globalvars.notes.get("1.0", "end"))):
         # Confirmbox
         confirmSave = tkinter.messagebox.askyesnocancel(
             "Confirmation",
