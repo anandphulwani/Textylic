@@ -18,6 +18,7 @@ def saveNoteAs(_=False):
     )
     if not noteFile:
         return
+    os.rename(globalvars.openedFileName, noteFile)
     globalvars.openedFileName = noteFile
     saveNote()
     # Messagebox
