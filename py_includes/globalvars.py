@@ -1,6 +1,6 @@
 import os
 import ctypes
-
+import threading
 from .helpers.get_calling_script_path import get_calling_script_path
 from .helpers.get_machine_identifier import get_machine_identifier
 from .enums.Color import Color
@@ -67,3 +67,5 @@ user32 = ctypes.WinDLL('user32.dll')
 
 machine_identifier = get_machine_identifier()
 all_screenlocations = None
+
+save_fn_lock = threading.RLock() # Create a global reentrant lock object
