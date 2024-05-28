@@ -64,11 +64,11 @@ def create_top_menu():
     )
 
     # Create menu button and its menu
-    globalvars.menu_button = create_menu_button(
+    globalvars.top_menu_buttons["menu"] = create_menu_button(
         globalvars.titleBar, globalvars.window.menuButtonImage, 
         {"font": segoe_font_menu}, 0, 3, globalvars.smallPaddingX, globalvars.smallPaddingY
     )
-    menu = globalvars.menu_button.menu
+    menu = globalvars.top_menu_buttons["menu"].menu
 
     # Add commands to the menu
     menu.add_command(label="Choose theme:")

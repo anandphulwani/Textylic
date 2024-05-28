@@ -37,7 +37,6 @@ def set_color_theme(color: Color):
         globalvars.notes.config(yscrollcommand=scrollbar.set)
 
         globalvars.titleBar.configure(bg=bg_color)
-        globalvars.menu_button.configure(activebackground=bg_color)
         for tag in globalvars.notes.tag_names():
             if re.search(r'(\+colortext\+|^colortext$|\+colortext$)', tag):
                 globalvars.notes.tag_configure(tag, foreground=bg_color)
