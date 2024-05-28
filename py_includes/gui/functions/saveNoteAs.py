@@ -13,7 +13,7 @@ def saveNoteAs(_=False):
         confirmoverwrite=True,
         defaultextension=".txtlyc",
         filetypes=(("Textylic file", "*.txtlyc"),),
-        initialdir="./notes",
+        initialdir = globalvars.dataPath,
         title="Save your note:",
     )
     if not noteFile:
