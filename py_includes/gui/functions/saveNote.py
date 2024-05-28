@@ -41,34 +41,34 @@ def saveNote(_=False):
             except BaseException:
                 pass
 
-            new_content = []
-            new_content.append("<content>\n{}\n</content>\n\n".format(globalvars.notes.get(1.0, "end")))
-            new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
-            new_content.append("<images>\n{}\n</images>\n\n".format(globalvars.images))
+        new_content = []
+        new_content.append("<content>\n{}\n</content>\n\n".format(globalvars.notes.get(1.0, "end")))
+        new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
+        new_content.append("<images>\n{}\n</images>\n\n".format(globalvars.images))
 
-            new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>\n\n")
-            if globalvars.all_screenlocations is None:
-                new_content.append(f"<screenlocation>\n{globalvars.machine_identifier}: {get_window_coordinates()}\n</screenlocation>\n\n")
-            else:
-                updated_screenlocations = re.sub(
-                    rf"({globalvars.machine_identifier}: .+?\n)", f"{globalvars.machine_identifier}: {get_window_coordinates()}\n",
-                    globalvars.all_screenlocations, flags=re.DOTALL | re.MULTILINE)
-                new_content.append(f"<screenlocation>{updated_screenlocations}</screenlocation>\n\n")
+        new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>\n\n")
+        if globalvars.all_screenlocations is None:
+            new_content.append(f"<screenlocation>\n{globalvars.machine_identifier}: {get_window_coordinates()}\n</screenlocation>\n\n")
+        else:
+            updated_screenlocations = re.sub(
+                rf"({globalvars.machine_identifier}: .+?\n)", f"{globalvars.machine_identifier}: {get_window_coordinates()}\n",
+                globalvars.all_screenlocations, flags=re.DOTALL | re.MULTILINE)
+            new_content.append(f"<screenlocation>{updated_screenlocations}</screenlocation>\n\n")
 
-            new_content_str = "".join(new_content)
+        new_content_str = "".join(new_content)
 
-            # Get the current content of the file
-            note_file_path = os.path.join(globalvars.dataPath, globalvars.openedFileName)
-            try:
-                with open(note_file_path, "r") as noteFile:
-                    current_content = noteFile.read()
-            except FileNotFoundError:
-                current_content = ""
+        # Get the current content of the file
+        note_file_path = os.path.join(globalvars.dataPath, globalvars.openedFileName)
+        try:
+            with open(note_file_path, "r") as noteFile:
+                current_content = noteFile.read()
+        except FileNotFoundError:
+            current_content = ""
 
-            # Compare the current content with the new content
-            if current_content != new_content_str:
-                # If the contents are different, write the new content to the file
-                with open(note_file_path, "w") as noteFile:
-                    noteFile.write(new_content_str)
-            getTags("1.0", "end")
+        # Compare the current content with the new content
+        if current_content != new_content_str:
+            # If the contents are different, write the new content to the file
+            with open(note_file_path, "w") as noteFile:
+                noteFile.write(new_content_str)
+        getTags("1.0", "end")
     return "break"
