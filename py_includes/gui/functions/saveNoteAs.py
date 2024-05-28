@@ -15,7 +15,8 @@ def saveNoteAs(_=False):
         initialdir="./notes",
         title="Save your note:",
     )
-    if noteFile:
+    if not noteFile:
+        return
         globalvars.saved = True
         globalvars.openedFileName = noteFile
         noteFile = open(os.path.join(globalvars.dataPath, noteFile), "w")
