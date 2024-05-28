@@ -8,16 +8,16 @@ from ... import globalvars
 def saveNoteAs(_=False):
     """Save the note as a file name"""
 
-        if not globalvars.saved:
-            noteFile = filedialog.asksaveasfilename(
-                confirmoverwrite=True,
-                defaultextension=".txtlyc",
-                filetypes=(("Textylic file", "*.txtlyc"),),
-                initialdir = globalvars.dataPath,
-                title="Save your note:",
-            )
-            if not noteFile:
-                return
+    if not globalvars.saved:
+        noteFile = filedialog.asksaveasfilename(
+            confirmoverwrite=True,
+            defaultextension=".txtlyc",
+            filetypes=(("Textylic file", "*.txtlyc"),),
+            initialdir = globalvars.dataPath,
+            title="Save your note:",
+        )
+        if not noteFile:
+            return
     with globalvars.save_fn_lock:
         if not globalvars.saved:
             os.rename(globalvars.openedFileName, noteFile)
