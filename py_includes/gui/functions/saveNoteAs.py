@@ -19,6 +19,7 @@ def saveNoteAs(_=False):
             if not noteFile:
                 return
     with globalvars.save_fn_lock:
+        if not globalvars.saved:
             os.rename(globalvars.openedFileName, noteFile)
             globalvars.openedFileName = noteFile
         saveNote()
