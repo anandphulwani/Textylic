@@ -74,6 +74,4 @@ def saveNote(_=False):
                 noteFile.write(new_content_str)
         globalvars.saved = True
         getTags("1.0", "end")
-    else:
-        saveNoteAs()
     return "break"
