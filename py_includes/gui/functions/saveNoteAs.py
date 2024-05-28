@@ -2,6 +2,7 @@
 import re
 import tkinter
 from tkinter import filedialog
+from ...gui.functions.saveNote import saveNote
 from ... import globalvars
 
 def saveNoteAs(_=False):
@@ -19,9 +20,7 @@ def saveNoteAs(_=False):
         return
     globalvars.saved = True
     globalvars.openedFileName = noteFile
-    noteFile = open(os.path.join(globalvars.dataPath, noteFile), "w")
-    noteFile.write(globalvars.notes.get(1.0, "end"))
-    noteFile.close()
+    saveNote()
     # Messagebox
     openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))
     tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
