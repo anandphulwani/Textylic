@@ -9,19 +9,19 @@ def saveNoteAs(_=False):
     """Save the note as a file name"""
 
     with globalvars.save_fn_lock:
-    noteFile = filedialog.asksaveasfilename(
-        confirmoverwrite=True,
-        defaultextension=".txtlyc",
-        filetypes=(("Textylic file", "*.txtlyc"),),
-        initialdir = globalvars.dataPath,
-        title="Save your note:",
-    )
-    if not noteFile:
-        return
-    os.rename(globalvars.openedFileName, noteFile)
-    globalvars.openedFileName = noteFile
-    saveNote()
-    # Messagebox
-    openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))
-    tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
-    globalvars.saved = True
+        noteFile = filedialog.asksaveasfilename(
+            confirmoverwrite=True,
+            defaultextension=".txtlyc",
+            filetypes=(("Textylic file", "*.txtlyc"),),
+            initialdir = globalvars.dataPath,
+            title="Save your note:",
+        )
+        if not noteFile:
+            return
+        os.rename(globalvars.openedFileName, noteFile)
+        globalvars.openedFileName = noteFile
+        saveNote()
+        # Messagebox
+        openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))
+        tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
+        globalvars.saved = True
