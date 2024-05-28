@@ -146,6 +146,7 @@ else:
 
     random_filename = str(uuid.uuid4()) + ".txtlyc"
     file_path = os.path.join(unsaved_data_path, random_filename)
+    globalvars.openedFileName = file_path
 
     # Check if file exists
     if os.path.exists(file_path):
