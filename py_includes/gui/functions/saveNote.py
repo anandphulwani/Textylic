@@ -35,7 +35,7 @@ def saveNote(_=False):
         # Deleting the unused images from `images` list
         try:
             globalvars.images.remove(deletedImage)            
-            deletedImage[0] = os.path.join(os.path.dirname(get_calling_script_path()), deletedImage[0] + ".png")
+            deletedImage[0] = os.path.join(os.path.dirname(globalvars.script_path), deletedImage[0] + ".png")
             deletedImage[0] = deletedImage[0].replace(os.sep, '/') if os.name == 'nt' else deletedImage[0]
             if os.path.exists(deletedImage[0]):
                 os.remove(deletedImage[0])

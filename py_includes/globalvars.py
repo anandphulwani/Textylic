@@ -1,6 +1,7 @@
 import os
 import ctypes
 
+from .helpers.get_calling_script_path import get_calling_script_path
 from .helpers.get_machine_identifier import get_machine_identifier
 from .enums.Color import Color
 
@@ -10,6 +11,8 @@ dataPath = os.path.join(appdata_path, "Textylyc")
 # Ensure the path exists, if not, create it
 if not os.path.exists(dataPath):
     os.makedirs(dataPath)
+
+script_path = get_calling_script_path()
 
 window = None
 root = None

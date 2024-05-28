@@ -1,10 +1,10 @@
 import os
 import shutil
-from ...helpers.get_calling_script_path import get_calling_script_path
+from ... import globalvars
 from ...generate_imgs_from_json import generate_image_from_json
 
 def check_and_create_colored_scrollbar_if_not_exist(colorHex: str):
-    script_path = os.path.dirname(get_calling_script_path())
+    script_path = os.path.dirname(globalvars.script_path)
     # Create the colored scrollbar template if it does not exist
     tclFile = os.path.join(script_path, "themes", colorHex + ".tcl")
     if not os.path.exists(tclFile):
