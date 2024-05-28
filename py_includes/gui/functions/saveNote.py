@@ -3,8 +3,6 @@ import re
 from ...enums.Color import Color
 from ... import globalvars
 from ...notes_functions.getTags import getTags
-from .saveNoteAs import saveNoteAs
-from ...helpers.get_calling_script_path import get_calling_script_path
 from ...helpers.get_window_coordinates import get_window_coordinates
 
 def saveNote(_=False):
