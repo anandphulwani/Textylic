@@ -9,7 +9,7 @@ from ..functions.openFileChoose import openFileChoose
 from ..functions.openLink import openLink
 from ..functions.openNotesList import openNotesList
 from ..functions.openReadme import openReadme
-from ..functions.saveNote import saveNote
+from ..functions.saveNoteAs import saveNoteAs
 from ..functions.windowdestroy import windowdestroy
 from ...color_theme import set_color_theme
 from .create_button import create_button
@@ -54,7 +54,7 @@ def create_top_menu():
         globalvars.color_map[globalvars.currentThemeColor]['bg'], globalvars.color_map[globalvars.currentThemeColor]['bg'],
         sticky="W", add_to_accent_items=True
     )
-    globalvars.top_menu_buttons["save"] = create_button(globalvars.titleBar, globalvars.window.saveButtonImage, saveNote, 0, 1, globalvars.smallPaddingX, globalvars.smallPaddingY, 
+    globalvars.top_menu_buttons["save"] = create_button(globalvars.titleBar, globalvars.window.saveButtonImage, saveNoteAs, 0, 1, globalvars.smallPaddingX, globalvars.smallPaddingY, 
                                                         globalvars.color_map[globalvars.currentThemeColor]['bg'], globalvars.color_map[globalvars.currentThemeColor]['bg'],
                                                         sticky="W", add_to_accent_items=True)
     globalvars.top_menu_buttons["openlink"] = create_button(
@@ -76,7 +76,7 @@ def create_top_menu():
         menu.add_radiobutton(label=color.label(), command=lambda c=color: set_color_theme(c))
     menu.add_separator()
     menu.add_command(label="Open Note", command=openFileChoose)
-    menu.add_command(label="Save Note", command=saveNote, accelerator="(Ctr+s)")
+    menu.add_command(label="Save Note", command=saveNoteAs, accelerator="(Ctr+s)")
 
     # Create advanced menu
     advancedMenu = tkinter.Menu(
