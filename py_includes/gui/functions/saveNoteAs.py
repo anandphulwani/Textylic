@@ -7,6 +7,7 @@ from ... import globalvars
 def saveNoteAs(_=False):
     """Save the note as a file name"""
 
+    with globalvars.save_fn_lock:
     noteFile = filedialog.asksaveasfilename(
         confirmoverwrite=True,
         defaultextension=".txtlyc",

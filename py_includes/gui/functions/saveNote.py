@@ -10,6 +10,7 @@ from ...helpers.get_window_coordinates import get_window_coordinates
 def saveNote(_=False):
     """Save the note"""
 
+    with globalvars.save_fn_lock:
     deletedImages = []  # List that holds all images that need to be deleted
     image_names = globalvars.notes.image_names()
     if image_names:
