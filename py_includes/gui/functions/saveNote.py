@@ -41,7 +41,6 @@ def saveNote(_=False):
         except BaseException:
             pass
 
-    if globalvars.openedFileName:
         new_content = []
         new_content.append("<content>\n{}\n</content>\n\n".format(globalvars.notes.get(1.0, "end")))
         new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
