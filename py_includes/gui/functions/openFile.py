@@ -78,5 +78,4 @@ def openFile(file: str):
                 globalvars.allImagesGroup.append(imageToInsert)
 
     noteFile.close()
-    globalvars.saved = True
     return "break"

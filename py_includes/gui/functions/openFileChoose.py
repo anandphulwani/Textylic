@@ -1,4 +1,5 @@
 ﻿from tkinter import filedialog
+from ... import globalvars
 from .openFile import openFile
 
 def openFileChoose(_=False):
@@ -13,4 +14,5 @@ def openFileChoose(_=False):
             )
         )
     )
+    globalvars.saved = True
     return "break"
