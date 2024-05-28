@@ -24,4 +24,3 @@ def saveNoteAs(_=False):
     # Messagebox
     openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))
     tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
-    return "break"
