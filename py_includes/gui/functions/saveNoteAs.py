@@ -20,7 +20,12 @@ def saveNoteAs(_=False):
             return
     with globalvars.save_fn_lock:
         if not globalvars.saved:
-            os.rename(globalvars.openedFileName, noteFile)
+            try:
+                if os.path.exists(noteFile):
+                    os.remove(noteFile)
+                os.rename(globalvars.openedFileName, noteFile)
+            except Exception as e:
+                print(f"Error saving file: {e}")
             globalvars.openedFileName = noteFile
         saveNote()
         if not globalvars.saved:
