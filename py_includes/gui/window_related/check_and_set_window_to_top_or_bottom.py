@@ -5,7 +5,7 @@ from ...helpers.is_topmost import is_topmost
 from ...helpers.get_hwnd import get_hwnd
 from ...helpers.get_executable_name import get_executable_name
 from ...helpers.get_window_class_name import get_window_class_name
-from ...helpers.get_z_order import get_z_order
+from ...helpers.get_action_according_to_zorder import get_action_according_to_zorder
 from ... import globalvars
 
 SWP_NOMOVE = 0x0002
@@ -35,7 +35,7 @@ def check_and_set_window_to_top_or_bottom():
     elif globalvars.current_focus_mode == "unlock":
         globalvars.focus_pinapp_window = None
         remove_always_on_top(hwnd)
-        z_order = get_z_order(hwnd)
+        z_order = get_action_according_to_zorder(hwnd)
         if z_order != 'donothing':
             if z_order == 'forcetop':
                 add_always_on_top(hwnd)
