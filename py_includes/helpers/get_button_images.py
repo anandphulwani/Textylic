@@ -5,7 +5,7 @@ def get_button_images(window):
     
     button_names = [
         "bold", "italic", "underline", "strikethrough", "bullet", "code", 
-        "new", "save", "openlink", "menu", "focuslock", 
+        "new", "save", "openlink", "menu", "focusunlock", 
         "close", "createlink", "colortext", "photoinsert"
     ]
 
