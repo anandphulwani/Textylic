@@ -139,6 +139,7 @@ if args.file is not None:
         tkinter.messagebox.showerror("Error", f"File {args.file} does not exist.")
         sys.exit(1)
     openFile(args.file)
+    globalvars.saved = True
 else:
     unsaved_data_path = os.path.join(globalvars.dataPath, "unsaved")
     if not os.path.exists(unsaved_data_path):
