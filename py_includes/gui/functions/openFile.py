@@ -4,7 +4,7 @@ import re
 from tkinter import PhotoImage
 from ... import globalvars
 from ...helpers.tags import setup_tags
-from ...helpers.obfuscate_deobfuscate_xor import deobfuscate_xor
+from ...helpers.obfuscate_deobfuscate_xor import deobfuscate_text_by_lines
 from ...enums.Color import Color
 from ...color_theme import set_color_theme
 
@@ -44,7 +44,7 @@ def openFile(file: str):
     read = re.sub("\n</content>\n\n", "", read, flags=re.DOTALL | re.MULTILINE)
 
     globalvars.notes.delete("1.0", "end")
-    globalvars.notes.insert("end", deobfuscate_xor(read))
+    globalvars.notes.insert("end", deobfuscate_text_by_lines(read))
     
     if matchLocation:
         globalvars.all_screenlocations = matchLocation.group(1)

@@ -4,7 +4,7 @@ from ...enums.Color import Color
 from ... import globalvars
 from ...notes_functions.getTags import getTags
 from ...helpers.get_window_coordinates import get_window_coordinates
-from ...helpers.obfuscate_deobfuscate_xor import obfuscate_xor
+from ...helpers.obfuscate_deobfuscate_xor import obfuscate_text_by_lines
 
 def saveNote(_=False):
     """Save the note"""
@@ -43,7 +43,7 @@ def saveNote(_=False):
                 pass
 
         new_content = []
-        new_content.append("<content>\n{}\n</content>\n\n".format(obfuscate_xor(globalvars.notes.get(1.0, "end")[:-1])))
+        new_content.append("<content>\n{}\n</content>\n\n".format(obfuscate_text_by_lines(globalvars.notes.get(1.0, "end")[:-1])))
         new_content.append("<style>\n{}\n</style>\n\n".format(getTags("1.0", "end")))
         new_content.append("<images>\n{}\n</images>\n\n".format(globalvars.images))
 
