@@ -1,7 +1,7 @@
 ﻿import os
 import re
 import tkinter
-import winreg
+import shutil
 from ... import globalvars
 from . import saveNoteAs
 
@@ -23,7 +23,7 @@ def windowdestroy(_=False):
         if confirmSave is True:
             saveNoteAs()
         elif confirmSave is False:
-            os.remove(globalvars.openedFileName)
+            shutil.rmtree(os.path.dirname(globalvars.openedFileName))
             globalvars.root.destroy()
         else:
             pass
