@@ -8,8 +8,8 @@ def photoInserter():
     """'Insert photo' button function"""
 
     # Ensure the directory exists
-    cache_dir = "./res/cache_images_/"
-    os.makedirs(cache_dir, exist_ok=True)
+    images_dir = os.path.join(os.path.dirname(globalvars.openedFileName), "images")
+    os.makedirs(images_dir, exist_ok=True)
         
     dateTimeNow = str(datetime.now())
     dateTimeNow = dateTimeNow.replace("-", "_")
@@ -30,13 +30,14 @@ def photoInserter():
     )
     imgFile = Image.open(photo)
     imgFile.thumbnail((globalvars.window.TkScale(280), globalvars.window.TkScale(280)))
-    imgFile.save(f"./res/cache_images_/{dateTimeNow}.png")
+    imgFilename = os.path.join(images_dir, f"{dateTimeNow}")
+    imgFile.save(f"{imgFilename}.png")
 
-    imgToInsert = PhotoImage(file=f"./res/cache_images_/{dateTimeNow}.png")
+    imgToInsert = PhotoImage(file=f"{imgFilename}.png")
     globalvars.allImagesGroup.append(imgToInsert)
     globalvars.images.append(
         [
-            f"./res/cache_images_/{dateTimeNow}",
+            imgFilename,
             globalvars.notes.index("insert"),
             f"image{globalvars.imgNumberName}",
         ]
