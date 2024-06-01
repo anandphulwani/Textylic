@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import simpledialog
 from PIL import Image, ImageTk
+from ...gui.functions.saveNote import saveNote
 
 class saveAsFolderNameDialog(simpledialog.Dialog):
     def __init__(self, parent, title, initialdir):
@@ -22,6 +23,7 @@ class saveAsFolderNameDialog(simpledialog.Dialog):
         self.image_label = tk.Label(master)
         self.image_label.grid(row=0, column=2, padx=(5, 0), pady=5)
         self.update_image("res/images/iconsetx20/blank.png", master)
+        saveNote()
         return self.entry
 
     def check_folder_exists(self, _, master):
