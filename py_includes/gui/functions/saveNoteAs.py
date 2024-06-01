@@ -1,36 +1,30 @@
 ﻿import os
 import re
 import tkinter
-from tkinter import filedialog
+from ...gui.window_related.saveAsFolderNameDialog import saveAsFolderNameDialog
 from ...gui.functions.saveNote import saveNote
 from ... import globalvars
 
 def saveNoteAs(_=False):
-    """Save the note as a file name"""
+    """Save the note as a file in a notes name folder"""
 
     if not globalvars.saved:
-        noteFile = filedialog.asksaveasfilename(
-            confirmoverwrite=True,
-            defaultextension=".txtlyc",
-            filetypes=(("Textylic file", "*.txtlyc"),),
-            initialdir = globalvars.dataPath,
-            title="Save your note:",
-        )
-        if not noteFile:
+        dialog = saveAsFolderNameDialog(globalvars.window, "Save Note", globalvars.dataPath)
+        folderName = dialog.result
+        if not folderName:
             return
+        noteFolder = os.path.join(globalvars.dataPath, folderName)
     with globalvars.save_fn_lock:
         saveNote()
         if not globalvars.saved:
             try:
-                if os.path.exists(noteFile):
-                    os.remove(noteFile)
-                os.rename(globalvars.openedFileName, noteFile)
+                os.rename(os.path.dirname(globalvars.openedFileName), noteFolder)
             except Exception as e:
                 print(f"Error saving file: {e}")
-            globalvars.openedFileName = noteFile
+            globalvars.openedFileName = os.path.join(noteFolder, "notes.txt")
         saveNote()
         if not globalvars.saved:
             # Messagebox
             openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))
-            tkinter.messagebox.showinfo(" ", f'Successfully saved note as "{openedFileNameStrip}"   ')
+            tkinter.messagebox.showinfo("Success", f'Successfully saved note as "{openedFileNameStrip}"')
             globalvars.saved = True
