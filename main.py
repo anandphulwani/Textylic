@@ -145,13 +145,18 @@ else:
     if not os.path.exists(unsaved_data_path):
         os.makedirs(unsaved_data_path)
 
-    random_filename = str(uuid.uuid4()) + ".txtlyc"
-    file_path = os.path.join(unsaved_data_path, random_filename)
+    random_notefoldername = os.path.join(unsaved_data_path, str(uuid.uuid4()))
+    if os.path.exists(random_notefoldername):
+        tkinter.messagebox.showerror("Error", f"Random unsaved folder {random_notefoldername} already exists.")
+        sys.exit(1)
+    else:
+        os.makedirs(random_notefoldername)
+    file_path = os.path.join(random_notefoldername, 'notes.txt')
     globalvars.openedFileName = file_path
 
     # Check if file exists
     if os.path.exists(file_path):
-        tkinter.messagebox.showerror("Error", f"File {random_filename} already exists.")
+        tkinter.messagebox.showerror("Error", f"Random file {file_path} already exists.")
         sys.exit(1)  # Exit the application
     else:
         # Create and save a blank file
