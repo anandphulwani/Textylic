@@ -134,11 +134,11 @@ globalvars.window.after(3000, autoReload)
 
 # Open a file
 if args.file is not None:
-    file_path = os.path.join(globalvars.dataPath, args.file)
+    file_path = os.path.join(globalvars.dataPath, args.file, 'notes.txt')
     if not os.path.exists(file_path):
         tkinter.messagebox.showerror("Error", f"File {args.file} does not exist.")
         sys.exit(1)
-    openFile(args.file)
+    openFile(file_path)
     globalvars.saved = True
 else:
     unsaved_data_path = os.path.join(globalvars.dataPath, "unsaved")
