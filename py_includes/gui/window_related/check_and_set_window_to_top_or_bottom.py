@@ -12,7 +12,7 @@ SWP_NOMOVE = 0x0002
 SWP_NOSIZE = 0x0001
 SWP_NOACTIVATE = 0x0010
 HWND_TOPMOST = -1
-  
+
 # Function to periodically check and set the window to the bottom
 def check_and_set_window_to_top_or_bottom():
     hwnd = get_hwnd(globalvars.window)
