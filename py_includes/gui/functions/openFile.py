@@ -67,13 +67,14 @@ def openFile(file: str):
                     globalvars.notes.tag_add(str(tag).strip("}{/.\\"), format[0], format[1]) if tag else None
 
     if matchImg:
+        images_dir = os.path.join(os.path.dirname(globalvars.openedFileName), "images")
         # Getting the list of images
         globalvars.images = eval(matchImg.group(1))
         if globalvars.images is not None:
             globalvars.allImagesGroup = []
             for imageList in globalvars.images:
                 # Insert the images at appropriate index
-                imageToInsert = PhotoImage(file=f"{imageList[0]}.png")
+                imageToInsert = PhotoImage(file=os.path.join(images_dir, f"{imageList[0]}.png"))
                 globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
                 globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
                 globalvars.allImagesGroup.append(imageToInsert)

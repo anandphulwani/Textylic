@@ -37,7 +37,7 @@ def photoInserter():
     globalvars.allImagesGroup.append(imgToInsert)
     globalvars.images.append(
         [
-            imgFilename,
+            f"{dateTimeNow}.png",
             globalvars.notes.index("insert"),
             f"image{globalvars.imgNumberName}",
         ]
