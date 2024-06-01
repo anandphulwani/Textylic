@@ -26,8 +26,6 @@ from py_includes.helpers.get_button_images import get_button_images
 from py_includes.helpers.get_hwnd import get_hwnd
 from py_includes.images import load_images
 from py_includes.images_effects import mapping_button_images
-from py_includes.notes_functions.autoReload import autoReload
-from py_includes.notes_functions.autoSave import autoSave
 
 # Argument Parser
 parser = argparse.ArgumentParser(description="Open a file")
@@ -125,14 +123,8 @@ attach_keyboard_shortcuts()
 buttons = get_button_images(globalvars.window)
 mapping_button_images(buttons)
 
-# Bind the focus events
-globalvars.window.bind("<FocusIn>", on_focus_in)
-globalvars.window.bind("<FocusOut>", on_focus_out)
-
 # Desktop Gadget and Autosave
 globalvars.window.after(200, check_and_set_window_to_top_or_bottom)
-globalvars.window.after(3000, autoSave)
-globalvars.window.after(3000, autoReload)
 
 # Open a file
 if args.file is not None:
