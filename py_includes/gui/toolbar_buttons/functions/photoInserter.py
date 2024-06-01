@@ -28,6 +28,8 @@ def photoInserter():
             ("JPEG", "*.jpeg"),
         ),
     )
+    if photo == "":
+        return
     imgFile = Image.open(photo)
     imgFile.thumbnail((globalvars.window.TkScale(280), globalvars.window.TkScale(280)))
     imgFilename = os.path.join(images_dir, f"{dateTimeNow}")
