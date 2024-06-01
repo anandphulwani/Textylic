@@ -69,4 +69,5 @@ machine_identifier = get_machine_identifier()
 all_screenlocations = None
 
 parent_hwnd = None
+parent_pid = None
 save_fn_lock = threading.RLock() # Create a global reentrant lock object

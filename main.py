@@ -24,6 +24,7 @@ from py_includes.gui.window_related.check_and_set_window_to_top_or_bottom import
 from py_includes.gui.toolbar_buttons.create_top_menu import create_top_menu
 from py_includes.helpers.get_button_images import get_button_images
 from py_includes.helpers.get_hwnd import get_hwnd
+from py_includes.helpers.get_process_id import get_process_id
 from py_includes.images import load_images
 from py_includes.images_effects import mapping_button_images
 from py_includes.notes_functions.autoSaveOrReloadAcToFocus import autoSaveOrReloadAcToFocus
@@ -179,4 +180,5 @@ grip.bind("<B1-Motion>", perform_resize)
 # Update the window
 globalvars.window.deiconify()
 globalvars.parent_hwnd = get_hwnd(globalvars.window)
+globalvars.parent_pid = get_process_id(globalvars.parent_hwnd)
 globalvars.root.mainloop()
