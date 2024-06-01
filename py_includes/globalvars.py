@@ -68,4 +68,5 @@ user32 = ctypes.WinDLL('user32.dll')
 machine_identifier = get_machine_identifier()
 all_screenlocations = None
 
+parent_hwnd = None
 save_fn_lock = threading.RLock() # Create a global reentrant lock object
