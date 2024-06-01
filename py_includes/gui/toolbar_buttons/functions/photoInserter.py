@@ -20,7 +20,7 @@ def photoInserter():
     globalvars.imgNumberName = globalvars.imgNumberName + 1
 
     photo = filedialog.askopenfilename(
-        initialdir="~/Pictures",
+        initialdir="~/Desktop",
         title="Choose an Image:",
         filetypes=(
             ("PNG", "*.png"),
