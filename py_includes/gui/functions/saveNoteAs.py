@@ -15,7 +15,6 @@ def saveNoteAs(_=False):
             return
         noteFolder = os.path.join(globalvars.dataPath, folderName)
     with globalvars.save_fn_lock:
-        saveNote()
         if not globalvars.saved:
             try:
                 os.rename(os.path.dirname(globalvars.openedFileName), noteFolder)
