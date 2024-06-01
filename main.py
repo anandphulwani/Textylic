@@ -15,6 +15,7 @@ from py_includes.dpi_aware import MakeTkDPIAware
 from py_includes.gui.focus_related.on_focus_in import on_focus_in
 from py_includes.gui.focus_related.on_focus_out import on_focus_out
 from py_includes.gui.functions.openFile import openFile, setup_tags
+from py_includes.gui.functions.saveNote import saveNote
 from py_includes.gui.shortcuts_binding import attach_keyboard_shortcuts
 from py_includes.gui.toolbar_buttons.create_bottom_menu import create_bottom_menu
 from py_includes.gui.window_related.perform_resize import perform_resize
@@ -165,6 +166,8 @@ else:
         globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
         set_color_theme(globalvars.currentThemeColor)
 
+with globalvars.save_fn_lock:
+    saveNote()
 # Add the style for the gripper which resizes the window
 style = ttk.Style()
 style.layout("Black.TSizegrip", [("Sizegrip.sizegrip", {"sticky": "nswe"})])
