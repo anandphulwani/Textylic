@@ -163,7 +163,7 @@ else:
         set_color_theme(globalvars.currentThemeColor)
 
 with globalvars.save_fn_lock:
-    saveNote()
+    saveNote(True)
 # Add the style for the gripper which resizes the window
 style = ttk.Style()
 style.layout("Black.TSizegrip", [("Sizegrip.sizegrip", {"sticky": "nswe"})])

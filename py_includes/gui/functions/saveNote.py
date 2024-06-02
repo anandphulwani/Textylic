@@ -6,7 +6,7 @@ from ...notes_functions.getTags import getTags
 from ...helpers.get_window_coordinates import get_window_coordinates
 from ...helpers.obfuscate_deobfuscate_xor import obfuscate_text_by_lines
 
-def saveNote(_=False):
+def saveNote(isAutoSave):
     """Save the note"""
 
     with globalvars.save_fn_lock:

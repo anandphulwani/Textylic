@@ -21,7 +21,7 @@ def saveNoteAs(_=False):
             except Exception as e:
                 print(f"Error saving file: {e}")
             globalvars.openedFileName = os.path.join(noteFolder, "notes.txt")
-        saveNote()
+        saveNote(False)
         if not globalvars.saved:
             # Messagebox
             openedFileNameStrip = re.sub("C:/.*/", "", str(globalvars.openedFileName))

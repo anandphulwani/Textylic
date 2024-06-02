@@ -8,7 +8,7 @@ def autoSaveOrReloadAcToFocus():
     hwnd_top = globalvars.user32.GetForegroundWindow()
     if is_child_window_of_main_window(hwnd_top):
         with globalvars.save_fn_lock:
-            saveNote()
+            saveNote(True)
     else:
         openFile(globalvars.openedFileName)
     globalvars.window.after(3000, autoSaveOrReloadAcToFocus)   
