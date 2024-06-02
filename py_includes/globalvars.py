@@ -29,6 +29,7 @@ start_height = None
 window_is_focused = False
 current_focus_mode = "unlock"
 focus_pinapp_window = None
+prev_z_order = []
 
 openedFileName = False  # Getting opened file name
 openedFileName_lastModTime = False
