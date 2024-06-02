@@ -14,11 +14,11 @@ HWND_TOPMOST = -1
 
 # Function to periodically check and set the window to the bottom
 def check_and_set_window_to_top_or_bottom():
+    hwnd_top = globalvars.user32.GetForegroundWindow()
     if globalvars.current_focus_mode == "lock" and not is_topmost(globalvars.parent_hwnd):
         globalvars.focus_pinapp_window = None
         add_always_on_top(globalvars.parent_hwnd)
     elif globalvars.current_focus_mode == "pinapp":
-        hwnd_top = globalvars.user32.GetForegroundWindow()
         if not (get_executable_name(hwnd_top) == 'C:\\Windows\\explorer.exe' and get_window_class_name(hwnd_top) == 'Shell_TrayWnd'):
             if hwnd_top != "" and hwnd_top != globalvars.parent_hwnd:
                 if globalvars.focus_pinapp_window == None:
