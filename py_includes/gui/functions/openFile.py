@@ -7,6 +7,7 @@ from ...helpers.tags import setup_tags
 from ...helpers.obfuscate_deobfuscate_xor import deobfuscate_text_by_lines
 from ...enums.Color import Color
 from ...color_theme import set_color_theme
+from ...helpers.get_notes_content import get_notes_content
 
 def openFile(file: str):
     """Open a file with the file dialog"""
@@ -25,7 +26,9 @@ def openFile(file: str):
     globalvars.openedFileName_lastModTime = os.path.getmtime(noteFileFullPath)
 
     read = noteFile.read()
+    current_content_str = get_notes_content()
 
+    if current_content_str != read:
     matchStyle = re.match(r".*<style>\n(.*)\n</style>", str(read), flags=re.DOTALL | re.MULTILINE)
     matchImg = re.match(r".*<images>\n(.*)\n</images>", str(read), flags=re.DOTALL | re.MULTILINE)
     matchTheme = re.match(
