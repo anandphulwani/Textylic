@@ -2,7 +2,6 @@ import tkinter
 from tkinter import font
 from ...enums.Color import Color
 from ... import globalvars
-from ..functions.clearCache import clearCache
 from ..functions.changeFocusSetting import changeFocusSetting
 from ..functions.createNewWindow import createNewWindow
 from ..functions.openFileChoose import openFileChoose
@@ -83,7 +82,6 @@ def create_top_menu():
         menu, tearoff=0, bd=0, relief="solid", font=segoe_font_menu, activeborderwidth=0, activebackground="#c4c4c4", activeforeground="#000000", selectcolor="black"
     )
     advancedMenu.add_command(label="Notes List", command=openNotesList)
-    advancedMenu.add_command(label="Clear Cache", command=clearCache)
     # advancedMenu.add_command(label="Minimize to systray", command=minSysTray)
     menu.add_cascade(label="More...", menu=advancedMenu)
 
