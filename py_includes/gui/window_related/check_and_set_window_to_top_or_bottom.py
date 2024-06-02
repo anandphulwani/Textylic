@@ -5,6 +5,8 @@ from ...helpers.is_topmost import is_topmost
 from ...helpers.get_executable_name import get_executable_name
 from ...helpers.get_window_class_name import get_window_class_name
 from ...helpers.get_action_according_to_zorder import get_action_according_to_zorder
+from ...helpers.compare_z_order import compare_z_order
+from ...helpers.is_child_window_of_main_window import is_child_window_of_main_window
 from ... import globalvars
 
 SWP_NOMOVE = 0x0002
@@ -15,6 +17,9 @@ HWND_TOPMOST = -1
 # Function to periodically check and set the window to the bottom
 def check_and_set_window_to_top_or_bottom():
     hwnd_top = globalvars.user32.GetForegroundWindow()
+    if compare_z_order() or is_child_window_of_main_window(hwnd_top):
+        pass
+    else:
     if globalvars.current_focus_mode == "lock" and not is_topmost(globalvars.parent_hwnd):
         globalvars.focus_pinapp_window = None
         add_always_on_top(globalvars.parent_hwnd)
