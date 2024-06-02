@@ -29,58 +29,58 @@ def openFile(file: str):
     current_content_str = get_notes_content()
 
     if current_content_str != read:
-    matchStyle = re.match(r".*<style>\n(.*)\n</style>", str(read), flags=re.DOTALL | re.MULTILINE)
-    matchImg = re.match(r".*<images>\n(.*)\n</images>", str(read), flags=re.DOTALL | re.MULTILINE)
-    matchTheme = re.match(
-        r".*<colortheme>\n(.*)\n</colortheme>",
-        str(read),
-        flags=re.DOTALL | re.MULTILINE,
-    )
-    matchLocation = re.match(
-        rf".*<screenlocation>(.*\n{globalvars.machine_identifier}: (.+?)\n.*)</screenlocation>",
-        str(read),
-        flags=re.DOTALL | re.MULTILINE,
-    )
+        matchStyle = re.match(r".*<style>\n(.*)\n</style>", str(read), flags=re.DOTALL | re.MULTILINE)
+        matchImg = re.match(r".*<images>\n(.*)\n</images>", str(read), flags=re.DOTALL | re.MULTILINE)
+        matchTheme = re.match(
+            r".*<colortheme>\n(.*)\n</colortheme>",
+            str(read),
+            flags=re.DOTALL | re.MULTILINE,
+        )
+        matchLocation = re.match(
+            rf".*<screenlocation>(.*\n{globalvars.machine_identifier}: (.+?)\n.*)</screenlocation>",
+            str(read),
+            flags=re.DOTALL | re.MULTILINE,
+        )
 
-    read = re.sub("<style>.*$", "", read, flags=re.DOTALL | re.MULTILINE)
-    read = re.sub("<content>\n", "", read, flags=re.DOTALL | re.MULTILINE)
-    read = re.sub("\n</content>\n\n", "", read, flags=re.DOTALL | re.MULTILINE)
+        read = re.sub("<style>.*$", "", read, flags=re.DOTALL | re.MULTILINE)
+        read = re.sub("<content>\n", "", read, flags=re.DOTALL | re.MULTILINE)
+        read = re.sub("\n</content>\n\n", "", read, flags=re.DOTALL | re.MULTILINE)
 
-    globalvars.notes.delete("1.0", "end")
-    globalvars.notes.insert("end", deobfuscate_text_by_lines(read))
-    
-    if matchLocation:
-        globalvars.all_screenlocations = matchLocation.group(1)
-        location = eval(matchLocation.group(2))
-        x, y, width, height = location
-        globalvars.window.geometry(globalvars.window.TkGeometryScale(f"{width}x{height}+{x}+{y}"))
-    else:
-        globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
-    globalvars.window.update()
-    
-    if matchTheme:
-        # Getting the theme of the note
-        exec(matchTheme.group(1))
+        globalvars.notes.delete("1.0", "end")
+        globalvars.notes.insert("end", deobfuscate_text_by_lines(read))
+        
+        if matchLocation:
+            globalvars.all_screenlocations = matchLocation.group(1)
+            location = eval(matchLocation.group(2))
+            x, y, width, height = location
+            globalvars.window.geometry(globalvars.window.TkGeometryScale(f"{width}x{height}+{x}+{y}"))
+        else:
+            globalvars.window.geometry(globalvars.window.TkGeometryScale(f"310x310+{str(randint(10, 900))}+{str(randint(10, 500))}"))
+        globalvars.window.update()
+        
+        if matchTheme:
+            # Getting the theme of the note
+            exec(matchTheme.group(1))
 
-    if matchStyle:
-        formatting = eval(matchStyle.group(1))
-        setup_tags()
-        for format in formatting:
-            for tag in format[2]:
-                    globalvars.notes.tag_add(str(tag).strip("}{/.\\"), format[0], format[1]) if tag else None
+        if matchStyle:
+            formatting = eval(matchStyle.group(1))
+            setup_tags()
+            for format in formatting:
+                for tag in format[2]:
+                        globalvars.notes.tag_add(str(tag).strip("}{/.\\"), format[0], format[1]) if tag else None
 
-    if matchImg:
-        images_dir = os.path.join(os.path.dirname(globalvars.openedFileName), "images")
-        # Getting the list of images
-        globalvars.images = eval(matchImg.group(1))
-        if globalvars.images is not None:
-            globalvars.allImagesGroup = []
-            for imageList in globalvars.images:
-                # Insert the images at appropriate index
-                imageToInsert = PhotoImage(file=os.path.join(images_dir, f"{imageList[0]}.png"))
-                globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
-                globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
-                globalvars.allImagesGroup.append(imageToInsert)
+        if matchImg:
+            images_dir = os.path.join(os.path.dirname(globalvars.openedFileName), "images")
+            # Getting the list of images
+            globalvars.images = eval(matchImg.group(1))
+            if globalvars.images is not None:
+                globalvars.allImagesGroup = []
+                for imageList in globalvars.images:
+                    # Insert the images at appropriate index
+                    imageToInsert = PhotoImage(file=os.path.join(images_dir, f"{imageList[0]}.png"))
+                    globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
+                    globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
+                    globalvars.allImagesGroup.append(imageToInsert)
 
     noteFile.close()
     return "break"
