@@ -10,37 +10,35 @@ def saveNote(isAutoSave):
     """Save the note"""
 
     with globalvars.save_fn_lock:
-        deletedImages = []  # List that holds all images that need to be deleted
-        image_names = globalvars.notes.image_names()
-        if image_names:
-            for imgName in image_names:
-                # Saving the list of image names
-                index = globalvars.notes.index(str(imgName))
+        if not isAutoSave:
+            images_dir = os.path.join(os.path.dirname(globalvars.openedFileName), "images")
+            deletedImages = [f for f in os.listdir(images_dir) if os.path.isfile(os.path.join(images_dir, f))]        
+            retainedImages = deletedImages.copy()
+            
+            # Extract image names from globalvars.notes.image_names()
+            image_names = globalvars.notes.image_names()
+            corresponding_filenames = []
+            for entry in globalvars.images:
+                if entry[2] in image_names:
+                    corresponding_filenames.append(f"{entry[0]}.png")
+            if all(filename in retainedImages for filename in corresponding_filenames):
+                retainedImages[:] = [filename for filename in retainedImages if filename in corresponding_filenames]
+            else:
+                print("Not all corresponding filenames are found in retainedImages.")
+                exit(1)
+            deletedImages = list(set(deletedImages) - set(retainedImages))
 
-                for image in globalvars.images:
-                    # Deleting unused images from the list
-                    if image[2] in image_names:
-                        if image[2] == imgName:
-                            image[1] = index
-                    else:
-                        if image not in deletedImages:
-                            deletedImages.append(image)
-        else:
-            # Handle case where image_names is empty
-            for image in globalvars.images:
-                if image not in deletedImages:
-                    deletedImages.append(image)
-
-        for deletedImage in deletedImages:
-            # Deleting the unused images from `images` list
-            try:
-                globalvars.images.remove(deletedImage)            
-                deletedImage[0] = os.path.join(os.path.dirname(globalvars.script_path), deletedImage[0] + ".png")
-                deletedImage[0] = deletedImage[0].replace(os.sep, '/') if os.name == 'nt' else deletedImage[0]
-                if os.path.exists(deletedImage[0]):
-                    os.remove(deletedImage[0])
-            except BaseException:
-                pass
+            # Deleting the unused images from `images` list and deleting them from disk
+            for deletedImage in deletedImages:
+                try:
+                    deletedImage_no_ext = os.path.splitext(deletedImage)[0]
+                    globalvars.images = [image for image in globalvars.images if image[0] != deletedImage_no_ext]
+                    deletedImage = os.path.join(images_dir, deletedImage)
+                    deletedImage = deletedImage.replace(os.sep, '/') if os.name == 'nt' else deletedImage
+                    if os.path.exists(deletedImage):
+                        os.remove(deletedImage)
+                except BaseException:
+                    pass
 
         new_content = []
         new_content.append("<content>\n{}\n</content>\n\n".format(obfuscate_text_by_lines(globalvars.notes.get(1.0, "end")[:-1])))
