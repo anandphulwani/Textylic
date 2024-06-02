@@ -27,13 +27,13 @@ def check_and_set_window_to_top_or_bottom():
             globalvars.focus_pinapp_window = None
             add_always_on_top(globalvars.parent_hwnd)
         elif globalvars.current_focus_mode == "pinapp":
-                if hwnd_top != "" and hwnd_top != globalvars.parent_hwnd:
-                    if globalvars.focus_pinapp_window == None:
-                        globalvars.focus_pinapp_window = hwnd_top
-                    if hwnd_top == globalvars.focus_pinapp_window and not is_topmost(globalvars.parent_hwnd):
-                        add_always_on_top(globalvars.parent_hwnd)
-                    else:
-                        remove_always_on_top(globalvars.parent_hwnd)
+            if hwnd_top != "" and hwnd_top != globalvars.parent_hwnd:
+                if globalvars.focus_pinapp_window == None:
+                    globalvars.focus_pinapp_window = hwnd_top
+                if hwnd_top == globalvars.focus_pinapp_window and not is_topmost(globalvars.parent_hwnd):
+                    add_always_on_top(globalvars.parent_hwnd)
+                else:
+                    remove_always_on_top(globalvars.parent_hwnd)
             else:
                 remove_always_on_top(globalvars.parent_hwnd)
         elif globalvars.current_focus_mode == "unlock":
