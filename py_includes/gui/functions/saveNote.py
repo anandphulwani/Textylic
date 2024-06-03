@@ -37,6 +37,12 @@ def saveNote(isAutoSave):
                 except BaseException:
                     pass
 
+        # Update location of image in the notes file, if image location is changed
+        for entry in globalvars.images:
+            curr_location = globalvars.notes.index(entry[2])
+            if entry[1] != curr_location:
+                entry[1] = curr_location
+                
         new_content_str = get_notes_content()
 
         # Get the current content of the file
