@@ -3,7 +3,8 @@ import re
 import tkinter
 import shutil
 from ... import globalvars
-from . import saveNoteAs
+from .saveNoteAs import saveNoteAs
+from .saveNote import saveNote
 
 def windowdestroy(_=False):
     """Close the window"""
@@ -28,4 +29,5 @@ def windowdestroy(_=False):
         else:
             pass
     else:
+        saveNote(False)
         globalvars.root.destroy()
