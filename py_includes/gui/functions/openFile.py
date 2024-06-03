@@ -78,7 +78,6 @@ def openFile(file: str):
                 for imageList in globalvars.images:
                     # Insert the images at appropriate index
                     imageToInsert = PhotoImage(file=os.path.join(images_dir, f"{imageList[0]}.png"))
-                    globalvars.notes.insert(f"{imageList[1]}-1c", "\n")
                     globalvars.notes.image_create(imageList[1], image=imageToInsert, name=imageList[2])
                     globalvars.allImagesGroup.append(imageToInsert)
 
