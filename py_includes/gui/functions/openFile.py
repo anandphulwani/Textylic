@@ -37,7 +37,7 @@ def openFile(file: str):
             flags=re.DOTALL | re.MULTILINE,
         )
         matchLocation = re.match(
-            rf".*<screenlocation>(.*\n{globalvars.machine_identifier}: (.+?)\n.*)</screenlocation>",
+            rf".*<screenlocation>(.*\n{globalvars.machine_identifier}: (.+?): .+?\n.*)</screenlocation>",
             str(read),
             flags=re.DOTALL | re.MULTILINE,
         )

@@ -14,10 +14,10 @@ def get_notes_content():
 
     new_content.append(f"<colortheme>\nset_color_theme(Color.{globalvars.currentThemeColor.to_string()})\n</colortheme>\n\n")
     if globalvars.all_screenlocations is None:
-        new_content.append(f"<screenlocation>\n{globalvars.machine_identifier}: {get_window_coordinates()}\n</screenlocation>\n\n")
+        new_content.append(f"<screenlocation>\n{globalvars.machine_identifier}: {get_window_coordinates()}: Enabled\n</screenlocation>\n\n")
     else:
         updated_screenlocations = re.sub(
-            rf"({globalvars.machine_identifier}: .+?\n)", f"{globalvars.machine_identifier}: {get_window_coordinates()}\n",
+            rf"({globalvars.machine_identifier}: .+?\n)", f"{globalvars.machine_identifier}: {get_window_coordinates()}: Enabled\n",
             globalvars.all_screenlocations, flags=re.DOTALL | re.MULTILINE)
         new_content.append(f"<screenlocation>{updated_screenlocations}</screenlocation>\n\n")
 
