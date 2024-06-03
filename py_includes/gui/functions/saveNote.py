@@ -39,6 +39,7 @@ def saveNote(isAutoSave):
 
         # Update location of image in the notes file, if image location is changed
         for entry in globalvars.images:
+            if entry[0] is not None and entry[2] is not None:
             curr_location = globalvars.notes.index(entry[2])
             if entry[1] != curr_location:
                 entry[1] = curr_location
