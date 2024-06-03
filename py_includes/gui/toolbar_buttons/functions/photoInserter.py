@@ -17,7 +17,7 @@ def photoInserter():
     dateTimeNow = dateTimeNow.replace(":", "")
     dateTimeNow = dateTimeNow.replace(".", "")
 
-    globalvars.imgNumberName = globalvars.imgNumberName + 1
+    imgNumberName = int(globalvars.images[-1][2][5:]) + 1
 
     photo = filedialog.askopenfilename(
         initialdir="~/Desktop",
@@ -41,8 +41,8 @@ def photoInserter():
         [
             dateTimeNow,
             globalvars.notes.index("insert"),
-            f"image{globalvars.imgNumberName}",
+            f"image{imgNumberName}",
         ]
     )
-    globalvars.notes.image_create("insert", image=imgToInsert, name=f"image{globalvars.imgNumberName}")
+    globalvars.notes.image_create("insert", image=imgToInsert, name=f"image{imgNumberName}")
     imgFile.close()
